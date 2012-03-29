@@ -1,0 +1,85 @@
+<style>
+  tbody tr:nth-of-type(odd) {
+    background-color: #ddd;
+  }
+
+  tbody tr:nth-of-type(odd) .cached {
+    background-color: #0c0;
+  }
+
+  tbody tr:nth-of-type(even) .cached {
+    background-color: #5f5;
+  }
+
+  tbody tr:nth-of-type(odd) .not-cached {
+    background-color: #c00;
+  }
+
+  tbody tr:nth-of-type(even) .not-cached {
+    background-color: #f55;
+  }
+
+  form { display: inline-block; }
+</style>
+
+<p>
+  <%= form_tag "/cache/expire_www", :method => :post do %>
+    <input type="submit" value="Expire www" />
+  <% end %>
+
+  <%= form_tag "/cache/expire_m", :method => :post do %>
+    <input type="submit" value="Expire m" />
+  <% end %>
+
+  <%= form_tag "/cache/expire_tmp", :method => :post do %>
+    <input type="submit" value="Expire tmp" />
+  <% end %>
+
+  <%= form_tag "/cache/expire_all", :method => :post do %>
+    <input type="submit" value="Expire all" />
+  <% end %>
+</p>
+
+<p>
+  <table>
+    <thead>
+      <tr>
+        <th>Page</th>
+        <th>www</th>
+        <th>m</th>
+        <th>www tmp</th>
+        <th>m tmp</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @caches.each do |cache| %>
+        <tr>
+          <td><%= cache.display_name %></td>
+
+          <td class="<%= td_cache_class cache.www? %>">
+            <%= td_cache_text cache.www? %>
+          </td>
+
+          <td class="<%= td_cache_class cache.m? %>">
+            <%= td_cache_text cache.m? %>
+          </td>
+
+          <td class="<%= td_cache_class cache.www_tmp? %>">
+            <%= td_cache_text cache.www_tmp? %>
+          </td>
+
+          <td class="<%= td_cache_class cache.m_tmp? %>">
+            <%= td_cache_text cache.m_tmp? %>
+          </td>
+
+          <td>
+            <%= form_tag "/cache/#{u cache.name}", :method => :delete do %>
+              <input type="submit" value="Expire" />
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</p>

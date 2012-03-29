@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= yield(:title) || Cartoonist::Application.config.site_name %></title>
+    <%= csrf_meta_tags %>
+    <link rel="icon" href="http://<%= Cartoonist::Application.config.domain %><%= asset_path CartoonistThemes.favicon %>" type="image/x-icon" />
+    <link rel="shortcut icon" href="http://<%= Cartoonist::Application.config.domain %><%= asset_path CartoonistThemes.favicon %>" type="image/x-icon" />
+  </head>
+  <body>
+    <p>
+      <a href="/admin/reload">Update and Reload</a>
+      <a href="/cache">Cache</a>
+      <a href="/admin/backup.json">Download Backup</a>
+      | <%= session[:user] %>: <a href="/admin/logout">Logout</a>
+    </p>
+    <p>
+      Comic:
+      <a href="/">View Latest</a>
+      <a href="/comic_admin">List</a>
+      <a href="/comic_admin/new">New Comic</a>
+      <% if @edit_last_number && @edit_last_number > 0 %>
+        <a href="/comic_admin/<%= @edit_last_number %>/edit">Edit Last</a>
+      <% end %>
+      <% if @edit_next_number %>
+        <a href="/comic_admin/<%= @edit_next_number %>/edit">Edit Next</a>
+      <% end %>
+      <a href="/comic_admin/preview">Preview</a>
+      | Blog:
+      <a href="/blog">View Latest</a>
+      <a href="/blog_admin">List</a>
+      <a href="/blog_admin/new">New Post</a>
+      <a href="/blog_admin/preview">Preview</a>
+      | Pages:
+      <a href="/page_admin">List</a>
+      <a href="/page_admin/new">New Page</a>
+    </p>
+
+    <% if Rails.env.production? %>
+      <p style="background-color: red; color: white; font-size: 20px; font-weight: bold; text-align: center;">
+        PRODUCTION
+      </p>
+    <% else %>
+      <p style="background-color: yellow; color: black; font-size: 20px; text-align: center;">
+        development
+      </p>
+    <% end %>
+
+    <% if flash[:message] %>
+      <p style="color: red;">
+        <%= flash[:message] %>
+      </p>
+    <% end %>
+
+    <%= yield %>
+  </body>
+</html>

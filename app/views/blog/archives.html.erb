@@ -1,0 +1,10 @@
+<% content_for(:title, "Blog Archives for #{Cartoonist::Application.config.site_name}") %>
+
+<ul>
+  <% @posts.each do |post| %>
+    <li>
+      <%= post.posted_at.localtime.strftime "%m/%d/%Y" %>:
+      <a href="/blog/<%= post.url_title %>"><%= post.title %></a>
+    </li>
+  <% end %>
+</ul>

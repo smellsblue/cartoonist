@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html class="<%= html_class %>">
+  <head>
+    <title><%= yield(:title) || Cartoonist::Application.config.site_name %></title>
+    <%= stylesheet_link_tag CartoonistThemes.css %>
+    <% if @output_csrf_meta_tags %>
+      <%= csrf_meta_tags %>
+    <% end %>
+    <link rel="icon" href="http://<%= Cartoonist::Application.config.domain %><%= asset_path CartoonistThemes.favicon %>" type="image/x-icon" />
+    <link rel="shortcut icon" href="http://<%= Cartoonist::Application.config.domain %><%= asset_path CartoonistThemes.favicon %>" type="image/x-icon" />
+    <link href="<%= rss_path %>" rel="alternate" title="<%= rss_title %>" type="application/rss+xml" />
+    <% if !preview? && Rails.env.production? %>
+      <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', '<%= j Cartoonist::Application.config.google_analytics_account %>']);
+        _gaq.push(['_trackPageview']);
+
+        (function() {
+          var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+          ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+      </script>
+    <% elsif !preview? %>
+      <!-- Google analytics goes here on live -->
+    <% end %>
+  </head>
+  <body>
+    <div class="site-wrapper">
+      <div class="header">
+        <div class="main-header">
+          <div class="logo">Logo</div>
+          <h1 class="site-name"><%= Cartoonist::Application.config.site_name %></h1>
+          <h2 class="heading"><%= Cartoonist::Application.config.site_heading %></h2>
+          <h2 class="site-updates"><%= Cartoonist::Application.config.site_update_description %></h2>
+
+          <div class="small-buttons">
+            <% if show_social_links? %>
+              <a class="facebook" href="https://www.facebook.com/sharer.php?u=<%= u share_facebook_url_message %>&t=<%= u share_facebook_text_message %>" title="<%= facebook_link_title %>">Facebook</a>
+              <a class="twitter" href="https://twitter.com/intent/tweet?source=<%= Cartoonist::Application.config.domain %>&text=<%= u share_twitter_message %>" title="<%= twitter_link_title %>">Twitter</a>
+              <a class="google-plus" href="https://plus.google.com/share?url=<%= u share_google_plus_message %>" title="<%= google_plus_link_title %>">Google Plus</a>
+              <a class="rss" href="<%= rss_path %>" title="RSS Feed">RSS</a>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="navigation">
+          <div class="long-buttons">
+            <a class="comic" href="<%= current_url %>">Comic</a>
+            <a class="blog" href="<%= blog_current_url %>">Blog</a>
+            <a class="follow-us" href="https://twitter.com/<%= Cartoonist::Application.config.twitter_handle %>" title="Follow us on Twitter">Follow us on Twitter</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="content-container">
+        <div class="content-header"></div>
+        <div class="content <%= yield(:content_class) || "default-content" %>">
+          <%= content_for?(:content) ? yield(:content) : yield %>
+        </div>
+        <div class="content-footer"></div>
+      </div>
+
+      <% if @disqus_enabled %>
+        <div class="comments-container">
+          <div id="disqus_thread">
+            <% if @disqus_options[:count_link] %>
+              <a id="disqus_comments" href="#disqus_thread" data-disqus-identifier="/<%= @disqus_options[:path] %>"></a>
+            <% end %>
+          </div>
+          <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">Disqus comments.</a></noscript>
+        </div>
+      <% end %>
+
+      <div class="footer">
+        <%= yield :post_date_content %>
+        <p class="copyright"><%= copyright_message %></p>
+        <%= yield :admin_content %>
+        <% if licensed? %>
+          <div class="license">
+            <p>
+              This work is licensed under a
+              <a href="<%= content_license_url %>">Creative Commons
+              Attribution-Noncommercial 3.0 Unported License</a>.
+              <a href="/license">See details</a>.
+            </p>
+
+            <div class="license-buttons-container">
+              <div class="license-buttons">
+                <a href="<%= content_license_url %>" class="cc-logo">Creative Commons</a>
+                <a href="<%= content_license_url %>" class="cc-attribute">Attribution</a>
+                <a href="<%= content_license_url %>" class="cc-non-commercial">Noncommercial</a>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+      <% if @disqus_enabled && Rails.env.production? %>
+        <script type="text/javascript">
+          var disqus_shortname = "<%= j Cartoonist::Application.config.disqus_shortname %>";
+          var disqus_title = "<%= j @disqus_options[:title] %>";
+          var disqus_category_id = "<%= j @disqus_options[:category].to_s %>";
+          var disqus_identifier = "/<%= j @disqus_options[:path] %>";
+          var disqus_url = "http://<%= j Cartoonist::Application.config.domain %>/<%= j @disqus_options[:path] %>";
+          <% if @disqus_options[:count_link] %>
+            (function () {
+              var s = document.createElement('script'); s.async = true;
+              s.type = 'text/javascript';
+              s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+              (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(s);
+            }());
+
+            var comments = document.getElementById("disqus_comments");
+            comments.onclick = function() {
+              document.getElementById("disqus_thread").removeChild(comments);
+              var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+              dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+              (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+              return false;
+            };
+          <% else %>
+            (function() {
+              var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+              dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+              (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+          <% end %>
+        </script>
+      <% end %>
+    </div>
+  </body>
+</html>

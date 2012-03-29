@@ -1,0 +1,10 @@
+*~
+/.bundle
+/config/database.yml
+/config/initializers/cartoonist_config.rb
+/db/*.sqlite3
+/log/*.log
+/public/assets
+/public/cache
+/ssl
+/tmp

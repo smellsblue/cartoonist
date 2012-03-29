@@ -1,0 +1,29 @@
+<% content_for :rss_title, "#{Cartoonist::Application.config.site_name} Comic#{" (Mobile Edition)" if mobile?}" %>
+<% content_for :pub_date, @feed.pub_date %>
+
+<% @feed.items.each do |item| %>
+  <item>
+    <title><%= item.title %></title>
+    <description>
+      <%= %{
+        <h1>#{h item.title}</h1>
+        <p>
+          <img src="#{h item.img_url}" title="#{h item.title_text}" />
+        </p>
+        <p>
+          #{h item.description}
+        </p>
+      } %>
+      <% if mobile? %>
+        <%= %{
+          <p style="background: #eff8bd; width: 85%; margin: 20px auto 0 auto; border: 1px solid #d5eab7; padding: 4px 10px; display: block;">
+            #{h item.title_text}
+          </p>
+        } %>
+      <% end %>
+    </description>
+    <link>http://<%= Cartoonist::Application.config.domain %>/<%= item.number %></link>
+    <guid>http://<%= Cartoonist::Application.config.domain %>/<%= item.number %></guid>
+    <pubDate><%= item.pub_date %></pubDate>
+  </item>
+<% end %>

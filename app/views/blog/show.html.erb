@@ -1,0 +1,16 @@
+<% content_for(:title, @title || @post.title) %>
+<% content_for :post_date, @post.formatted_posted_at %>
+<% content_for :first, @post.first_url_title %>
+<% content_for :prev, @post.prev_url_title %>
+<% content_for :next, @post.next_url_title %>
+<% enable_disqus! :path => "blog/#{@post.url_title}", :title => "#{@post.title}", :category => Cartoonist::Application.config.disqus_blog_post_category %>
+
+<div class="blog-post">
+  <h1 class="title"><a href="/blog/<%= @post.url_title %>"><%= @post.title %></a></h1>
+  <h2 class="posted-date">Posted on <%= @post.formatted_posted_at %></h2>
+  <h2 class="byline">by <%= @post.author %></h2>
+
+  <div class="blog-post-content">
+    <%= markdown @post.content %>
+  </div>
+</div>

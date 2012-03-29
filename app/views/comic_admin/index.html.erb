@@ -1,0 +1,22 @@
+<h1>Not yet posted</h1>
+
+<ul>
+  <% @unposted.each do |comic| %>
+    <li>
+      <a href="/comic_admin/<%= comic.number %>/edit"><%= comic.title %></a>
+      (<a href="/comic_admin/<%= comic.number %>/preview">preview</a>)
+    </li>
+  <% end %>
+</ul>
+
+<h1>Posted</h1>
+
+<ul>
+  <% @posted.each do |comic| %>
+    <li>
+      <a href="/comic_admin/<%= comic.number %>/edit"><%= comic.title %></a>
+      (<a href="/comic_admin/<%= comic.number %>/preview">preview</a>)
+      (<a href="/<%= comic.number %>">show</a>)
+    </li>
+  <% end %>
+</ul>

@@ -1,0 +1,60 @@
+<% content_for :content_class, "comic-content" %>
+<% licensed! %>
+
+<% content_for :content do %>
+  <div class="comic-page">
+    <div class="nav-container top-nav">
+      <div class="nav">
+        <% if @disabled_prev %>
+          <a class="first-disabled">first</a>
+          <a class="prev-disabled">prev</a>
+        <% else %>
+          <a class="first" href="<%= comic_url 1 %>">first</a>
+          <a class="prev" href="<%= comic_url yield(:prev) %>">prev</a>
+        <% end %>
+          <a class="random" href="<%= random_url %>" rel="nofollow">random</a>
+        <% if @disabled_next %>
+          <a class="next-disabled">next</a>
+          <a class="last-disabled">last</a>
+        <% else %>
+          <a class="next" href="<%= comic_url yield(:next) %>">next</a>
+          <a class="last" href="<%= current_url %>">last</a>
+        <% end %>
+      </div>
+    </div>
+
+    <%= yield %>
+
+    <div class="nav-container bottom-nav">
+      <div class="nav">
+        <% if @disabled_prev %>
+          <a class="first-disabled">first</a>
+          <a class="prev-disabled">prev</a>
+        <% else %>
+          <a class="first" href="<%= comic_url 1 %>">first</a>
+          <a class="prev" href="<%= comic_url yield(:prev) %>">prev</a>
+        <% end %>
+          <a class="random" href="<%= random_url %>" rel="nofollow">random</a>
+        <% if @disabled_next %>
+          <a class="next-disabled">next</a>
+          <a class="last-disabled">last</a>
+        <% else %>
+          <a class="next" href="<%= comic_url yield(:next) %>">next</a>
+          <a class="last" href="<%= current_url %>">last</a>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<% content_for :post_date_content do %>
+  <p class="posted-date">Posted on <%= yield :post_date %></p>
+<% end %>
+
+<% content_for :admin_content do %>
+  <% if preview? %>
+    <p><a href="/admin/main">admin</a></p>
+  <% end %>
+<% end %>
+
+<%= render :template => "layouts/application" %>

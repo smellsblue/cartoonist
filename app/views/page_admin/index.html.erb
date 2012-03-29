@@ -1,0 +1,22 @@
+<h1>Not yet posted</h1>
+
+<ul>
+  <% @unposted.each do |page| %>
+    <li>
+      <a href="/page_admin/<%= page.id %>/edit"><%= page.title %></a>
+      (<a href="/page_admin/<%= page.path %>/preview">preview</a>)
+    </li>
+  <% end %>
+</ul>
+
+<h1>Posted</h1>
+
+<ul>
+  <% @posted.each do |page| %>
+    <li>
+      <a href="/page_admin/<%= page.id %>/edit"><%= page.title %></a>
+      (<a href="/page_admin/<%= page.path %>/preview">preview</a>)
+      (<a href="/<%= page.path %>">show</a>)
+    </li>
+  <% end %>
+</ul>

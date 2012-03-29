@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+  <channel>
+    <title><%= yield :rss_title %></title>
+    <description><%= Cartoonist::Application.config.site_heading %></description>
+    <link>http://<%= Cartoonist::Application.config.domain %>/</link>
+    <pubDate><%= yield :pub_date %></pubDate>
+    <lastBuildDate><%= yield :pub_date %></lastBuildDate>
+    <image>
+      <url>http://<%= Cartoonist::Application.config.domain %><%= asset_path CartoonistThemes.rss_logo %></url>
+      <title><%= Cartoonist::Application.config.site_name %></title>
+      <link>http://<%= Cartoonist::Application.config.domain %></link>
+    </image>
+    <%= yield %>
+  </channel>
+</rss>
