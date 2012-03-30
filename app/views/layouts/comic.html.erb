@@ -12,7 +12,11 @@
           <a class="first" href="<%= comic_url 1 %>">first</a>
           <a class="prev" href="<%= comic_url yield(:prev) %>">prev</a>
         <% end %>
+        <% if @comic.real? %>
           <a class="random" href="<%= random_url %>" rel="nofollow">random</a>
+        <% else %>
+          <a class="random-disabled" rel="nofollow">random</a>
+        <% end %>
         <% if @disabled_next %>
           <a class="next-disabled">next</a>
           <a class="last-disabled">last</a>
@@ -34,7 +38,11 @@
           <a class="first" href="<%= comic_url 1 %>">first</a>
           <a class="prev" href="<%= comic_url yield(:prev) %>">prev</a>
         <% end %>
+        <% if @comic.real? %>
           <a class="random" href="<%= random_url %>" rel="nofollow">random</a>
+        <% else %>
+          <a class="random-disabled" rel="nofollow">random</a>
+        <% end %>
         <% if @disabled_next %>
           <a class="next-disabled">next</a>
           <a class="last-disabled">last</a>
