@@ -1,5 +1,28 @@
-# Sample localization file for English. Add more files in this directory for other locales.
-# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
-
 en:
-  hello: "Hello world"
+  admin:
+    layout:
+      backup: Download Backup
+      blog:
+        latest: View Latest
+        list: List
+        new: New Post
+        preview: Preview
+        section: "Blog:"
+      cache: Cache
+      comic:
+        edit_last: Edit Last
+        edit_next: Edit Next
+        latest: View Latest
+        list: List
+        new: New Comic
+        preview: Preview
+        section: "Comic:"
+      logout: Logout
+      not_live_warning: development
+      production_warning: PRODUCTION
+      page:
+        list: List
+        new: New Page
+        section: "Pages:"
+      reload: Update and Reload
+      user_heading: "%{user}:"

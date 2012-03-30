@@ -8,40 +8,40 @@
   </head>
   <body>
     <p>
-      <a href="/admin/reload">Update and Reload</a>
-      <a href="/cache">Cache</a>
-      <a href="/admin/backup.json">Download Backup</a>
-      | <%= session[:user] %>: <a href="/admin/logout">Logout</a>
+      <a href="/admin/reload"><%= t "admin.layout.reload" %></a>
+      <a href="/cache"><%= t "admin.layout.cache" %></a>
+      <a href="/admin/backup.json"><%= t "admin.layout.backup" %></a>
+      | <%= t "admin.layout.user_heading", :user => session[:user] %> <a href="/admin/logout"><%= t "admin.layout.logout" %></a>
     </p>
     <p>
-      Comic:
-      <a href="/">View Latest</a>
-      <a href="/comic_admin">List</a>
-      <a href="/comic_admin/new">New Comic</a>
+      <%= t "admin.layout.comic.section" %>
+      <a href="/"><%= t "admin.layout.comic.latest" %></a>
+      <a href="/comic_admin"><%= t "admin.layout.comic.list" %></a>
+      <a href="/comic_admin/new"><%= t "admin.layout.comic.new" %></a>
       <% if @edit_last_number && @edit_last_number > 0 %>
-        <a href="/comic_admin/<%= @edit_last_number %>/edit">Edit Last</a>
+        <a href="/comic_admin/<%= @edit_last_number %>/edit"><%= t "admin.layout.comic.edit_last" %></a>
       <% end %>
       <% if @edit_next_number %>
-        <a href="/comic_admin/<%= @edit_next_number %>/edit">Edit Next</a>
+        <a href="/comic_admin/<%= @edit_next_number %>/edit"><%= t "admin.layout.comic.edit_next" %></a>
       <% end %>
-      <a href="/comic_admin/preview">Preview</a>
-      | Blog:
-      <a href="/blog">View Latest</a>
-      <a href="/blog_admin">List</a>
-      <a href="/blog_admin/new">New Post</a>
-      <a href="/blog_admin/preview">Preview</a>
-      | Pages:
-      <a href="/page_admin">List</a>
-      <a href="/page_admin/new">New Page</a>
+      <a href="/comic_admin/preview"><%= t "admin.layout.comic.preview" %></a>
+      | <%= t "admin.layout.blog.section" %>
+      <a href="/blog"><%= t "admin.layout.blog.latest" %></a>
+      <a href="/blog_admin"><%= t "admin.layout.blog.list" %></a>
+      <a href="/blog_admin/new"><%= t "admin.layout.blog.new" %></a>
+      <a href="/blog_admin/preview"><%= t "admin.layout.admin.blog.preview" %></a>
+      | <%= t "admin.layout.page.section" %>
+      <a href="/page_admin"><%= t "admin.layout.page.list" %></a>
+      <a href="/page_admin/new"><%= t "admin.layout.page.new" %></a>
     </p>
 
     <% if Rails.env.production? %>
       <p style="background-color: red; color: white; font-size: 20px; font-weight: bold; text-align: center;">
-        PRODUCTION
+        <%= t "admin.layout.production_warning" %>
       </p>
     <% else %>
       <p style="background-color: yellow; color: black; font-size: 20px; text-align: center;">
-        development
+        <%= t "admin.layout.not_live_warning" %>
       </p>
     <% end %>
 
