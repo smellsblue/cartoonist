@@ -1,13 +1,15 @@
 <% content_for(:title, @title || @comic.title) %>
-<% content_for :post_date, @comic.posted_at.strftime("%-m/%-d/%Y") %>
-<% content_for(:prev, (@comic.number - 1).to_s) %>
-<% content_for(:next, (@comic.number + 1).to_s) %>
+<% content_for :post_date, @comic.formatted_posted_at %>
+<% content_for(:prev, @comic.previous_number.to_s) %>
+<% content_for(:next, @comic.next_number.to_s) %>
 <% enable_disqus! :path => "#{@comic.number}", :title => @comic.title, :category => Cartoonist::Application.config.disqus_comic_category, :count_link => true %>
 
 <h1 class="number"><%= @comic.title %></h1>
 
 <p class="comic">
-  <img title="<%= @comic.title_text %>" src="<%= comic_img_url %>" alt="<%= @comic.title %>" />
+  <% if @comic.database_file_id %>
+    <img title="<%= @comic.title_text %>" src="<%= comic_img_url %>" alt="<%= @comic.title %>" />
+  <% end %>
   <div id="transcript" style="display: none;">
     <div class="scene-description"><%= @comic.scene_description %></div>
     <div class="dialogue"><%= @comic.dialogue %></div>
