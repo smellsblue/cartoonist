@@ -1,7 +1,16 @@
 require "spec_helper"
 
 describe CartoonistConfig do
-  before { CartoonistConfig::Meta.class_variable_set :@@configs, {} }
+  before do
+    CartoonistConfig::Meta.class_variable_set :@@configs, {}
+    CartoonistConfig::Meta.class_variable_set :@@by_tab_section_and_label, {}
+    CartoonistConfig::Tab.class_variable_set :@@all, []
+    CartoonistConfig::Tab.class_variable_set :@@by_label, {}
+    CartoonistConfig::Section.class_variable_set :@@all, []
+    CartoonistConfig::Section.class_variable_set :@@by_tab_and_label, {}
+    CartoonistConfig::Tab.define :general, :order => 0
+    CartoonistConfig::Section.define :general, :order => 0, :tab => :general
+  end
 
   it "fails on missing meta" do
     lambda { CartoonistConfig[:missing_config] }.should raise_error
@@ -95,5 +104,40 @@ describe CartoonistConfig do
   it "supports explicit default values" do
     CartoonistConfig.define :test_config, :default => "This is the default"
     CartoonistConfig[:test_config].should == "This is the default"
+  end
+
+  # Specs for the sections (used for display)
+  it "defaults to putting settings in general tab and general section" do
+    CartoonistConfig.define :test_config
+    CartoonistConfig::Meta[:test_config].tab.should == :general
+    CartoonistConfig::Meta[:test_config].section.should == :general
+  end
+
+  it "sorts tabs properly" do
+    CartoonistConfig::Tab.define :cherry
+    CartoonistConfig::Tab.define :banana
+    CartoonistConfig::Tab.define :apple, :order => 2
+    CartoonistConfig.tabs.should == [:general, :banana, :cherry, :apple]
+  end
+
+  it "sorts sections properly" do
+    CartoonistConfig::Section.define :cherry
+    CartoonistConfig::Section.define :banana
+    CartoonistConfig::Section.define :apple, :order => 2
+    CartoonistConfig::Tab[:general].sections.should == [:general, :banana, :cherry, :apple]
+  end
+
+  it "defines the details for the general tab/section" do
+    CartoonistConfig.tabs.should == [:general]
+    CartoonistConfig::Tab[:general].order.should == 0
+    CartoonistConfig::Tab[:general].sections.should == [:general]
+    CartoonistConfig::Tab[:general][:general].order.should == 0
+  end
+
+  it "sorts settings properly" do
+    CartoonistConfig.define :cherry
+    CartoonistConfig.define :banana
+    CartoonistConfig.define :apple, :order => 1
+    CartoonistConfig::Tab[:general][:general].configs.should == [:banana, :cherry, :apple]
   end
 end

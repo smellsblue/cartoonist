@@ -26,16 +26,24 @@ class CartoonistConfig < ActiveRecord::Base
     end
 
     def define(label, options = {})
-      Meta[label] = Meta.new label, options
+      Meta[label.to_sym] = Meta.new label, options
+    end
+
+    def tabs
+      Tab.all.sort.map &:label
     end
   end
 
   class Meta
-    attr_reader :label, :type, :default
+    attr_reader :label, :tab, :section, :order, :type, :default
     @@configs = {}
+    @@by_tab_section_and_label = {}
 
     def initialize(label, options)
       @label = label.to_sym
+      @tab = (options[:tab] || :general)
+      @section = (options[:section] || :general)
+      @order = (options[:order] || 0)
       @type = (options[:type] || :string).to_sym
       raise "Invalid config type #{@type}" unless [:string, :symbol, :boolean, :int, :float, :array, :hash].include? @type
 
@@ -94,6 +102,12 @@ class CartoonistConfig < ActiveRecord::Base
       end
     end
 
+    def <=>(other)
+      result = order <=> other.order
+      result = label <=> other.label if result == 0
+      result
+    end
+
     class << self
       def [](label)
         raise "Missing config '#{label}'" unless @@configs[label.to_sym]
@@ -103,7 +117,98 @@ class CartoonistConfig < ActiveRecord::Base
       def []=(label, definition)
         raise "Duplicate configuration '#{label}' given!" if @@configs[label.to_sym]
         @@configs[label.to_sym] = definition
+        @@by_tab_section_and_label[definition.tab] ||= {}
+        @@by_tab_section_and_label[definition.tab][definition.section] ||= {}
+        @@by_tab_section_and_label[definition.tab][definition.section][label.to_sym] = definition
+      end
+
+      def by_tab_section_and_label
+        @@by_tab_section_and_label
       end
     end
   end
+
+  class Tab
+    attr_reader :label, :order
+    @@all = []
+    @@by_label = {}
+
+    def initialize(label, options = {})
+      @label = label.to_sym
+      @order = options[:order] || 1
+    end
+
+    def sections
+      Section.by_tab_and_label[label].values.sort.map &:label
+    end
+
+    def [](section_label)
+      Section.by_tab_and_label[label][section_label.to_sym]
+    end
+
+    def <=>(other)
+      result = order <=> other.order
+      result = label <=> other.label if result == 0
+      result
+    end
+
+    class << self
+      def [](label)
+        @@by_label[label.to_sym]
+      end
+
+      def all
+        @@all
+      end
+
+      def define(label, options = {})
+        raise "Duplicate tab '#{label}' being defined" if @@by_label.include? label.to_sym
+        tab = Tab.new label, options
+        @@all << tab
+        @@by_label[label.to_sym] = tab
+      end
+    end
+  end
+
+  class Section
+    attr_reader :label, :order, :tab
+    @@all = []
+    @@by_tab_and_label = {}
+
+    def initialize(label, options = {})
+      @label = label.to_sym
+      @order = options[:order] || 1
+      @tab = (options[:tab] || :general).to_sym
+    end
+
+    def configs
+      Meta.by_tab_section_and_label[tab][label].values.sort.map &:label
+    end
+
+    def <=>(other)
+      result = order <=> other.order
+      result = label <=> other.label if result == 0
+      result
+    end
+
+    class << self
+      def all
+        @@all
+      end
+
+      def define(label, options = {})
+        section = Section.new label, options
+        @@all << section
+        @@by_tab_and_label[section.tab] ||= {}
+        @@by_tab_and_label[section.tab][label.to_sym] = section
+      end
+
+      def by_tab_and_label
+        @@by_tab_and_label
+      end
+    end
+  end
+
+  Tab.define :general, :order => 0
+  Section.define :general, :order => 0, :tab => :general
 end
