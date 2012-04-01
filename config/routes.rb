@@ -31,6 +31,13 @@ Cartoonist::Application.routes.draw do
     end
   end
 
+  resources :settings do
+    collection do
+      get "initial_setup"
+      post "save_initial_setup"
+    end
+  end
+
   resources :blog do
     collection do
       get "archives"

@@ -1,0 +1,25 @@
+<%= form_tag "/settings/save_initial_setup", :method => :post do %>
+  <p>
+    Username: <input type="text" name="admin_username" value="admin" autofocus="autofocus" />
+  </p>
+
+  <p>
+    Name: <input type="text" name="admin_name" value="Anonymous" />
+  </p>
+
+  <p>
+    Password: <input type="password" name="admin_password" />
+  </p>
+
+  <p>
+    Domain: <input type="text" name="domain" />
+  </p>
+
+  <p>
+    Site Name: <input type="text" name="site_name" />
+  </p>
+
+  <p>
+    <input type="submit" value="Save" />
+  </p>
+<% end %>

@@ -3,6 +3,10 @@ class ApplicationController < ActionController::Base
   before_filter :check_mobile
 
   private
+  def initial_setup_required?
+    Setting[:admin_users].empty?
+  end
+
   def ensure_ssl!
     return unless Rails.env.production?
     redirect_to "https://#{request.host_with_port}#{request.fullpath}" unless request.ssl?

@@ -69,6 +69,7 @@ class AdminController < ApplicationController
 
   def sign_in
     return redirect_to "/admin/main" if session[:admin]
+    return redirect_to "/settings/initial_setup" if initial_setup_required?
 
     if request.post?
       user = Setting[:admin_users][params[:username]]
