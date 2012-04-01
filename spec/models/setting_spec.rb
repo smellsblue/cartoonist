@@ -106,6 +106,17 @@ describe Setting do
     Setting[:test_config].should == "This is the default"
   end
 
+  it "supports onchange lambdas" do
+    call_count = 0
+    Setting.define :test_config, :onchange => lambda { call_count += 1 }
+    Setting[:test_config] = "abc 123"
+    call_count.should == 1
+    Setting[:test_config] = "xyz 123"
+    call_count.should == 2
+    Setting[:test_config] = "xyz 123"
+    call_count.should == 2
+  end
+
   # Specs for the sections (used for display)
   it "defaults to putting settings in general tab and general section" do
     Setting.define :test_config

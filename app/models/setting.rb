@@ -17,11 +17,14 @@ class Setting < ActiveRecord::Base
 
     def []=(label, value)
       raise "Invalid label" unless label.present?
-      raise "Missing config definition for '#{label}'" unless Meta[label.to_sym]
+      meta = Meta[label.to_sym]
+      raise "Missing config definition for '#{label}'" unless meta
+      old_value = self[label]
       record = where(:label => label.to_s).first
       record = Setting.new :label => label.to_s unless record
-      record.value = Meta[label.to_sym].convert_to_save value
+      record.value = meta.convert_to_save value
       record.save!
+      meta.onchange.call if meta.onchange && old_value != value
       value
     end
 
@@ -35,7 +38,7 @@ class Setting < ActiveRecord::Base
   end
 
   class Meta
-    attr_reader :label, :tab, :section, :order, :type, :default
+    attr_reader :label, :tab, :section, :order, :type, :default, :onchange
     @@configs = {}
     @@by_tab_section_and_label = {}
 
@@ -45,6 +48,7 @@ class Setting < ActiveRecord::Base
       @section = (options[:section] || :general)
       @order = (options[:order] || 0)
       @type = (options[:type] || :string).to_sym
+      @onchange = options[:onchange]
       raise "Invalid config type #{@type}" unless [:string, :symbol, :boolean, :int, :float, :array, :hash].include? @type
 
       if options.include? :default
