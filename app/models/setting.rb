@@ -1,4 +1,4 @@
-class CartoonistConfig < ActiveRecord::Base
+class Setting < ActiveRecord::Base
   class << self
     def [](label)
       raise "Invalid label" unless label.present?
@@ -19,7 +19,7 @@ class CartoonistConfig < ActiveRecord::Base
       raise "Invalid label" unless label.present?
       raise "Missing config definition for '#{label}'" unless Meta[label.to_sym]
       record = where(:label => label.to_s).first
-      record = CartoonistConfig.new :label => label.to_s unless record
+      record = Setting.new :label => label.to_s unless record
       record.value = Meta[label.to_sym].convert_to_save value
       record.save!
       value

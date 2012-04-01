@@ -30,16 +30,6 @@ ActiveRecord::Schema.define(:version => 20120401014029) do
   add_index "blog_posts", ["title"], :name => "index_blog_posts_on_title", :unique => true
   add_index "blog_posts", ["url_title"], :name => "index_blog_posts_on_url_title", :unique => true
 
-  create_table "cartoonist_configs", :force => true do |t|
-    t.string   "label",                         :null => false
-    t.text     "value"
-    t.boolean  "locked",     :default => false, :null => false
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
-  end
-
-  add_index "cartoonist_configs", ["label"], :name => "index_cartoonist_configs_on_label", :unique => true
-
   create_table "comics", :force => true do |t|
     t.integer  "number",                               :null => false
     t.date     "posted_at",                            :null => false
@@ -80,5 +70,15 @@ ActiveRecord::Schema.define(:version => 20120401014029) do
 
   add_index "pages", ["path"], :name => "index_pages_on_path", :unique => true
   add_index "pages", ["title"], :name => "index_pages_on_title", :unique => true
+
+  create_table "settings", :force => true do |t|
+    t.string   "label",                         :null => false
+    t.text     "value"
+    t.boolean  "locked",     :default => false, :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+  end
+
+  add_index "settings", ["label"], :name => "index_settings_on_label", :unique => true
 
 end

@@ -1,12 +1,12 @@
-class CreateCartoonistConfig < ActiveRecord::Migration
+class CreateSettings < ActiveRecord::Migration
   def change
-    create_table :cartoonist_configs do |t|
+    create_table :settings do |t|
       t.string :label, :null => false
       t.text :value
       t.boolean :locked, :default => false, :null => false
       t.timestamps
     end
 
-    add_index :cartoonist_configs, :label, :unique => true
+    add_index :settings, :label, :unique => true
   end
 end
