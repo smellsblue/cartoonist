@@ -3,6 +3,7 @@
 <ul>
   <% @unposted.each do |comic| %>
     <li>
+      <%= comic.formatted_posted_at "" %>
       <a href="/comic_admin/<%= comic.number %>/edit"><%= comic.title %></a>
       (<a href="/comic_admin/<%= comic.number %>/preview">preview</a>)
     </li>
@@ -14,6 +15,7 @@
 <ul>
   <% @posted.each do |comic| %>
     <li>
+      <%= comic.formatted_posted_at "" %>
       <a href="/comic_admin/<%= comic.number %>/edit"><%= comic.title %></a>
       (<a href="/comic_admin/<%= comic.number %>/preview">preview</a>)
       (<a href="/<%= comic.number %>">show</a>)
