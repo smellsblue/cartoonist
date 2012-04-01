@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120320043253) do
+ActiveRecord::Schema.define(:version => 20120401014029) do
 
   create_table "blog_posts", :force => true do |t|
     t.string   "title",                         :null => false
@@ -29,6 +29,16 @@ ActiveRecord::Schema.define(:version => 20120320043253) do
   add_index "blog_posts", ["posted_at"], :name => "index_blog_posts_on_posted_at"
   add_index "blog_posts", ["title"], :name => "index_blog_posts_on_title", :unique => true
   add_index "blog_posts", ["url_title"], :name => "index_blog_posts_on_url_title", :unique => true
+
+  create_table "cartoonist_configs", :force => true do |t|
+    t.string   "label",                         :null => false
+    t.text     "value"
+    t.boolean  "locked",     :default => false, :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+  end
+
+  add_index "cartoonist_configs", ["label"], :name => "index_cartoonist_configs_on_label", :unique => true
 
   create_table "comics", :force => true do |t|
     t.integer  "number",                               :null => false
