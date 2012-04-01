@@ -1,5 +1,57 @@
-# Sample localization file for English. Add more files in this directory for other locales.
-# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
-
 en:
-  hello: "Hello world"
+  admin:
+    layout:
+      backup: Download Backup
+      blog:
+        latest: View Latest
+        list: List
+        new: New Post
+        preview: Preview
+        section: "Blog:"
+      cache: Cache
+      comic:
+        edit_last: Edit Last
+        edit_next: Edit Next
+        latest: View Latest
+        list: List
+        new: New Comic
+        preview: Preview
+        section: "Comic:"
+      logout: Logout
+      not_live_warning: development
+      production_warning: PRODUCTION
+      page:
+        list: List
+        new: New Page
+        section: "Pages:"
+      reload: Update and Reload
+      user_heading: "%{user}:"
+  application:
+    layout:
+      disqus:
+        noscript_pre_link: "Please enable JavaScript to view the "
+        noscript_link: Disqus comments.
+        noscript_post_link:
+      logo: Logo
+      navigation:
+        blog: Blog
+        comic: Comic
+        follow_on_twitter: Follow us on Twitter
+        follow_on_twitter_title: Follow us on Twitter
+      social:
+        facebook: Facebook
+        facebook_blog_text_message: "Check this out: %{title}"
+        facebook_blog_title: Share this on Facebook
+        facebook_comic_text_message: Check out %{title}
+        facebook_comic_title: Share this comic on Facebook
+        google_plus: Google Plus
+        google_plus_blog_title: Post this to Google Plus
+        google_plus_comic_title: Post this comic to Google Plus
+        rss: RSS
+        rss_blog_title: RSS Feed for the %{site_name} blog
+        rss_comic_title: RSS Feed for %{site_name}
+        twitter: Twitter
+        twitter_blog_text_message: "Check this out: %{url}"
+        twitter_blog_title: Tweet about this
+        twitter_comic_text_message: "Check out %{title}: %{url}"
+        twitter_comic_title: Tweet about this comic
