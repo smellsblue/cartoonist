@@ -37,12 +37,14 @@ class CartoonistConfig < ActiveRecord::Base
     def initialize(label, options)
       @label = label.to_sym
       @type = (options[:type] || :string).to_sym
-      raise "Invalid config type #{@type}" unless [:string, :boolean, :int, :float, :array, :hash].include? @type
+      raise "Invalid config type #{@type}" unless [:string, :symbol, :boolean, :int, :float, :array, :hash].include? @type
 
       if options.include? :default
         @default = options[:default]
       elsif @type == :string
         @default = ""
+      elsif @type == :symbol
+        @default = :""
       elsif @type == :boolean
         @default = false
       elsif @type == :int
@@ -65,6 +67,8 @@ class CartoonistConfig < ActiveRecord::Base
       case type
       when :string
         value
+      when :symbol
+        value.to_sym
       when :boolean
         value == "true"
       when :int

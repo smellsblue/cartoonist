@@ -8,6 +8,22 @@ describe CartoonistConfig do
     lambda { CartoonistConfig::Meta[:missing_config] }.should raise_error
   end
 
+  it "supports string types" do
+    CartoonistConfig.define :test_config, :type => :string
+    CartoonistConfig::Meta[:test_config].type.should == :string
+    CartoonistConfig[:test_config] = "This is a test"
+    CartoonistConfig[:test_config].should == "This is a test"
+  end
+
+  it "supports symbol types" do
+    CartoonistConfig.define :test_config, :type => :symbol
+    CartoonistConfig::Meta[:test_config].type.should == :symbol
+    CartoonistConfig[:test_config] = :test_value
+    CartoonistConfig[:test_config].should == :test_value
+    CartoonistConfig[:test_config] = "This is a test"
+    CartoonistConfig[:test_config].should == "This is a test".to_sym
+  end
+
   it "supports int types" do
     CartoonistConfig.define :test_config, :type => :int
     CartoonistConfig::Meta[:test_config].type.should == :int
@@ -33,13 +49,6 @@ describe CartoonistConfig do
     CartoonistConfig[:test_config].should == 4.2
   end
 
-  it "supports string types" do
-    CartoonistConfig.define :test_config, :type => :string
-    CartoonistConfig::Meta[:test_config].type.should == :string
-    CartoonistConfig[:test_config] = "This is a test"
-    CartoonistConfig[:test_config].should == "This is a test"
-  end
-
   it "supports array types" do
     CartoonistConfig.define :test_config, :type => :array
     CartoonistConfig::Meta[:test_config].type.should == :array
@@ -63,12 +72,14 @@ describe CartoonistConfig do
 
   it "has default values for all types" do
     CartoonistConfig.define :test_config_string, :type => :string
+    CartoonistConfig.define :test_config_symbol, :type => :symbol
     CartoonistConfig.define :test_config_boolean, :type => :boolean
     CartoonistConfig.define :test_config_int, :type => :int
     CartoonistConfig.define :test_config_float, :type => :float
     CartoonistConfig.define :test_config_array, :type => :array
     CartoonistConfig.define :test_config_hash, :type => :hash
     CartoonistConfig[:test_config_string].should == ""
+    CartoonistConfig[:test_config_symbol].should == :""
     CartoonistConfig[:test_config_boolean].should == false
     CartoonistConfig[:test_config_int].should == 0
     CartoonistConfig[:test_config_float].should == 0.0
