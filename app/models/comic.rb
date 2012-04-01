@@ -6,11 +6,11 @@ class Comic < ActiveRecord::Base
     Time.local posted_at.year, posted_at.month, posted_at.day, 8, 0
   end
 
-  def formatted_posted_at
+  def formatted_posted_at(default_msg = "not yet posted")
     if posted_at
       posted_at.strftime "%-m/%-d/%Y"
     else
-      "not yet posted"
+      default_msg
     end
   end
 
