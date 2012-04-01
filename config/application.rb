@@ -26,7 +26,7 @@ class CartoonistThemes
     end
 
     def current
-      self[CartoonistConfig[:theme]]
+      self[Setting[:theme]]
     end
 
     def favicon

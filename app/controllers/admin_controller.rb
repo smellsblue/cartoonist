@@ -71,7 +71,7 @@ class AdminController < ApplicationController
     return redirect_to "/admin/main" if session[:admin]
 
     if request.post?
-      user = CartoonistConfig[:admin_users][params[:username]]
+      user = Setting[:admin_users][params[:username]]
 
       if user && params[:password] == user[:password]
         session[:admin] = true

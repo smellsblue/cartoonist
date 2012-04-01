@@ -3,7 +3,7 @@
 <% content_for :first, @post.first_url_title %>
 <% content_for :prev, @post.prev_url_title %>
 <% content_for :next, @post.next_url_title %>
-<% enable_disqus! :path => "blog/#{@post.url_title}", :title => "#{@post.title}", :category => CartoonistConfig[:disqus_blog_post_category] %>
+<% enable_disqus! :path => "blog/#{@post.url_title}", :title => "#{@post.title}", :category => Setting[:disqus_blog_post_category] %>
 
 <div class="blog-post">
   <h1 class="title"><a href="/blog/<%= @post.url_title %>"><%= @post.title %></a></h1>

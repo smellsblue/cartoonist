@@ -2,14 +2,14 @@
 <rss version="2.0">
   <channel>
     <title><%= yield :rss_title %></title>
-    <description><%= CartoonistConfig[:site_heading] %></description>
-    <link>http://<%= CartoonistConfig[:domain] %>/</link>
+    <description><%= Setting[:site_heading] %></description>
+    <link>http://<%= Setting[:domain] %>/</link>
     <pubDate><%= yield :pub_date %></pubDate>
     <lastBuildDate><%= yield :pub_date %></lastBuildDate>
     <image>
-      <url>http://<%= CartoonistConfig[:domain] %><%= asset_path CartoonistThemes.rss_logo %></url>
-      <title><%= CartoonistConfig[:site_name] %></title>
-      <link>http://<%= CartoonistConfig[:domain] %></link>
+      <url>http://<%= Setting[:domain] %><%= asset_path CartoonistThemes.rss_logo %></url>
+      <title><%= Setting[:site_name] %></title>
+      <link>http://<%= Setting[:domain] %></link>
     </image>
     <%= yield %>
   </channel>

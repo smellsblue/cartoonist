@@ -96,9 +96,9 @@ module ApplicationHelper
 
   def copyright_message
     year = Date.today.strftime "%Y"
-    copyright_years = CartoonistConfig[:copyright_starting_year].to_s
+    copyright_years = Setting[:copyright_starting_year].to_s
     copyright_years = "#{copyright_years}-#{year}" if year != copyright_years
-    "&copy; #{h copyright_years} #{h CartoonistConfig[:copyright_owners]}".html_safe
+    "&copy; #{h copyright_years} #{h Setting[:copyright_owners]}".html_safe
   end
 
   def rss_path
@@ -111,9 +111,9 @@ module ApplicationHelper
 
   def rss_title
     if @post
-      t "application.layout.social.rss_blog_title", :site_name => CartoonistConfig[:site_name]
+      t "application.layout.social.rss_blog_title", :site_name => Setting[:site_name]
     else
-      t "application.layout.social.rss_comic_title", :site_name => CartoonistConfig[:site_name]
+      t "application.layout.social.rss_comic_title", :site_name => Setting[:site_name]
     end
   end
 
@@ -151,25 +151,25 @@ module ApplicationHelper
 
   def share_facebook_url_message
     if @comic
-      "http://#{CartoonistConfig[:domain]}/#{@comic.number}"
+      "http://#{Setting[:domain]}/#{@comic.number}"
     else
-      "http://#{CartoonistConfig[:domain]}/blog/#{@post.url_title}"
+      "http://#{Setting[:domain]}/blog/#{@post.url_title}"
     end
   end
 
   def share_twitter_message
     if @comic
-      t "application.layout.social.twitter_comic_text_message", :title => @comic.title, :url => "http://#{CartoonistConfig[:domain]}/#{@comic.number}"
+      t "application.layout.social.twitter_comic_text_message", :title => @comic.title, :url => "http://#{Setting[:domain]}/#{@comic.number}"
     else
-      t "application.layout.social.twitter_blog_text_message", :url => "http://#{CartoonistConfig[:domain]}/blog/#{@post.url_title}"
+      t "application.layout.social.twitter_blog_text_message", :url => "http://#{Setting[:domain]}/blog/#{@post.url_title}"
     end
   end
 
   def share_google_plus_message
     if @comic
-      "http://#{CartoonistConfig[:domain]}/#{@comic.number}"
+      "http://#{Setting[:domain]}/#{@comic.number}"
     else
-      "http://#{CartoonistConfig[:domain]}/blog/#{@post.url_title}"
+      "http://#{Setting[:domain]}/blog/#{@post.url_title}"
     end
   end
 end

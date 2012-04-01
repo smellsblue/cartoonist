@@ -6,7 +6,7 @@
     <tr>
       <td colspan="2">
         Title:<br />
-        <input type="text" name="title" value="<%= SimpleTemplate[CartoonistConfig[:default_title], :next_number => @next_number] %>" tabindex="1" />
+        <input type="text" name="title" value="<%= SimpleTemplate[Setting[:default_title], :next_number => @next_number] %>" tabindex="1" />
       </td>
     </tr>
 
@@ -35,7 +35,7 @@
     <tr>
       <td colspan="2">
         Tweet:<br />
-        <textarea name="tweet" rows="2" cols="100" tabindex="6"><%= SimpleTemplate[CartoonistConfig[:default_tweet], :next_number => @next_number] %></textarea>
+        <textarea name="tweet" rows="2" cols="100" tabindex="6"><%= SimpleTemplate[Setting[:default_tweet], :next_number => @next_number] %></textarea>
       </td>
     </tr>
 
