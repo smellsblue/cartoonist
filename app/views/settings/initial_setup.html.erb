@@ -1,25 +1,25 @@
 <%= form_tag "/settings/save_initial_setup", :method => :post do %>
   <p>
-    Username: <input type="text" name="admin_username" value="admin" autofocus="autofocus" />
+    <%= t "settings.initial_setup.username" %><input type="text" name="admin_username" value="<%= t "settings.initial_setup.default_username" %>" autofocus="autofocus" />
   </p>
 
   <p>
-    Name: <input type="text" name="admin_name" value="Anonymous" />
+    <%= t "settings.initial_setup.name" %><input type="text" name="admin_name" value="<%= t "settings.initial_setup.default_name" %>" />
   </p>
 
   <p>
-    Password: <input type="password" name="admin_password" />
+    <%= t "settings.initial_setup.password" %><input type="password" name="admin_password" />
   </p>
 
   <p>
-    Domain: <input type="text" name="domain" />
+    <%= t "settings.initial_setup.domain" %><input type="text" name="domain" />
   </p>
 
   <p>
-    Site Name: <input type="text" name="site_name" />
+    <%= t "settings.initial_setup.site_name" %><input type="text" name="site_name" />
   </p>
 
   <p>
-    <input type="submit" value="Save" />
+    <input type="submit" value="<%= t "settings.initial_setup.save" %>" />
   </p>
 <% end %>

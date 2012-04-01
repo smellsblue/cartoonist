@@ -25,6 +25,7 @@ en:
         new: New Page
         section: "Pages:"
       reload: Update and Reload
+      settings: Settings
       user_heading: "%{user}:"
   application:
     layout:
@@ -55,3 +56,13 @@ en:
         twitter_blog_title: Tweet about this
         twitter_comic_text_message: "Check out %{title}: %{url}"
         twitter_comic_title: Tweet about this comic
+  settings:
+    initial_setup:
+      default_name: Anonymous
+      default_username: admin
+      domain: "Domain: "
+      name: "Name: "
+      password: "Password: "
+      save: Save
+      site_name: "Site Name: "
+      username: "Username: "
