@@ -29,26 +29,26 @@
     <div class="site-wrapper">
       <div class="header">
         <div class="main-header">
-          <div class="logo">Logo</div>
+          <div class="logo"><%= t "application.layout.logo" %></div>
           <h1 class="site-name"><%= Cartoonist::Application.config.site_name %></h1>
           <h2 class="heading"><%= Cartoonist::Application.config.site_heading %></h2>
           <h2 class="site-updates"><%= Cartoonist::Application.config.site_update_description %></h2>
 
           <div class="small-buttons">
             <% if show_social_links? %>
-              <a class="facebook" href="https://www.facebook.com/sharer.php?u=<%= u share_facebook_url_message %>&t=<%= u share_facebook_text_message %>" title="<%= facebook_link_title %>">Facebook</a>
-              <a class="twitter" href="https://twitter.com/intent/tweet?source=<%= Cartoonist::Application.config.domain %>&text=<%= u share_twitter_message %>" title="<%= twitter_link_title %>">Twitter</a>
-              <a class="google-plus" href="https://plus.google.com/share?url=<%= u share_google_plus_message %>" title="<%= google_plus_link_title %>">Google Plus</a>
-              <a class="rss" href="<%= rss_path %>" title="RSS Feed">RSS</a>
+              <a class="facebook" href="https://www.facebook.com/sharer.php?u=<%= u share_facebook_url_message %>&t=<%= u share_facebook_text_message %>" title="<%= facebook_link_title %>"><%= t "application.layout.social.facebook" %></a>
+              <a class="twitter" href="https://twitter.com/intent/tweet?source=<%= Cartoonist::Application.config.domain %>&text=<%= u share_twitter_message %>" title="<%= twitter_link_title %>"><%= t "application.layout.social.twitter" %></a>
+              <a class="google-plus" href="https://plus.google.com/share?url=<%= u share_google_plus_message %>" title="<%= google_plus_link_title %>"><%= t "application.layout.social.google_plus" %></a>
+              <a class="rss" href="<%= rss_path %>" title="<%= rss_title %>"><%= t "application.layout.social.rss" %></a>
             <% end %>
           </div>
         </div>
 
         <div class="navigation">
           <div class="long-buttons">
-            <a class="comic" href="<%= current_url %>">Comic</a>
-            <a class="blog" href="<%= blog_current_url %>">Blog</a>
-            <a class="follow-us" href="https://twitter.com/<%= Cartoonist::Application.config.twitter_handle %>" title="Follow us on Twitter">Follow us on Twitter</a>
+            <a class="comic" href="<%= current_url %>"><%= t "application.layout.navigation.comic" %></a>
+            <a class="blog" href="<%= blog_current_url %>"><%= t "application.layout.navigation.blog" %></a>
+            <a class="follow-us" href="https://twitter.com/<%= Cartoonist::Application.config.twitter_handle %>" title="<%= t "application.layout.navigation.follow_on_twitter_title" %>"><%= t "application.layout.navigation.follow_on_twitter" %></a>
           </div>
         </div>
       </div>
@@ -68,7 +68,9 @@
               <a id="disqus_comments" href="#disqus_thread" data-disqus-identifier="/<%= @disqus_options[:path] %>"></a>
             <% end %>
           </div>
-          <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">Disqus comments.</a></noscript>
+          <noscript>
+            <%= t "application.layout.disqus.noscript_pre_link" %><a href="http://disqus.com/?ref_noscript"><%= t "application.layout.disqus.noscript_link" %></a><%= t "application.layout.disqus.noscript_post_link" %>
+          </noscript>
         </div>
       <% end %>
 
