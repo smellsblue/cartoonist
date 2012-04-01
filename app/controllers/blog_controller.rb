@@ -19,7 +19,7 @@ class BlogController < ApplicationController
     @post = BlogPost.current
     @disabled_prev = true if @post.oldest?
     @disabled_next = true
-    @title = "Blog for #{Cartoonist::Application.config.site_name}"
+    @title = "Blog for #{CartoonistConfig[:site_name]}"
     render :show
     cache_page_as "blog.#{cache_type}.tmp.html"
   end

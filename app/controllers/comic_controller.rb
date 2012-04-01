@@ -3,7 +3,7 @@ class ComicController < ApplicationController
     @comic = Comic.current
     @disabled_prev = true if @comic.oldest?
     @disabled_next = true
-    @title = Cartoonist::Application.config.site_name
+    @title = CartoonistConfig[:site_name]
     render :show
     cache_current_page
   end

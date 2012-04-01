@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= yield(:title) || Cartoonist::Application.config.site_name %></title>
+    <title><%= yield(:title) || CartoonistConfig[:site_name] %></title>
     <%= csrf_meta_tags %>
-    <link rel="icon" href="http://<%= Cartoonist::Application.config.domain %><%= asset_path CartoonistThemes.favicon %>" type="image/x-icon" />
-    <link rel="shortcut icon" href="http://<%= Cartoonist::Application.config.domain %><%= asset_path CartoonistThemes.favicon %>" type="image/x-icon" />
+    <link rel="icon" href="http://<%= CartoonistConfig[:domain] %><%= asset_path CartoonistThemes.favicon %>" type="image/x-icon" />
+    <link rel="shortcut icon" href="http://<%= CartoonistConfig[:domain] %><%= asset_path CartoonistThemes.favicon %>" type="image/x-icon" />
   </head>
   <body>
     <p>

@@ -1,4 +1,4 @@
-<% content_for :rss_title, "#{Cartoonist::Application.config.site_name} Blog" %>
+<% content_for :rss_title, "#{CartoonistConfig[:site_name]} Blog" %>
 <% content_for :pub_date, @feed.pub_date %>
 
 <% @feed.items.each do |item| %>
@@ -8,8 +8,8 @@
       <%= "<h1>#{h item.title}</h1>" %>
       <%= item.content %>
     </description>
-    <link>http://<%= Cartoonist::Application.config.domain %>/blog/<%= item.url_title %></link>
-    <guid>http://<%= Cartoonist::Application.config.domain %>/blog/<%= item.url_title %></guid>
+    <link>http://<%= CartoonistConfig[:domain] %>/blog/<%= item.url_title %></link>
+    <guid>http://<%= CartoonistConfig[:domain] %>/blog/<%= item.url_title %></guid>
     <pubDate><%= item.pub_date %></pubDate>
   </item>
 <% end %>

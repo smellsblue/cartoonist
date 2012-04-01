@@ -2,7 +2,7 @@
 <% content_for :post_date, @comic.formatted_posted_at %>
 <% content_for(:prev, @comic.previous_number.to_s) %>
 <% content_for(:next, @comic.next_number.to_s) %>
-<% enable_disqus! :path => "#{@comic.number}", :title => @comic.title, :category => Cartoonist::Application.config.disqus_comic_category, :count_link => true %>
+<% enable_disqus! :path => "#{@comic.number}", :title => @comic.title, :category => CartoonistConfig[:disqus_comic_category], :count_link => true %>
 
 <h1 class="number"><%= @comic.title %></h1>
 

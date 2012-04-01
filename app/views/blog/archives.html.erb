@@ -1,4 +1,4 @@
-<% content_for(:title, "Blog Archives for #{Cartoonist::Application.config.site_name}") %>
+<% content_for(:title, "Blog Archives for #{CartoonistConfig[:site_name]}") %>
 
 <ul>
   <% @posts.each do |post| %>

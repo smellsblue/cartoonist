@@ -1,4 +1,4 @@
-<% content_for :rss_title, "#{Cartoonist::Application.config.site_name} Comic#{" (Mobile Edition)" if mobile?}" %>
+<% content_for :rss_title, "#{CartoonistConfig[:site_name]} Comic#{" (Mobile Edition)" if mobile?}" %>
 <% content_for :pub_date, @feed.pub_date %>
 
 <% @feed.items.each do |item| %>
@@ -22,8 +22,8 @@
         } %>
       <% end %>
     </description>
-    <link>http://<%= Cartoonist::Application.config.domain %>/<%= item.number %></link>
-    <guid>http://<%= Cartoonist::Application.config.domain %>/<%= item.number %></guid>
+    <link>http://<%= CartoonistConfig[:domain] %>/<%= item.number %></link>
+    <guid>http://<%= CartoonistConfig[:domain] %>/<%= item.number %></guid>
     <pubDate><%= item.pub_date %></pubDate>
   </item>
 <% end %>

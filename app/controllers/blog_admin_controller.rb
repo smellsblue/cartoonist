@@ -18,7 +18,7 @@ class BlogAdminController < ApplicationController
       end
     else
       @post = BlogPost.preview_current
-      @title = "Blog for #{Cartoonist::Application.config.site_name}"
+      @title = "Blog for #{CartoonistConfig[:site_name]}"
       @disabled_next = true
     end
 
@@ -100,8 +100,8 @@ class BlogAdminController < ApplicationController
 
   private
   def tweet_message(url_title)
-    tweet = "New blog post: http://#{Cartoonist::Application.config.domain}/blog/#{url_title}"
-    tweet = "New blog post: http://#{Cartoonist::Application.config.domain}/blog" if tweet.length > 140
+    tweet = "New blog post: http://#{CartoonistConfig[:domain]}/blog/#{url_title}"
+    tweet = "New blog post: http://#{CartoonistConfig[:domain]}/blog" if tweet.length > 140
     tweet
   end
 end
