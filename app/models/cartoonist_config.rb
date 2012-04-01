@@ -2,13 +2,16 @@ class CartoonistConfig < ActiveRecord::Base
   class << self
     def [](label)
       raise "Invalid label" unless label.present?
-      raise "Missing config definition for '#{label}'" unless Meta[label.to_sym]
+      meta = Meta[label.to_sym]
+      raise "Missing config definition for '#{label}'" unless meta
       record = where(:label => label.to_s).first
 
       if record
-        Meta[label.to_sym].convert record.value
+        meta.convert record.value
+      elsif meta.type == :array || meta.type == :hash
+        meta.default.dup
       else
-        Meta[label.to_sym].default
+        meta.default
       end
     end
 
@@ -34,7 +37,7 @@ class CartoonistConfig < ActiveRecord::Base
     def initialize(label, options)
       @label = label.to_sym
       @type = (options[:type] || :string).to_sym
-      raise "Invalid config type #{@type}" unless [:string, :boolean, :int, :float].include? @type
+      raise "Invalid config type #{@type}" unless [:string, :boolean, :int, :float, :array, :hash].include? @type
 
       if options.include? :default
         @default = options[:default]
@@ -46,11 +49,18 @@ class CartoonistConfig < ActiveRecord::Base
         @default = 0
       elsif @type == :float
         @default = 0.0
+      elsif @type == :array
+        @default = []
+      elsif @type == :hash
+        @default = {}
       end
     end
 
     def convert(value)
-      return default if value.nil?
+      if value.nil?
+        return default.dup if type == :array || type == :hash
+        return default
+      end
 
       case type
       when :string
@@ -61,6 +71,10 @@ class CartoonistConfig < ActiveRecord::Base
         value.to_i
       when :float
         value.to_f
+      when :array
+        YAML.load value
+      when :hash
+        YAML.load value
       end
     end
 
@@ -69,6 +83,8 @@ class CartoonistConfig < ActiveRecord::Base
 
       if type == :boolean
         (!!value).to_s
+      elsif type == :array || type == :hash
+        value.to_yaml
       else
         value.to_s
       end

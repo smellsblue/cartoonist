@@ -40,6 +40,20 @@ describe CartoonistConfig do
     CartoonistConfig[:test_config].should == "This is a test"
   end
 
+  it "supports array types" do
+    CartoonistConfig.define :test_config, :type => :array
+    CartoonistConfig::Meta[:test_config].type.should == :array
+    CartoonistConfig[:test_config] = ["testing", 1, 2, 3]
+    CartoonistConfig[:test_config].should == ["testing", 1, 2, 3]
+  end
+
+  it "supports hash types" do
+    CartoonistConfig.define :test_config, :type => :hash
+    CartoonistConfig::Meta[:test_config].type.should == :hash
+    CartoonistConfig[:test_config] = { :a => "123", "b" => 321 }
+    CartoonistConfig[:test_config].should == { :a => "123", "b" => 321 }
+  end
+
   it "defaults to string types" do
     CartoonistConfig.define :test_config
     CartoonistConfig::Meta[:test_config].type.should == :string
@@ -52,10 +66,14 @@ describe CartoonistConfig do
     CartoonistConfig.define :test_config_boolean, :type => :boolean
     CartoonistConfig.define :test_config_int, :type => :int
     CartoonistConfig.define :test_config_float, :type => :float
+    CartoonistConfig.define :test_config_array, :type => :array
+    CartoonistConfig.define :test_config_hash, :type => :hash
     CartoonistConfig[:test_config_string].should == ""
     CartoonistConfig[:test_config_boolean].should == false
     CartoonistConfig[:test_config_int].should == 0
     CartoonistConfig[:test_config_float].should == 0.0
+    CartoonistConfig[:test_config_array].should == []
+    CartoonistConfig[:test_config_hash].should == {}
   end
 
   it "disallows multiple config values of the same label" do
