@@ -67,7 +67,10 @@ en:
       site_name: "Site Name: "
       username: "Username: "
     show:
+      save: Save
       sections:
+        advanced:
+          general: General
         general:
           general: General
         social_and_analytics:
@@ -101,5 +104,6 @@ en:
         admin_users: "Admin Users: "
         secret_token: "Secret Token: "
       tabs:
+        advanced: Advanced
         general: General
         social_and_analytics: Social & Analytics

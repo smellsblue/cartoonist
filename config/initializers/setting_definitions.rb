@@ -17,39 +17,39 @@ Rails.application.config.to_prepare do
       end
     end
 
-    Setting.define :domain
-    Setting.define :site_name
-    Setting.define :site_heading
-    Setting.define :site_update_description
-    Setting.define :theme, :type => :symbol
-    Setting.define :schedule, :type => :array, :default => [:monday, :wednesday, :friday]
-    Setting.define :copyright_starting_year, :type => :int
-    Setting.define :copyright_owners
-    Setting.define :default_title
-    Setting.define :admin_users, :type => :hash
+    Setting.define :domain, :order => 1
+    Setting.define :site_name, :order => 2
+    Setting.define :site_heading, :order => 3
+    Setting.define :site_update_description, :order => 4
+    Setting.define :theme, :type => :symbol, :order => 5
+    Setting.define :schedule, :type => :array, :default => [:monday, :wednesday, :friday], :order => 6
+    Setting.define :copyright_starting_year, :type => :int, :order => 7
+    Setting.define :copyright_owners, :order => 8
+    Setting.define :default_title, :order => 9
+    Setting.define :admin_users, :type => :hash, :order => 10
 
     Setting::Tab.define :social_and_analytics, :order => 1 do
       Setting::Section.define :google_analytics, :order => 1 do
-        Setting.define :google_analytics_enabled, :type => :boolean
-        Setting.define :google_analytics_account
+        Setting.define :google_analytics_enabled, :type => :boolean, :order => 1
+        Setting.define :google_analytics_account, :order => 2
       end
 
       Setting::Section.define :twitter, :order => 2 do
-        Setting.define :twitter_enabled, :type => :boolean
-        Setting.define :default_tweet
-        Setting.define :twitter_handle
-        Setting.define :twitter_consumer_key, :onchange => twitter_auth_changed
-        Setting.define :twitter_consumer_secret, :onchange => twitter_auth_changed
-        Setting.define :twitter_oauth_token, :onchange => twitter_auth_changed
-        Setting.define :twitter_oauth_token_secret, :onchange => twitter_auth_changed
+        Setting.define :twitter_enabled, :type => :boolean, :order => 1
+        Setting.define :default_tweet, :order => 2
+        Setting.define :twitter_handle, :order => 3
+        Setting.define :twitter_consumer_key, :onchange => twitter_auth_changed, :order => 4
+        Setting.define :twitter_consumer_secret, :onchange => twitter_auth_changed, :order => 5
+        Setting.define :twitter_oauth_token, :onchange => twitter_auth_changed, :order => 6
+        Setting.define :twitter_oauth_token_secret, :onchange => twitter_auth_changed, :order => 7
       end
 
       Setting::Section.define :disqus, :order => 3 do
-        Setting.define :disqus_enabled, :type => :boolean
-        Setting.define :disqus_shortname
-        Setting.define :disqus_comic_category
-        Setting.define :disqus_blog_post_category
-        Setting.define :disqus_page_category
+        Setting.define :disqus_enabled, :type => :boolean, :order => 1
+        Setting.define :disqus_shortname, :order => 2
+        Setting.define :disqus_comic_category, :order => 3
+        Setting.define :disqus_blog_post_category, :order => 4
+        Setting.define :disqus_page_category, :order => 5
       end
     end
 

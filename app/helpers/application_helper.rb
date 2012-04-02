@@ -5,6 +5,12 @@ module ApplicationHelper
     end
   end
 
+  def checked(a, b = true)
+    if a == b
+      'checked="checked"'.html_safe
+    end
+  end
+
   def markdown(text)
     Markdown.render text
   end
