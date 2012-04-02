@@ -2,6 +2,15 @@ class SettingsController < ApplicationController
   before_filter :ensure_ssl!
   before_filter :check_admin!, :except => [:initial_setup, :save_initial_setup]
 
+  def index
+    redirect_to "/settings/general"
+  end
+
+  def show
+    @tab = Setting::Tab[params[:id]]
+    render :layout => "admin"
+  end
+
   def initial_setup
     return redirect_to "/admin/sign_in" unless initial_setup_required?
     render :layout => "sign_in"

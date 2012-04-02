@@ -3,7 +3,7 @@ class Setting < ActiveRecord::Base
     def [](label)
       raise "Invalid label" unless label.present?
       meta = Meta[label.to_sym]
-      raise "Missing config definition for '#{label}'" unless meta
+      raise "Missing setting definition for '#{label}'" unless meta
       record = where(:label => label.to_s).first
 
       if record
@@ -18,7 +18,7 @@ class Setting < ActiveRecord::Base
     def []=(label, value)
       raise "Invalid label" unless label.present?
       meta = Meta[label.to_sym]
-      raise "Missing config definition for '#{label}'" unless meta
+      raise "Missing setting definition for '#{label}'" unless meta
       old_value = self[label]
       record = where(:label => label.to_s).first
       record = Setting.new :label => label.to_s unless record
@@ -39,17 +39,26 @@ class Setting < ActiveRecord::Base
 
   class Meta
     attr_reader :label, :tab, :section, :order, :type, :default, :onchange
-    @@configs = {}
+    @@settings = {}
     @@by_tab_section_and_label = {}
 
     def initialize(label, options)
       @label = label.to_sym
-      @tab = (options[:tab] || :general)
-      @section = (options[:section] || :general)
+      @tab = (options[:tab] || Tab.default)
+      @section = (options[:section] || Section.default)
       @order = (options[:order] || 0)
       @type = (options[:type] || :string).to_sym
       @onchange = options[:onchange]
-      raise "Invalid config type #{@type}" unless [:string, :symbol, :boolean, :int, :float, :array, :hash].include? @type
+      raise "Invalid setting type #{@type}" unless [:string, :symbol, :boolean, :int, :float, :array, :hash].include? @type
+
+      # Auto create general tab and section if it isn't created
+      if @tab == :general && !Tab[@tab]
+        Tab.define :general, :order => 0
+      end
+
+      if @section == :general && !Section.by_tab_and_label[@tab][@section]
+        Section.define :general, :order => 0, :tab => @tab
+      end
 
       if options.include? :default
         @default = options[:default]
@@ -114,13 +123,13 @@ class Setting < ActiveRecord::Base
 
     class << self
       def [](label)
-        raise "Missing config '#{label}'" unless @@configs[label.to_sym]
-        @@configs[label.to_sym]
+        raise "Missing setting '#{label}'" unless @@settings[label.to_sym]
+        @@settings[label.to_sym]
       end
 
       def []=(label, definition)
-        raise "Duplicate configuration '#{label}' given!" if @@configs[label.to_sym]
-        @@configs[label.to_sym] = definition
+        raise "Duplicate setting '#{label}' given!" if @@settings[label.to_sym]
+        @@settings[label.to_sym] = definition
         @@by_tab_section_and_label[definition.tab] ||= {}
         @@by_tab_section_and_label[definition.tab][definition.section] ||= {}
         @@by_tab_section_and_label[definition.tab][definition.section][label.to_sym] = definition
@@ -136,17 +145,21 @@ class Setting < ActiveRecord::Base
     attr_reader :label, :order
     @@all = []
     @@by_label = {}
+    @@default = :general
 
     def initialize(label, options = {})
       @label = label.to_sym
       @order = options[:order] || 1
+      Section.by_tab_and_label[@label] ||= {}
     end
 
     def sections
+      Section.by_tab_and_label[label] ||= {}
       Section.by_tab_and_label[label].values.sort.map &:label
     end
 
     def [](section_label)
+      Section.by_tab_and_label[label] ||= {}
       Section.by_tab_and_label[label][section_label.to_sym]
     end
 
@@ -165,11 +178,21 @@ class Setting < ActiveRecord::Base
         @@all
       end
 
+      def default
+        @@default
+      end
+
       def define(label, options = {})
         raise "Duplicate tab '#{label}' being defined" if @@by_label.include? label.to_sym
         tab = Tab.new label, options
         @@all << tab
         @@by_label[label.to_sym] = tab
+        begin
+          @@default = label.to_sym
+          yield if block_given?
+        ensure
+          @@default = :general
+        end
       end
     end
   end
@@ -178,14 +201,15 @@ class Setting < ActiveRecord::Base
     attr_reader :label, :order, :tab
     @@all = []
     @@by_tab_and_label = {}
+    @@default = :general
 
     def initialize(label, options = {})
       @label = label.to_sym
       @order = options[:order] || 1
-      @tab = (options[:tab] || :general).to_sym
+      @tab = (options[:tab] || Tab.default).to_sym
     end
 
-    def configs
+    def settings
       Meta.by_tab_section_and_label[tab][label].values.sort.map &:label
     end
 
@@ -200,11 +224,21 @@ class Setting < ActiveRecord::Base
         @@all
       end
 
+      def default
+        @@default
+      end
+
       def define(label, options = {})
         section = Section.new label, options
         @@all << section
         @@by_tab_and_label[section.tab] ||= {}
         @@by_tab_and_label[section.tab][label.to_sym] = section
+        begin
+          @@default = label.to_sym
+          yield if block_given?
+        ensure
+          @@default = :general
+        end
       end
 
       def by_tab_and_label
@@ -212,7 +246,4 @@ class Setting < ActiveRecord::Base
       end
     end
   end
-
-  Tab.define :general, :order => 0
-  Section.define :general, :order => 0, :tab => :general
 end

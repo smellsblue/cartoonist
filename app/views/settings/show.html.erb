@@ -1,0 +1,17 @@
+<div class="tabs">
+  <% Setting.tabs.each do |tab| %>
+    <a href="/settings/<%= tab %>" class="tab"><%= t tab, :scope => "settings.show.tabs" %></a>
+  <% end %>
+</div>
+
+<% @tab.sections.each do |section| %>
+  <div class="section">
+    <h2><%= t section, :scope => "settings.show.sections.#{@tab.label}" %></h2>
+
+    <% @tab[section].settings.each do |setting| %>
+      <p>
+        <%= t setting, :scope => "settings.show.settings" %>
+      </p>
+    <% end %>
+  </div>
+<% end %>
