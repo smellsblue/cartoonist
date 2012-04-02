@@ -13,7 +13,7 @@ class AdminController < ApplicationController
         prefix = "dev-" unless Rails.env.production?
         filename = "#{prefix}comics-backup-#{Time.now.strftime("%Y-%m-%d_%H%M%S")}.json"
         headers["Content-Disposition"] = "attachment; filename=\"#{filename}\""
-        content = { :comics => Comic.order(:id).all, :files => DatabaseFile.order(:id).all, :blog_posts => BlogPost.order(:id).all, :pages => Page.order(:id).all }
+        content = { :comics => Comic.order(:id).all, :files => DatabaseFile.order(:id).all, :blog_posts => BlogPost.order(:id).all, :pages => Page.order(:id).all, :settings => Setting.order(:id).all }
         render :text => content.to_json, :content_type => "application/json"
       end
     end
