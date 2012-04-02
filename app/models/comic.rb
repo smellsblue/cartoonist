@@ -6,8 +6,32 @@ class Comic < ActiveRecord::Base
     Time.local posted_at.year, posted_at.month, posted_at.day, 8, 0
   end
 
+  def formatted_posted_at(default_msg = "not yet posted")
+    if posted_at
+      posted_at.strftime "%-m/%-d/%Y"
+    else
+      default_msg
+    end
+  end
+
+  def real?
+    number
+  end
+
+  def previous_number
+    if number
+      number - 1
+    end
+  end
+
+  def next_number
+    if number
+      number + 1
+    end
+  end
+
   def oldest?
-    number == 1
+    number == 1 || !number
   end
 
   def maybe_newest?
@@ -25,7 +49,7 @@ class Comic < ActiveRecord::Base
   end
 
   def absolute_img_url
-    "http://#{Cartoonist::Application.config.domain}#{img_url}"
+    "http://#{Setting[:domain]}#{img_url}"
   end
 
   class << self
@@ -97,13 +121,13 @@ class Comic < ActiveRecord::Base
 
     def current
       comic = posted.reverse_numerical.first
-      raise ActiveRecord::RecordNotFound.new("No records found!") unless comic
+      comic = new :title => "No Comics Yet", :description => "Check back later for the first comic!" unless comic
       comic
     end
 
     def preview_current
       comic = reverse_numerical.first
-      raise ActiveRecord::RecordNotFound.new("No records found!") unless comic
+      comic = new :title => "No Comics Yet", :description => "Check back later for the first comic!" unless comic
       comic
     end
 

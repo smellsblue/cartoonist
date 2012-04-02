@@ -13,7 +13,7 @@ class AdminController < ApplicationController
         prefix = "dev-" unless Rails.env.production?
         filename = "#{prefix}comics-backup-#{Time.now.strftime("%Y-%m-%d_%H%M%S")}.json"
         headers["Content-Disposition"] = "attachment; filename=\"#{filename}\""
-        content = { :comics => Comic.order(:id).all, :files => DatabaseFile.order(:id).all, :blog_posts => BlogPost.order(:id).all, :pages => Page.order(:id).all }
+        content = { :comics => Comic.order(:id).all, :files => DatabaseFile.order(:id).all, :blog_posts => BlogPost.order(:id).all, :pages => Page.order(:id).all, :settings => Setting.order(:id).all }
         render :text => content.to_json, :content_type => "application/json"
       end
     end
@@ -69,9 +69,10 @@ class AdminController < ApplicationController
 
   def sign_in
     return redirect_to "/admin/main" if session[:admin]
+    return redirect_to "/settings/initial_setup" if initial_setup_required?
 
     if request.post?
-      user = Cartoonist::Application.config.admin_users[params[:username]]
+      user = Setting[:admin_users][params[:username]]
 
       if user && params[:password] == user[:password]
         session[:admin] = true
