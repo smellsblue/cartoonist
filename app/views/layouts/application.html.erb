@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html class="<%= html_class %>">
   <head>
-    <title><%= yield(:title) || Cartoonist::Application.config.site_name %></title>
+    <title><%= yield(:title) || Setting[:site_name] %></title>
     <%= stylesheet_link_tag CartoonistThemes.css %>
     <% if @output_csrf_meta_tags %>
       <%= csrf_meta_tags %>
     <% end %>
-    <link rel="icon" href="http://<%= Cartoonist::Application.config.domain %><%= asset_path CartoonistThemes.favicon %>" type="image/x-icon" />
-    <link rel="shortcut icon" href="http://<%= Cartoonist::Application.config.domain %><%= asset_path CartoonistThemes.favicon %>" type="image/x-icon" />
+    <link rel="icon" href="http://<%= Setting[:domain] %><%= asset_path CartoonistThemes.favicon %>" type="image/x-icon" />
+    <link rel="shortcut icon" href="http://<%= Setting[:domain] %><%= asset_path CartoonistThemes.favicon %>" type="image/x-icon" />
     <link href="<%= rss_path %>" rel="alternate" title="<%= rss_title %>" type="application/rss+xml" />
     <% if !preview? && Rails.env.production? %>
       <script type="text/javascript">
         var _gaq = _gaq || [];
-        _gaq.push(['_setAccount', '<%= j Cartoonist::Application.config.google_analytics_account %>']);
+        _gaq.push(['_setAccount', '<%= j Setting[:google_analytics_account] %>']);
         _gaq.push(['_trackPageview']);
 
         (function() {
@@ -30,14 +30,14 @@
       <div class="header">
         <div class="main-header">
           <div class="logo"><%= t "application.layout.logo" %></div>
-          <h1 class="site-name"><%= Cartoonist::Application.config.site_name %></h1>
-          <h2 class="heading"><%= Cartoonist::Application.config.site_heading %></h2>
-          <h2 class="site-updates"><%= Cartoonist::Application.config.site_update_description %></h2>
+          <h1 class="site-name"><%= Setting[:site_name] %></h1>
+          <h2 class="heading"><%= Setting[:site_heading] %></h2>
+          <h2 class="site-updates"><%= Setting[:site_update_description] %></h2>
 
           <div class="small-buttons">
             <% if show_social_links? %>
               <a class="facebook" href="https://www.facebook.com/sharer.php?u=<%= u share_facebook_url_message %>&t=<%= u share_facebook_text_message %>" title="<%= facebook_link_title %>"><%= t "application.layout.social.facebook" %></a>
-              <a class="twitter" href="https://twitter.com/intent/tweet?source=<%= Cartoonist::Application.config.domain %>&text=<%= u share_twitter_message %>" title="<%= twitter_link_title %>"><%= t "application.layout.social.twitter" %></a>
+              <a class="twitter" href="https://twitter.com/intent/tweet?source=<%= Setting[:domain] %>&text=<%= u share_twitter_message %>" title="<%= twitter_link_title %>"><%= t "application.layout.social.twitter" %></a>
               <a class="google-plus" href="https://plus.google.com/share?url=<%= u share_google_plus_message %>" title="<%= google_plus_link_title %>"><%= t "application.layout.social.google_plus" %></a>
               <a class="rss" href="<%= rss_path %>" title="<%= rss_title %>"><%= t "application.layout.social.rss" %></a>
             <% end %>
@@ -48,7 +48,7 @@
           <div class="long-buttons">
             <a class="comic" href="<%= current_url %>"><%= t "application.layout.navigation.comic" %></a>
             <a class="blog" href="<%= blog_current_url %>"><%= t "application.layout.navigation.blog" %></a>
-            <a class="follow-us" href="https://twitter.com/<%= Cartoonist::Application.config.twitter_handle %>" title="<%= t "application.layout.navigation.follow_on_twitter_title" %>"><%= t "application.layout.navigation.follow_on_twitter" %></a>
+            <a class="follow-us" href="https://twitter.com/<%= Setting[:twitter_handle] %>" title="<%= t "application.layout.navigation.follow_on_twitter_title" %>"><%= t "application.layout.navigation.follow_on_twitter" %></a>
           </div>
         </div>
       </div>
@@ -100,11 +100,11 @@
 
       <% if @disqus_enabled && Rails.env.production? %>
         <script type="text/javascript">
-          var disqus_shortname = "<%= j Cartoonist::Application.config.disqus_shortname %>";
+          var disqus_shortname = "<%= j Setting[:disqus_shortname] %>";
           var disqus_title = "<%= j @disqus_options[:title] %>";
           var disqus_category_id = "<%= j @disqus_options[:category].to_s %>";
           var disqus_identifier = "/<%= j @disqus_options[:path] %>";
-          var disqus_url = "http://<%= j Cartoonist::Application.config.domain %>/<%= j @disqus_options[:path] %>";
+          var disqus_url = "http://<%= j Setting[:domain] %>/<%= j @disqus_options[:path] %>";
           <% if @disqus_options[:count_link] %>
             (function () {
               var s = document.createElement('script'); s.async = true;

@@ -25,6 +25,7 @@ en:
         new: New Page
         section: "Pages:"
       reload: Update and Reload
+      settings: Settings
       user_heading: "%{user}:"
   application:
     layout:
@@ -55,3 +56,54 @@ en:
         twitter_blog_title: Tweet about this
         twitter_comic_text_message: "Check out %{title}: %{url}"
         twitter_comic_title: Tweet about this comic
+  settings:
+    initial_setup:
+      default_name: Anonymous
+      default_username: admin
+      domain: "Domain: "
+      name: "Name: "
+      password: "Password: "
+      save: Save
+      site_name: "Site Name: "
+      username: "Username: "
+    show:
+      save: Save
+      sections:
+        advanced:
+          general: General
+        general:
+          general: General
+        social_and_analytics:
+          disqus: Disqus
+          google_analytics: Google Analytics
+          twitter: Twitter
+      settings:
+        domain: "Domain: "
+        site_name: "Site Name: "
+        site_heading: "Site Heading: "
+        site_update_description: "Site Update Description: "
+        theme: "Theme: "
+        schedule: "Schedule: "
+        copyright_starting_year: "Copyright Starting Year: "
+        copyright_owners: "Copyright Owners: "
+        default_title: "Default Title: "
+        default_tweet: "Default Tweet: "
+        twitter_enabled: "Twitter Enabled: "
+        twitter_handle: "Twitter Handle: "
+        twitter_consumer_key: "Twitter Consumer Key: "
+        twitter_consumer_secret: "Twitter Consumer Secret: "
+        twitter_oauth_token: "Twitter Oauth Token: "
+        twitter_oauth_token_secret: "Twitter Oauth Token Secret: "
+        google_analytics_enabled: "Google Analytics Enabled: "
+        google_analytics_account: "Google Analytics Account: "
+        disqus_enabled: "Disqus Enabled: "
+        disqus_shortname: "Disqus Shortname: "
+        disqus_comic_category: "Disqus Comic Category: "
+        disqus_blog_post_category: "Disqus Blog Post Category: "
+        disqus_page_category: "Disqus Page Category: "
+        admin_users: "Admin Users: "
+        secret_token: "Secret Token: "
+      tabs:
+        advanced: Advanced
+        general: General
+        social_and_analytics: Social & Analytics

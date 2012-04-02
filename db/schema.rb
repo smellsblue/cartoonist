@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120320043253) do
+ActiveRecord::Schema.define(:version => 20120401014029) do
 
   create_table "blog_posts", :force => true do |t|
     t.string   "title",                         :null => false
@@ -70,5 +70,15 @@ ActiveRecord::Schema.define(:version => 20120320043253) do
 
   add_index "pages", ["path"], :name => "index_pages_on_path", :unique => true
   add_index "pages", ["title"], :name => "index_pages_on_title", :unique => true
+
+  create_table "settings", :force => true do |t|
+    t.string   "label",                         :null => false
+    t.text     "value"
+    t.boolean  "locked",     :default => false, :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+  end
+
+  add_index "settings", ["label"], :name => "index_settings_on_label", :unique => true
 
 end

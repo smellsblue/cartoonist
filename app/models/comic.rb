@@ -49,7 +49,7 @@ class Comic < ActiveRecord::Base
   end
 
   def absolute_img_url
-    "http://#{Cartoonist::Application.config.domain}#{img_url}"
+    "http://#{Setting[:domain]}#{img_url}"
   end
 
   class << self
