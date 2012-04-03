@@ -9,9 +9,9 @@ module CacheHelper
 
   def td_cache_text(test)
     if test
-      "cached"
+      t "cach.index.cached"
     else
-      "not cached"
+      t "cach.index.not_cached"
     end
   end
 end

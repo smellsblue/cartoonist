@@ -26,6 +26,7 @@ en:
         section: "Pages:"
       reload: Update and Reload
       settings: Settings
+      static_cache: Static Cache
       user_heading: "%{user}:"
   application:
     layout:
@@ -56,6 +57,20 @@ en:
         twitter_blog_title: Tweet about this
         twitter_comic_text_message: "Check out %{title}: %{url}"
         twitter_comic_title: Tweet about this comic
+  cache:
+    index:
+      cached: cached
+      expire: Expire
+      expire_all: Expire all
+      expire_m: Expire m
+      expire_tmp: Expire tmp
+      expire_www: Expire www
+      m: m
+      m_tmp: m tmp
+      not_cached: not cached
+      page: Page
+      www: www
+      www_tmp: www tmp
   settings:
     initial_setup:
       default_name: Anonymous
@@ -107,3 +122,8 @@ en:
         advanced: Advanced
         general: General
         social_and_analytics: Social & Analytics
+  static_cache:
+    index:
+      expire: Expire
+      expire_all: Expire all
+      page: Page
