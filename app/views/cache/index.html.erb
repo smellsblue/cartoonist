@@ -74,7 +74,7 @@
           </td>
 
           <td>
-            <%= form_tag "/cache/#{u cache.name}", :method => :delete do %>
+            <%= form_tag "/cache/#{u cache.delete_name}", :method => :delete do %>
               <input type="submit" value="Expire" />
             <% end %>
           </td>
