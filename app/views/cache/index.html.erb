@@ -1,18 +1,18 @@
 <p>
   <%= form_tag "/cache/expire_www", :method => :post, :class => "inline" do %>
-    <input type="submit" value="Expire www" />
+    <input type="submit" value="<%= t "cache.index.expire_www" %>" />
   <% end %>
 
   <%= form_tag "/cache/expire_m", :method => :post, :class => "inline" do %>
-    <input type="submit" value="Expire m" />
+    <input type="submit" value="<%= t "cache.index.expire_m" %>" />
   <% end %>
 
   <%= form_tag "/cache/expire_tmp", :method => :post, :class => "inline" do %>
-    <input type="submit" value="Expire tmp" />
+    <input type="submit" value="<%= t "cache.index.expire_tmp" %>" />
   <% end %>
 
   <%= form_tag "/cache/expire_all", :method => :post, :class => "inline" do %>
-    <input type="submit" value="Expire all" />
+    <input type="submit" value="<%= t "cache.index.expire_all" %>" />
   <% end %>
 </p>
 
@@ -20,11 +20,11 @@
   <table class="cache">
     <thead>
       <tr>
-        <th>Page</th>
-        <th>www</th>
-        <th>m</th>
-        <th>www tmp</th>
-        <th>m tmp</th>
+        <th><%= t "cache.index.page" %></th>
+        <th><%= t "cache.index.www" %></th>
+        <th><%= t "cache.index.m" %></th>
+        <th><%= t "cache.index.www_tmp" %></th>
+        <th><%= t "cache.index.m_tmp" %></th>
         <th></th>
       </tr>
     </thead>
@@ -51,7 +51,7 @@
 
           <td>
             <%= form_tag "/cache/#{u cache.name}", :method => :delete do %>
-              <input type="submit" value="Expire" />
+              <input type="submit" value="<%= t "cache.index.expire" %>" />
             <% end %>
           </td>
         </tr>

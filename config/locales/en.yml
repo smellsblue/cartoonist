@@ -56,6 +56,18 @@ en:
         twitter_blog_title: Tweet about this
         twitter_comic_text_message: "Check out %{title}: %{url}"
         twitter_comic_title: Tweet about this comic
+  cache:
+    index:
+      expire: Expire
+      expire_all: Expire all
+      expire_m: Expire m
+      expire_tmp: Expire tmp
+      expire_www: Expire www
+      m: m
+      m_tmp: m tmp
+      page: Page
+      www: www
+      www_tmp: www tmp
   settings:
     initial_setup:
       default_name: Anonymous
