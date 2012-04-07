@@ -11,12 +11,18 @@
 
       <% @tab[section].settings.each do |setting| %>
         <%# Other setting types to come later %>
-        <% next unless [:string, :boolean, :int].include?(Setting::Meta[setting].type) %>
+        <% next unless Setting::Meta[setting].select_from || [:string, :boolean, :int].include?(Setting::Meta[setting].type) %>
         <p>
           <input type="hidden" name="included_settings[]" value="<%= setting %>" />
           <label>
             <%= t setting, :scope => "settings.show.settings" %>
-            <% if Setting::Meta[setting].type == :string %>
+            <% if Setting::Meta[setting].select_from %>
+              <select name="<%= setting %>">
+                <% Setting::Meta[setting].select_from_options.each do |option| %>
+                  <option value="<%= option %>" <%= selected option, Setting[setting] %>><%= option %></option>
+                <% end %>
+              <select name="<%= setting %>" value="<%= Setting[setting] %>">
+            <% elsif Setting::Meta[setting].type == :string %>
               <input type="text" name="<%= setting %>" value="<%= Setting[setting] %>" size="60" />
             <% elsif [:int, :float].include?(Setting::Meta[setting].type) %>
               <input type="text" name="<%= setting %>" value="<%= Setting[setting] %>" size="10" />

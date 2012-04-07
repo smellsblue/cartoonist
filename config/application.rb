@@ -3,11 +3,17 @@ require File.expand_path('../boot', __FILE__)
 require 'rails/all'
 
 class CartoonistThemes
+  @@all = []
   @@themes = {}
   @@assets = []
 
   class << self
+    def all
+      @@all
+    end
+
     def add(theme, options)
+      (@@all << theme.to_sym).sort! unless @@all.include? theme.to_sym
       @@themes[theme.to_sym] = options unless @@themes.include? theme.to_sym
     end
 
