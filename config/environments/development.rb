@@ -29,5 +29,5 @@ Cartoonist::Application.configure do
   config.assets.debug = true
 
   config.assets.precompile += ["admin.css"]
-  config.assets.precompile += CartoonistThemes.assets
+  config.assets.precompile += CartoonistAssets.all
 end

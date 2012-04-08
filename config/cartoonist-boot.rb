@@ -1,7 +1,22 @@
+class CartoonistAssets
+  @@all = []
+
+  class << self
+    def all
+      @@all
+    end
+
+    def add(*assets)
+      assets.each do |asset|
+        @@all << asset unless @@all.include? asset
+      end
+    end
+  end
+end
+
 class CartoonistThemes
   @@all = []
   @@themes = {}
-  @@assets = []
 
   class << self
     def all
@@ -14,13 +29,7 @@ class CartoonistThemes
     end
 
     def add_assets(*assets)
-      assets.each do |asset|
-        @@assets << asset unless @@assets.include? asset
-      end
-    end
-
-    def assets
-      @@assets
+      CartoonistAssets.add *assets
     end
 
     def [](key)
