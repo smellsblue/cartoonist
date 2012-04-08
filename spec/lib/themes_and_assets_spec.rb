@@ -3,6 +3,7 @@ require "spec_helper"
 describe "Themes and Assets" do
   before do
     CartoonistAssets.class_variable_set :@@all, []
+    CartoonistAssets.class_variable_set :@@included_js, []
     CartoonistThemes.class_variable_set :@@all, []
     CartoonistThemes.class_variable_set :@@themes, {}
     CartoonistThemes.class_variable_set :@@assets, []
@@ -38,5 +39,21 @@ describe "Themes and Assets" do
     CartoonistThemes.add_assets "test.css", "test.css"
     CartoonistThemes.add_assets "test.css"
     CartoonistAssets.all.should == ["test.css"]
+  end
+
+  it "remembers included js files" do
+    CartoonistAssets.include_js "test1.js", "test2.js"
+    CartoonistAssets.included_js.should == ["test1.js", "test2.js"]
+  end
+
+  it "doesn't add included js files to the all list" do
+    CartoonistAssets.include_js "test1.js", "test2.js"
+    CartoonistAssets.all.should == []
+  end
+
+  it "doesn't add duplicate included js files" do
+    CartoonistAssets.include_js "test1.js", "test1.js"
+    CartoonistAssets.include_js "test1.js"
+    CartoonistAssets.included_js.should == ["test1.js"]
   end
 end

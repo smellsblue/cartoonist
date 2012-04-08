@@ -1,15 +1,27 @@
 class CartoonistAssets
   @@all = []
+  @@included_js = []
 
   class << self
+    # This does not include javascript files included in
+    # application.js.  This is purely standalone assets.
     def all
       @@all
     end
 
+    # Include the following js files into application.js.
+    def include_js(*js_files)
+      @@included_js.push *js_files
+      @@included_js.tap &:uniq!
+    end
+
+    def included_js
+      @@included_js
+    end
+
     def add(*assets)
-      assets.each do |asset|
-        @@all << asset unless @@all.include? asset
-      end
+      @@all.push *assets
+      @@all.tap &:uniq!
     end
   end
 end
