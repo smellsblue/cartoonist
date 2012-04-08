@@ -19,6 +19,10 @@ class CartoonistAssets
       @@included_js
     end
 
+    def included_js?
+      @@included_js.present?
+    end
+
     def add(*assets)
       @@all.push *assets
       @@all.tap &:uniq!

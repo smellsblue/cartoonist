@@ -56,4 +56,13 @@ describe "Themes and Assets" do
     CartoonistAssets.include_js "test1.js"
     CartoonistAssets.included_js.should == ["test1.js"]
   end
+
+  it "indicates no included js when nothing was included" do
+    CartoonistAssets.included_js?.should == false
+  end
+
+  it "indicates included js when something was included" do
+    CartoonistAssets.include_js "test1.js"
+    CartoonistAssets.included_js?.should == true
+  end
 end
