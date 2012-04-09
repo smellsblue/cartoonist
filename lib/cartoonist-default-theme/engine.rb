@@ -4,7 +4,7 @@ module CartoonistDefaultTheme
   LOGO = "cartoonist-default-theme/logo.png"
 
   class Engine < ::Rails::Engine
-    CartoonistThemes.add :cartoonist_default_theme, :css => CSS, :favicon => FAVICON, :rss_logo => LOGO
-    CartoonistThemes.add_assets CSS, "images/#{FAVICON}", "images/#{LOGO}"
+    Cartoonist::Theme.add :cartoonist_default_theme, :css => CSS, :favicon => FAVICON, :rss_logo => LOGO
+    Cartoonist::Theme.add_assets CSS, "images/#{FAVICON}", "images/#{LOGO}"
   end
 end
