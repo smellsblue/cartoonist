@@ -1,6 +1,11 @@
 en:
   admin:
     comic:
+      index:
+        not_posted: Not yet posted
+        posted: Posted
+        preview: preview
+        show: show
       layout:
         edit_last: Edit Last
         edit_next: Edit Next
@@ -10,6 +15,10 @@ en:
         preview: Preview
         section: Comics
     blog:
+      index:
+        not_posted: Not yet posted
+        posted: Posted
+        preview: preview
       layout:
         latest: View Latest
         list: List
@@ -37,6 +46,11 @@ en:
       production_warning: PRODUCTION
       user_heading: "%{user}:"
     page:
+      index:
+        not_posted: Not yet posted
+        posted: Posted
+        preview: preview
+        show: show
       layout:
         list: List
         new: New Page

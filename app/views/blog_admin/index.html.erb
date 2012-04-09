@@ -1,23 +1,23 @@
-<h2>Not yet posted</h2>
+<h2><%= t "admin.blog.index.not_posted" %></h2>
 
 <ul>
   <% @unposted.each do |post| %>
     <li>
       <%= post.formatted_posted_at "" %>
       <a href="/blog_admin/<%= post.id %>/edit"><%= post.title %></a>
-      (<a href="/blog_admin/<%= post.url_title %>/preview">preview</a>)
+      (<a href="/blog_admin/<%= post.url_title %>/preview"><%= t "admin.blog.index.preview" %></a>)
     </li>
   <% end %>
 </ul>
 
-<h2>Posted</h2>
+<h2><%= t "admin.blog.index.posted" %></h2>
 
 <ul>
   <% @posted.each do |post| %>
     <li>
       <%= post.formatted_posted_at "" %>
       <a href="/blog_admin/<%= post.id %>/edit"><%= post.title %></a>
-      (<a href="/blog_admin/<%= post.url_title %>/preview">preview</a>)
+      (<a href="/blog_admin/<%= post.url_title %>/preview"><%= t "admin.blog.index.preview" %></a>)
     </li>
   <% end %>
 </ul>

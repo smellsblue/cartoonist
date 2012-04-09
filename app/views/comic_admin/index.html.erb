@@ -1,24 +1,24 @@
-<h2>Not yet posted</h2>
+<h2><%= t "admin.comic.index.not_posted" %></h2>
 
 <ul>
   <% @unposted.each do |comic| %>
     <li>
       <%= comic.formatted_posted_at "" %>
       <a href="/comic_admin/<%= comic.number %>/edit"><%= comic.title %></a>
-      (<a href="/comic_admin/<%= comic.number %>/preview">preview</a>)
+      (<a href="/comic_admin/<%= comic.number %>/preview"><%= t "admin.comic.index.preview" %></a>)
     </li>
   <% end %>
 </ul>
 
-<h2>Posted</h2>
+<h2><%= t "admin.comic.index.posted" %></h2>
 
 <ul>
   <% @posted.each do |comic| %>
     <li>
       <%= comic.formatted_posted_at "" %>
       <a href="/comic_admin/<%= comic.number %>/edit"><%= comic.title %></a>
-      (<a href="/comic_admin/<%= comic.number %>/preview">preview</a>)
-      (<a href="/<%= comic.number %>">show</a>)
+      (<a href="/comic_admin/<%= comic.number %>/preview"><%= t "admin.comic.index.preview" %></a>)
+      (<a href="/<%= comic.number %>"><%= t "admin.comic.index.show" %></a>)
     </li>
   <% end %>
 </ul>
