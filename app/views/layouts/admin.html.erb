@@ -10,7 +10,7 @@
   <body>
     <p class="tabs">
       <% Cartoonist::Admin::Tab.all.each do |tab| %>
-        <a class="tab" href="<%= Cartoonist::Admin::Tab[tab] %>"><%= t tab, :scope => "admin.layout" %></a>
+        <a class="tab" href="<%= Cartoonist::Admin::Tab[tab] %>"><%= t tab, :scope => "admin.layout.tab" %></a>
       <% end %>
       | <%= t "admin.layout.user_heading", :user => session[:user] %> <a href="/admin/logout"><%= t "admin.layout.logout" %></a>
     </p>
@@ -20,14 +20,6 @@
         <%= yield :subtabs %>
       </p>
     <% end %>
-
-    <p>
-      <a href="/admin/reload"><%= t "admin.layout.reload" %></a>
-      <a href="/cache"><%= t "admin.layout.cache" %></a>
-      <a href="/static_cache"><%= t "admin.layout.static_cache" %></a>
-      <a href="/admin/backup.json"><%= t "admin.layout.backup" %></a>
-      <a href="/settings"><%= t "admin.layout.settings" %></a>
-    </p>
 
     <% if Rails.env.production? %>
       <p style="background-color: red; color: white; font-size: 20px; font-weight: bold; text-align: center;">

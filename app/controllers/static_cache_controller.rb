@@ -1,7 +1,7 @@
 class StaticCacheController < ApplicationController
   before_filter :ensure_ssl!
   before_filter :check_admin!
-  layout "admin"
+  layout "general_admin"
 
   def index
     @caches = StaticCache.all

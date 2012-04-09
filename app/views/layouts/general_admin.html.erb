@@ -1,0 +1,10 @@
+<% content_for :subtabs do %>
+  <a class="subtab" href="/admin"><%= t "admin.layout.general.actions" %></a>
+  <a class="subtab" href="/settings"><%= t "admin.layout.settings" %></a>
+  <a class="subtab" href="/cache"><%= t "admin.layout.cache" %></a>
+  <a class="subtab" href="/static_cache"><%= t "admin.layout.static_cache" %></a>
+<% end %>
+
+<% content_for :page_title, t("admin.layout.general.section") %>
+<% content_for(:content) { yield } %>
+<%= render :template => "layouts/admin" %>

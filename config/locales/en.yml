@@ -8,7 +8,6 @@ en:
         new: New Post
         preview: Preview
         section: Blog
-      cache: Cache
       comic:
         edit_last: Edit Last
         edit_next: Edit Next
@@ -17,6 +16,12 @@ en:
         new: New Comic
         preview: Preview
         section: Comics
+      general:
+        actions: Actions
+        cache: Cache
+        section: General
+        settings: Settings
+        static_cache: Static Cache
       logout: Logout
       not_live_warning: development
       production_warning: PRODUCTION
@@ -25,8 +30,6 @@ en:
         new: New Page
         section: Pages
       reload: Update and Reload
-      settings: Settings
-      static_cache: Static Cache
       user_heading: "%{user}:"
   application:
     layout:

@@ -30,7 +30,7 @@ class AdminController < ApplicationController
   end
 
   def main
-    render :layout => "admin"
+    render :layout => "general_admin"
   end
 
   def cache_cron
