@@ -1,14 +1,7 @@
 en:
   admin:
-    layout:
-      backup: Download Backup
-      blog:
-        latest: View Latest
-        list: List
-        new: New Post
-        preview: Preview
-        section: Blog
-      comic:
+    comic:
+      layout:
         edit_last: Edit Last
         edit_next: Edit Next
         latest: View Latest
@@ -16,21 +9,38 @@ en:
         new: New Comic
         preview: Preview
         section: Comics
-      general:
+    blog:
+      layout:
+        latest: View Latest
+        list: List
+        new: New Post
+        preview: Preview
+        section: Blog
+    general:
+      actions:
+        backup: Download Backup
+        reload: Update and Reload
+      layout:
         actions: Actions
         cache: Cache
         section: General
         settings: Settings
         static_cache: Static Cache
+    layout:
+      tab:
+        blog: Blog
+        comics: Comics
+        general: General
+        pages: Pages
       logout: Logout
       not_live_warning: development
       production_warning: PRODUCTION
-      page:
+      user_heading: "%{user}:"
+    page:
+      layout:
         list: List
         new: New Page
         section: Pages
-      reload: Update and Reload
-      user_heading: "%{user}:"
   application:
     layout:
       disqus:

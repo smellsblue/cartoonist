@@ -1,10 +1,10 @@
 <% content_for :subtabs do %>
-  <a class="subtab" href="/blog"><%= t "admin.layout.blog.latest" %></a>
-  <a class="subtab" href="/blog_admin"><%= t "admin.layout.blog.list" %></a>
-  <a class="subtab" href="/blog_admin/new"><%= t "admin.layout.blog.new" %></a>
-  <a class="subtab" href="/blog_admin/preview"><%= t "admin.layout.admin.blog.preview" %></a>
+  <a class="subtab" href="/blog"><%= t "admin.blog.layout.latest" %></a>
+  <a class="subtab" href="/blog_admin"><%= t "admin.blog.layout.list" %></a>
+  <a class="subtab" href="/blog_admin/new"><%= t "admin.blog.layout.new" %></a>
+  <a class="subtab" href="/blog_admin/preview"><%= t "admin.blog.layout.preview" %></a>
 <% end %>
 
-<% content_for :page_title, t("admin.layout.blog.section") %>
+<% content_for :page_title, t("admin.blog.layout.section") %>
 <% content_for(:content) { yield } %>
 <%= render :template => "layouts/admin" %>
