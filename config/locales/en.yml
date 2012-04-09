@@ -7,7 +7,7 @@ en:
         list: List
         new: New Post
         preview: Preview
-        section: "Blog:"
+        section: Blog
       cache: Cache
       comic:
         edit_last: Edit Last
@@ -16,14 +16,14 @@ en:
         list: List
         new: New Comic
         preview: Preview
-        section: "Comic:"
+        section: Comics
       logout: Logout
       not_live_warning: development
       production_warning: PRODUCTION
       page:
         list: List
         new: New Page
-        section: "Pages:"
+        section: Pages
       reload: Update and Reload
       settings: Settings
       static_cache: Static Cache

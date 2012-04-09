@@ -1,4 +1,26 @@
 module Cartoonist
+  module Admin
+    class Tab
+      @@all = []
+      @@url_hash = {}
+
+      class << self
+        def all
+          @@all
+        end
+
+        def [](key)
+          @@url_hash[key]
+        end
+
+        def add(key, url)
+          @@all << key unless @@all.include? key
+          @@url_hash[key] = url
+        end
+      end
+    end
+  end
+
   class Asset
     @@all = []
     @@included_js = []

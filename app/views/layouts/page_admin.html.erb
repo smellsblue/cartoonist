@@ -1,0 +1,8 @@
+<% content_for :subtabs do %>
+  <a class="subtab" href="/page_admin"><%= t "admin.layout.page.list" %></a>
+  <a class="subtab" href="/page_admin/new"><%= t "admin.layout.page.new" %></a>
+<% end %>
+
+<% content_for :page_title, t("admin.layout.page.section") %>
+<% content_for(:content) { yield } %>
+<%= render :template => "layouts/admin" %>

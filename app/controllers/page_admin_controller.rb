@@ -15,11 +15,6 @@ class PageAdminController < ApplicationController
   def index
     @unposted = Page.unposted.ordered
     @posted = Page.posted.ordered
-    render :layout => "admin"
-  end
-
-  def new
-    render :layout => "admin"
   end
 
   def create
@@ -31,7 +26,6 @@ class PageAdminController < ApplicationController
 
   def edit
     @page = Page.find params[:id].to_i
-    render :layout => "admin"
   rescue ActiveRecord::RecordNotFound
     redirect_to "/page_admin/new"
   end

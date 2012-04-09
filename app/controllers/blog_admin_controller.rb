@@ -33,11 +33,6 @@ class BlogAdminController < ApplicationController
   def index
     @unposted = BlogPost.unposted.chronological
     @posted = BlogPost.posted.reversed
-    render :layout => "admin"
-  end
-
-  def new
-    render :layout => "admin"
   end
 
   def create
@@ -48,7 +43,6 @@ class BlogAdminController < ApplicationController
 
   def edit
     @post = BlogPost.find params[:id].to_i
-    render :layout => "admin"
   rescue ActiveRecord::RecordNotFound
     redirect_to "/blog_admin/new"
   end
