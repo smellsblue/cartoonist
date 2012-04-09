@@ -2,12 +2,12 @@
 <html class="<%= html_class %>">
   <head>
     <title><%= yield(:title) || Setting[:site_name] %></title>
-    <%= stylesheet_link_tag CartoonistThemes.css %>
+    <%= stylesheet_link_tag Cartoonist::Theme.css %>
     <% if @output_csrf_meta_tags %>
       <%= csrf_meta_tags %>
     <% end %>
-    <link rel="icon" href="http://<%= Setting[:domain] %><%= asset_path CartoonistThemes.favicon %>" type="image/x-icon" />
-    <link rel="shortcut icon" href="http://<%= Setting[:domain] %><%= asset_path CartoonistThemes.favicon %>" type="image/x-icon" />
+    <link rel="icon" href="http://<%= Setting[:domain] %><%= asset_path Cartoonist::Theme.favicon %>" type="image/x-icon" />
+    <link rel="shortcut icon" href="http://<%= Setting[:domain] %><%= asset_path Cartoonist::Theme.favicon %>" type="image/x-icon" />
     <link href="<%= rss_path %>" rel="alternate" title="<%= rss_title %>" type="application/rss+xml" />
     <% if !preview? && Rails.env.production? %>
       <script type="text/javascript">
@@ -130,7 +130,7 @@
         <% end %>
       </script>
     <% end %>
-    <% if CartoonistAssets.included_js? %>
+    <% if Cartoonist::Asset.included_js? %>
       <%= javascript_include_tag "application" %>
     <% end %>
   </body>

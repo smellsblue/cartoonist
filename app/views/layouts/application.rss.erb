@@ -7,7 +7,7 @@
     <pubDate><%= yield :pub_date %></pubDate>
     <lastBuildDate><%= yield :pub_date %></lastBuildDate>
     <image>
-      <url>http://<%= Setting[:domain] %><%= asset_path CartoonistThemes.rss_logo %></url>
+      <url>http://<%= Setting[:domain] %><%= asset_path Cartoonist::Theme.rss_logo %></url>
       <title><%= Setting[:site_name] %></title>
       <link>http://<%= Setting[:domain] %></link>
     </image>

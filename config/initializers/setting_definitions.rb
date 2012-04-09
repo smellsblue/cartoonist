@@ -21,7 +21,7 @@ Rails.application.config.to_prepare do
     Setting.define :site_name, :order => 2
     Setting.define :site_heading, :order => 3
     Setting.define :site_update_description, :order => 4
-    Setting.define :theme, :type => :symbol, :default => :cartoonist_default_theme, :order => 5, :select_from => lambda { CartoonistThemes.all }
+    Setting.define :theme, :type => :symbol, :default => :cartoonist_default_theme, :order => 5, :select_from => lambda { Cartoonist::Theme.all }
     Setting.define :schedule, :type => :array, :default => [:monday, :wednesday, :friday], :order => 6
     Setting.define :copyright_starting_year, :type => :int, :order => 7
     Setting.define :copyright_owners, :order => 8

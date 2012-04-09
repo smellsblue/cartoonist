@@ -4,8 +4,8 @@
     <title><%= yield(:title) || Setting[:site_name] %></title>
     <%= stylesheet_link_tag "admin.css" %>
     <%= csrf_meta_tags %>
-    <link rel="icon" href="http://<%= Setting[:domain] %><%= asset_path CartoonistThemes.favicon %>" type="image/x-icon" />
-    <link rel="shortcut icon" href="http://<%= Setting[:domain] %><%= asset_path CartoonistThemes.favicon %>" type="image/x-icon" />
+    <link rel="icon" href="http://<%= Setting[:domain] %><%= asset_path Cartoonist::Theme.favicon %>" type="image/x-icon" />
+    <link rel="shortcut icon" href="http://<%= Setting[:domain] %><%= asset_path Cartoonist::Theme.favicon %>" type="image/x-icon" />
   </head>
   <body>
     <p>
