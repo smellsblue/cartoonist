@@ -1,21 +1,39 @@
 module Cartoonist
   module Admin
     class Tab
-      @@all = []
-      @@url_hash = {}
+      attr_reader :key, :url, :order
+
+      @@all = {}
+      @@cached_order = []
+
+      def initialize(key, options)
+        @key = key
+        @url = options[:url]
+        @order = options[:order]
+      end
 
       class << self
         def all
-          @@all
+          @@cached_order
         end
 
         def [](key)
-          @@url_hash[key]
+          @@all[key].url
         end
 
-        def add(key, url)
-          @@all << key unless @@all.include? key
-          @@url_hash[key] = url
+        def add(key, options)
+          @@all[key] = Cartoonist::Admin::Tab.new key, options
+          @@cached_order = @@all.values.sort do |a, b|
+            if a.order && b.order
+              a.order <=> b.order
+            elsif a.order && !b.order
+              -1
+            elsif b.order && !a.order
+              1
+            else
+              a.key <=> b.key
+            end
+          end.map &:key
         end
       end
     end
