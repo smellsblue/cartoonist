@@ -30,4 +30,4 @@ group :test do
 end
 
 gem "cartoonist-default-theme"
-gem "cartoonist-notifications"
+gem "cartoonist-announcements"
