@@ -1,6 +1,15 @@
 en:
   admin:
     announcements:
+      index:
+        active: Currently active
+        expired: Expired
+        not_posted: Not yet posted
+      layout:
+        list: List
+        new: New Announcement
+        preview: Preview
+        section: Announcements
     layout:
       tab:
         announcements: Announcements
