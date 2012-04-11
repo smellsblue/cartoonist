@@ -71,6 +71,9 @@ module Cartoonist
     end
   end
 
+  # Ultimately this will have 3 sections to add from... the beggining,
+  # middle or end.  However, this isn't needed until comics and pages
+  # are pushed out to gems.
   class Routes
     @@all = []
 
