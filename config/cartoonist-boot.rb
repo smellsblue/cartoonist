@@ -71,6 +71,22 @@ module Cartoonist
     end
   end
 
+  class Routes
+    @@all = []
+
+    class << self
+      def add(&block)
+        @@all << block
+      end
+
+      def load!(instance)
+        @@all.each do |routes|
+          instance.instance_exec &routes
+        end
+      end
+    end
+  end
+
   class Theme
     @@all = []
     @@themes = {}

@@ -91,5 +91,6 @@ Cartoonist::Application.routes.draw do
     end
   end
 
+  Cartoonist::Routes.load! self
   match ":id", :controller => "page", :action => "show"
 end
