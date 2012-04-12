@@ -71,12 +71,30 @@ module Cartoonist
     end
   end
 
+  class Backup
+    @@all = {}
+
+    class << self
+      def all
+        @@all
+      end
+
+      def for(key, &block)
+        @@all[key.to_sym] = block
+      end
+    end
+  end
+
   class Migration
     @@all = []
 
     class << self
       def all
         @@all
+      end
+
+      def add_for(engine)
+        add_dirs engine.paths["db/migrate"].existent
       end
 
       def add_dirs(*dirs)
