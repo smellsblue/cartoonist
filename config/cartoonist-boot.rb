@@ -71,6 +71,21 @@ module Cartoonist
     end
   end
 
+  class Migration
+    @@all = []
+
+    class << self
+      def all
+        @@all
+      end
+
+      def add_dirs(*dirs)
+        @@all.push *dirs
+        @@all.tap &:uniq!
+      end
+    end
+  end
+
   # Ultimately this will have 3 sections to add from... the beggining,
   # middle or end.  However, this isn't needed until comics and pages
   # are pushed out to gems.

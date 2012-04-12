@@ -46,5 +46,10 @@ module Cartoonist
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    # Add in various configuration from plugins
+    config.assets.precompile += ["admin.css"]
+    config.assets.precompile += Cartoonist::Asset.all
+    config.paths["db/migrate"] += Cartoonist::Migration.all
   end
 end
