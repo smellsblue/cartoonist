@@ -3,5 +3,8 @@ class AnnouncementsAdminController < ApplicationController
   before_filter :check_admin!
 
   def index
+    @unposted = Announcement.future.all
+    @active = Announcement.active.all
+    @expired = Announcement.expired.all
   end
 end
