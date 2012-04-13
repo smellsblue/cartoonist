@@ -1,0 +1,16 @@
+en:
+  admin:
+    blog:
+      index:
+        not_posted: Not yet posted
+        posted: Posted
+        preview: preview
+      layout:
+        latest: View Latest
+        list: List
+        new: New Post
+        preview: Preview
+        section: Blog
+    layout:
+      tab:
+        blog: Blog
