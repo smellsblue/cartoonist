@@ -2,12 +2,12 @@
 <html class="<%= html_class %>">
   <head>
     <title><%= yield(:title) || Setting[:site_name] %></title>
-    <%= stylesheet_link_tag CartoonistThemes.css %>
+    <%= stylesheet_link_tag Cartoonist::Theme.css %>
     <% if @output_csrf_meta_tags %>
       <%= csrf_meta_tags %>
     <% end %>
-    <link rel="icon" href="http://<%= Setting[:domain] %><%= asset_path CartoonistThemes.favicon %>" type="image/x-icon" />
-    <link rel="shortcut icon" href="http://<%= Setting[:domain] %><%= asset_path CartoonistThemes.favicon %>" type="image/x-icon" />
+    <link rel="icon" href="http://<%= Setting[:domain] %><%= asset_path Cartoonist::Theme.favicon %>" type="image/x-icon" />
+    <link rel="shortcut icon" href="http://<%= Setting[:domain] %><%= asset_path Cartoonist::Theme.favicon %>" type="image/x-icon" />
     <link href="<%= rss_path %>" rel="alternate" title="<%= rss_title %>" type="application/rss+xml" />
     <% if !preview? && Rails.env.production? %>
       <script type="text/javascript">
@@ -97,39 +97,41 @@
           </div>
         <% end %>
       </div>
-
-      <% if @disqus_enabled && Rails.env.production? %>
-        <script type="text/javascript">
-          var disqus_shortname = "<%= j Setting[:disqus_shortname] %>";
-          var disqus_title = "<%= j @disqus_options[:title] %>";
-          var disqus_category_id = "<%= j @disqus_options[:category].to_s %>";
-          var disqus_identifier = "/<%= j @disqus_options[:path] %>";
-          var disqus_url = "http://<%= j Setting[:domain] %>/<%= j @disqus_options[:path] %>";
-          <% if @disqus_options[:count_link] %>
-            (function () {
-              var s = document.createElement('script'); s.async = true;
-              s.type = 'text/javascript';
-              s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
-              (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(s);
-            }());
-
-            var comments = document.getElementById("disqus_comments");
-            comments.onclick = function() {
-              document.getElementById("disqus_thread").removeChild(comments);
-              var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-              dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-              (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-              return false;
-            };
-          <% else %>
-            (function() {
-              var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-              dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-              (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-            })();
-          <% end %>
-        </script>
-      <% end %>
     </div>
+    <% if @disqus_enabled && Rails.env.production? %>
+      <script type="text/javascript">
+        var disqus_shortname = "<%= j Setting[:disqus_shortname] %>";
+        var disqus_title = "<%= j @disqus_options[:title] %>";
+        var disqus_category_id = "<%= j @disqus_options[:category].to_s %>";
+        var disqus_identifier = "/<%= j @disqus_options[:path] %>";
+        var disqus_url = "http://<%= j Setting[:domain] %>/<%= j @disqus_options[:path] %>";
+        <% if @disqus_options[:count_link] %>
+          (function () {
+            var s = document.createElement('script'); s.async = true;
+            s.type = 'text/javascript';
+            s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(s);
+          }());
+
+          var comments = document.getElementById("disqus_comments");
+          comments.onclick = function() {
+            document.getElementById("disqus_thread").removeChild(comments);
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            return false;
+          };
+        <% else %>
+          (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+        <% end %>
+      </script>
+    <% end %>
+    <% if Cartoonist::Asset.included_js? %>
+      <%= javascript_include_tag "application" %>
+    <% end %>
   </body>
 </html>

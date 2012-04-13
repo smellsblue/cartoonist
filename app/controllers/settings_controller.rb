@@ -8,7 +8,7 @@ class SettingsController < ApplicationController
 
   def show
     @tab = Setting::Tab[params[:id]]
-    render :layout => "admin"
+    render :layout => "general_admin"
   end
 
   def update

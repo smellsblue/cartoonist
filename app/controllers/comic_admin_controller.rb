@@ -6,7 +6,6 @@ class ComicAdminController < ApplicationController
   def index
     @unposted = Comic.unposted.numerical
     @posted = Comic.posted.reverse_numerical
-    render :layout => "admin"
   end
 
   def preview
@@ -45,7 +44,6 @@ class ComicAdminController < ApplicationController
     @next_number = Comic.next_number last
     @next_post_date = Comic.next_post_date last
     @edit_last_number = last.number if last
-    render :layout => "admin"
   end
 
   def create
@@ -64,7 +62,6 @@ class ComicAdminController < ApplicationController
     @comic = Comic.from_number params[:id]
     @edit_last_number = @comic.number - 1
     @edit_next_number = @comic.number + 1
-    render :layout => "admin"
   rescue ActiveRecord::RecordNotFound
     redirect_to "/comic_admin/new"
   end
