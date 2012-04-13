@@ -38,7 +38,7 @@ class Setting < ActiveRecord::Base
   end
 
   class Meta
-    attr_reader :label, :tab, :section, :order, :type, :default, :onchange
+    attr_reader :label, :tab, :section, :order, :type, :default, :onchange, :select_from
     @@settings = {}
     @@by_tab_section_and_label = {}
 
@@ -49,6 +49,7 @@ class Setting < ActiveRecord::Base
       @order = (options[:order] || 0)
       @type = (options[:type] || :string).to_sym
       @onchange = options[:onchange]
+      @select_from = options[:select_from]
       raise "Invalid setting type #{@type}" unless [:string, :symbol, :boolean, :int, :float, :array, :hash].include? @type
 
       # Auto create general tab and section if it isn't created
@@ -76,6 +77,14 @@ class Setting < ActiveRecord::Base
         @default = []
       elsif @type == :hash
         @default = {}
+      end
+    end
+
+    def select_from_options
+      if select_from.respond_to? :call
+        select_from.call
+      else
+        select_from
       end
     end
 

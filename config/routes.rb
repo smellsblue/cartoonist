@@ -18,6 +18,12 @@ Cartoonist::Application.routes.draw do
     end
   end
 
+  resources :static_cache, :constraints => { :id => /.*/ } do
+    collection do
+      post "expire_all"
+    end
+  end
+
   resources :admin do
     collection do
       get "cache_cron"
@@ -85,5 +91,6 @@ Cartoonist::Application.routes.draw do
     end
   end
 
+  Cartoonist::Routes.load! self
   match ":id", :controller => "page", :action => "show"
 end

@@ -2,39 +2,24 @@
 <html>
   <head>
     <title><%= yield(:title) || Setting[:site_name] %></title>
+    <%= stylesheet_link_tag "admin.css" %>
     <%= csrf_meta_tags %>
-    <link rel="icon" href="http://<%= Setting[:domain] %><%= asset_path CartoonistThemes.favicon %>" type="image/x-icon" />
-    <link rel="shortcut icon" href="http://<%= Setting[:domain] %><%= asset_path CartoonistThemes.favicon %>" type="image/x-icon" />
+    <link rel="icon" href="http://<%= Setting[:domain] %><%= asset_path Cartoonist::Theme.favicon %>" type="image/x-icon" />
+    <link rel="shortcut icon" href="http://<%= Setting[:domain] %><%= asset_path Cartoonist::Theme.favicon %>" type="image/x-icon" />
   </head>
   <body>
-    <p>
-      <a href="/admin/reload"><%= t "admin.layout.reload" %></a>
-      <a href="/cache"><%= t "admin.layout.cache" %></a>
-      <a href="/admin/backup.json"><%= t "admin.layout.backup" %></a>
-      <a href="/settings"><%= t "admin.layout.settings" %></a>
+    <p class="tabs">
+      <% Cartoonist::Admin::Tab.all.each do |tab| %>
+        <a class="tab" href="<%= Cartoonist::Admin::Tab[tab] %>"><%= t tab, :scope => "admin.layout.tab" %></a>
+      <% end %>
       | <%= t "admin.layout.user_heading", :user => session[:user] %> <a href="/admin/logout"><%= t "admin.layout.logout" %></a>
     </p>
-    <p>
-      <%= t "admin.layout.comic.section" %>
-      <a href="/"><%= t "admin.layout.comic.latest" %></a>
-      <a href="/comic_admin"><%= t "admin.layout.comic.list" %></a>
-      <a href="/comic_admin/new"><%= t "admin.layout.comic.new" %></a>
-      <% if @edit_last_number && @edit_last_number > 0 %>
-        <a href="/comic_admin/<%= @edit_last_number %>/edit"><%= t "admin.layout.comic.edit_last" %></a>
-      <% end %>
-      <% if @edit_next_number %>
-        <a href="/comic_admin/<%= @edit_next_number %>/edit"><%= t "admin.layout.comic.edit_next" %></a>
-      <% end %>
-      <a href="/comic_admin/preview"><%= t "admin.layout.comic.preview" %></a>
-      | <%= t "admin.layout.blog.section" %>
-      <a href="/blog"><%= t "admin.layout.blog.latest" %></a>
-      <a href="/blog_admin"><%= t "admin.layout.blog.list" %></a>
-      <a href="/blog_admin/new"><%= t "admin.layout.blog.new" %></a>
-      <a href="/blog_admin/preview"><%= t "admin.layout.admin.blog.preview" %></a>
-      | <%= t "admin.layout.page.section" %>
-      <a href="/page_admin"><%= t "admin.layout.page.list" %></a>
-      <a href="/page_admin/new"><%= t "admin.layout.page.new" %></a>
-    </p>
+
+    <% if content_for? :subtabs %>
+      <p class="subtabs">
+        <%= yield :subtabs %>
+      </p>
+    <% end %>
 
     <% if Rails.env.production? %>
       <p style="background-color: red; color: white; font-size: 20px; font-weight: bold; text-align: center;">
@@ -52,6 +37,7 @@
       </p>
     <% end %>
 
-    <%= yield %>
+    <h1><%= yield :page_title %></h1>
+    <%= content_for?(:content) ? yield(:content) : yield %>
   </body>
 </html>

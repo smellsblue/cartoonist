@@ -1,54 +1,30 @@
-<style>
-  tbody tr:nth-of-type(odd) {
-    background-color: #ddd;
-  }
-
-  tbody tr:nth-of-type(odd) .cached {
-    background-color: #0c0;
-  }
-
-  tbody tr:nth-of-type(even) .cached {
-    background-color: #5f5;
-  }
-
-  tbody tr:nth-of-type(odd) .not-cached {
-    background-color: #c00;
-  }
-
-  tbody tr:nth-of-type(even) .not-cached {
-    background-color: #f55;
-  }
-
-  form { display: inline-block; }
-</style>
-
 <p>
-  <%= form_tag "/cache/expire_www", :method => :post do %>
-    <input type="submit" value="Expire www" />
+  <%= form_tag "/cache/expire_www", :method => :post, :class => "inline" do %>
+    <input type="submit" value="<%= t "cache.index.expire_www" %>" />
   <% end %>
 
-  <%= form_tag "/cache/expire_m", :method => :post do %>
-    <input type="submit" value="Expire m" />
+  <%= form_tag "/cache/expire_m", :method => :post, :class => "inline" do %>
+    <input type="submit" value="<%= t "cache.index.expire_m" %>" />
   <% end %>
 
-  <%= form_tag "/cache/expire_tmp", :method => :post do %>
-    <input type="submit" value="Expire tmp" />
+  <%= form_tag "/cache/expire_tmp", :method => :post, :class => "inline" do %>
+    <input type="submit" value="<%= t "cache.index.expire_tmp" %>" />
   <% end %>
 
-  <%= form_tag "/cache/expire_all", :method => :post do %>
-    <input type="submit" value="Expire all" />
+  <%= form_tag "/cache/expire_all", :method => :post, :class => "inline" do %>
+    <input type="submit" value="<%= t "cache.index.expire_all" %>" />
   <% end %>
 </p>
 
 <p>
-  <table>
+  <table class="cache">
     <thead>
       <tr>
-        <th>Page</th>
-        <th>www</th>
-        <th>m</th>
-        <th>www tmp</th>
-        <th>m tmp</th>
+        <th><%= t "cache.index.page" %></th>
+        <th><%= t "cache.index.www" %></th>
+        <th><%= t "cache.index.m" %></th>
+        <th><%= t "cache.index.www_tmp" %></th>
+        <th><%= t "cache.index.m_tmp" %></th>
         <th></th>
       </tr>
     </thead>
@@ -74,8 +50,8 @@
           </td>
 
           <td>
-            <%= form_tag "/cache/#{u cache.name}", :method => :delete do %>
-              <input type="submit" value="Expire" />
+            <%= form_tag "/cache/#{u cache.delete_name}", :method => :delete do %>
+              <input type="submit" value="<%= t "cache.index.expire" %>" />
             <% end %>
           </td>
         </tr>

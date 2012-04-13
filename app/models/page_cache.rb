@@ -15,6 +15,14 @@ class PageCache
     end
   end
 
+  def delete_name
+    if name == ""
+      "INDEX"
+    else
+      name
+    end
+  end
+
   def www?
     return @www_exists unless @www_exists.nil?
     @www_exists = File.exists? File.join(CACHE_PATH, "#{name}.www.html")
@@ -46,6 +54,7 @@ class PageCache
 
   class << self
     def find(name)
+      name = "" if name == "INDEX"
       actual = cache_names.select { |x| x == name }.first
       raise ActiveRecord::RecordNotFound.new("No records found!") unless actual
       PageCache.new actual
