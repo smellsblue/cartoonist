@@ -14,17 +14,6 @@ en:
         new: New Comic
         preview: Preview
         section: Comics
-    blog:
-      index:
-        not_posted: Not yet posted
-        posted: Posted
-        preview: preview
-      layout:
-        latest: View Latest
-        list: List
-        new: New Post
-        preview: Preview
-        section: Blog
     general:
       actions:
         backup: Download Backup
@@ -37,7 +26,6 @@ en:
         static_cache: Static Cache
     layout:
       tab:
-        blog: Blog
         comics: Comics
         general: General
         pages: Pages
