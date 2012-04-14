@@ -7,10 +7,6 @@ Rails.application.config.to_prepare do
     DatabaseFile.order(:id).all
   end
 
-  Cartoonist::Backup.for :blog_posts do
-    BlogPost.order(:id).all
-  end
-
   Cartoonist::Backup.for :pages do
     Page.order(:id).all
   end

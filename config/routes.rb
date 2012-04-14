@@ -44,13 +44,6 @@ Cartoonist::Application.routes.draw do
     end
   end
 
-  resources :blog do
-    collection do
-      get "archives"
-      get "feed", :defaults => { :format => "rss" }
-    end
-  end
-
   resources :comic_admin do
     member do
       post "lock"
@@ -61,19 +54,6 @@ Cartoonist::Application.routes.draw do
     collection do
       get "preview"
       get "preview_random"
-    end
-  end
-
-  resources :blog_admin do
-    member do
-      post "lock"
-      get "preview"
-      post "unlock"
-    end
-
-    collection do
-      get "preview"
-      post "preview_content"
     end
   end
 
