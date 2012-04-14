@@ -1,10 +1,4 @@
 Cartoonist::Application.routes.draw do
-  root :to => "comic#current"
-  match ":id", :controller => "comic", :action => "show", :id => /\d+/
-  match "comic/:id.png", :controller => "comic", :action => "show", :id => /\d+/, :defaults => { :format => "png" }
-  match "current" => "comic#current"
-  match "random" => "comic#random"
-  match "feed" => "comic#index", :defaults => { :format => "rss" }
   match "favicon" => "site#favicon", :defaults => { :format => "ico" }
   match "sitemap" => "site#sitemap", :defaults => { :format => "xml" }
   match "robots" => "site#robots", :defaults => { :format => "text" }
@@ -41,19 +35,6 @@ Cartoonist::Application.routes.draw do
     collection do
       get "initial_setup"
       post "save_initial_setup"
-    end
-  end
-
-  resources :comic_admin do
-    member do
-      post "lock"
-      get "preview"
-      post "unlock"
-    end
-
-    collection do
-      get "preview"
-      get "preview_random"
     end
   end
 
