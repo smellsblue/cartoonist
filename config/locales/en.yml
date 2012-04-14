@@ -1,0 +1,19 @@
+en:
+  admin:
+    comic:
+      index:
+        not_posted: Not yet posted
+        posted: Posted
+        preview: preview
+        show: show
+      layout:
+        edit_last: Edit Last
+        edit_next: Edit Next
+        latest: View Latest
+        list: List
+        new: New Comic
+        preview: Preview
+        section: Comics
+    layout:
+      tab:
+        comics: Comics

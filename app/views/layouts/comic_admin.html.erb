@@ -1,0 +1,16 @@
+<% content_for :subtabs do %>
+  <a class="subtab" href="/"><%= t "admin.comic.layout.latest" %></a>
+  <a class="subtab" href="/comic_admin"><%= t "admin.comic.layout.list" %></a>
+  <a class="subtab" href="/comic_admin/new"><%= t "admin.comic.layout.new" %></a>
+  <% if @edit_last_number && @edit_last_number > 0 %>
+    <a class="subtab" href="/comic_admin/<%= @edit_last_number %>/edit"><%= t "admin.comic.layout.edit_last" %></a>
+  <% end %>
+  <% if @edit_next_number %>
+    <a class="subtab" href="/comic_admin/<%= @edit_next_number %>/edit"><%= t "admin.comic.layout.edit_next" %></a>
+  <% end %>
+  <a class="subtab" href="/comic_admin/preview"><%= t "admin.comic.layout.preview" %></a>
+<% end %>
+
+<% content_for :page_title, t("admin.comic.layout.section") %>
+<% content_for(:content) { yield } %>
+<%= render :template => "layouts/admin" %>
