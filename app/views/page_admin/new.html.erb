@@ -1,0 +1,51 @@
+<%= form_tag "/page_admin", :method => :post do %>
+  <p>
+    Path: <input type="text" name="path" autofocus="autofocus" size="20" /><br />
+  </p>
+
+  <p>
+    Title: <input type="text" name="title" size="100" /><br />
+  </p>
+
+  <p>
+    Content:<br />
+    <textarea name="content" rows="20" cols="100"></textarea><br />
+  </p>
+
+  <p>
+    <input type="submit" value="Save" />
+    <input type="button" value="Preview" class="preview-content" />
+  </p>
+<% end %>
+
+<hr />
+
+<div class="preview-content">
+</div>
+
+<%= javascript_include_tag "https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" %>
+<%= javascript_tag do %>
+  $(function() {
+    $(".preview-content").click(function() {
+      var $this = $(this).attr("disabled", "disabled");
+      $.ajax({
+        url: "/page_admin/preview_content",
+        type: "post",
+        data: {
+          authenticity_token: $("form input[name='authenticity_token']").val(),
+          content: $("textarea[name='content']").val()
+        },
+        dataType: "text",
+        success: function(text) {
+          $(".preview-content").html(text);
+          $this.removeAttr("disabled");
+        },
+        error: function() {
+          $(".preview-content").html('<div style="color: red;">There was an error.</div>');
+          $this.removeAttr("disabled");
+        }
+      });
+      return false;
+    });
+  });
+<% end %>

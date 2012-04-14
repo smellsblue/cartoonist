@@ -1,4 +1,30 @@
 module CartoonistPages
   class Engine < ::Rails::Engine
+    Cartoonist::Admin::Tab.add :pages, :url => "/page_admin", :order => 2
+    Cartoonist::Migration.add_for self
+
+    Cartoonist::Backup.for :pages do
+      Page.order(:id).all
+    end
+
+    Cartoonist::Routes.add_end do
+      match ":id", :controller => "page", :action => "show"
+    end
+
+    Cartoonist::Routes.add do
+      resources :page_admin do
+        member do
+          post "lock"
+          post "post"
+          get "preview"
+          post "unlock"
+          post "unpost"
+        end
+
+        collection do
+          post "preview_content"
+        end
+      end
+    end
   end
 end
