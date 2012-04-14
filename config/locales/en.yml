@@ -28,21 +28,10 @@ en:
       tab:
         comics: Comics
         general: General
-        pages: Pages
       logout: Logout
       not_live_warning: development
       production_warning: PRODUCTION
       user_heading: "%{user}:"
-    page:
-      index:
-        not_posted: Not yet posted
-        posted: Posted
-        preview: preview
-        show: show
-      layout:
-        list: List
-        new: New Page
-        section: Pages
   application:
     layout:
       disqus:
