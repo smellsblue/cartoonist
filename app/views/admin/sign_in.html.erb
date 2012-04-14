@@ -1,0 +1,19 @@
+<% if flash[:error] %>
+  <p style="color: red;">
+    <%= flash[:error] %>
+  </p>
+<% end %>
+
+<%= form_tag "/admin/sign_in", :method => :post do %>
+  <p>
+    Username: <input type="text" name="username" autofocus="autofocus" />
+  </p>
+
+  <p>
+    Password: <input type="password" name="password" />
+  </p>
+
+  <p>
+    <input type="submit" value="Sign in" />
+  </p>
+<% end %>

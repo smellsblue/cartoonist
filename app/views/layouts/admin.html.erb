@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= yield(:title) || Setting[:site_name] %></title>
+    <%= stylesheet_link_tag "admin.css" %>
+    <%= csrf_meta_tags %>
+    <link rel="icon" href="http://<%= Setting[:domain] %><%= asset_path Cartoonist::Theme.favicon %>" type="image/x-icon" />
+    <link rel="shortcut icon" href="http://<%= Setting[:domain] %><%= asset_path Cartoonist::Theme.favicon %>" type="image/x-icon" />
+  </head>
+  <body>
+    <p class="tabs">
+      <% Cartoonist::Admin::Tab.all.each do |tab| %>
+        <a class="tab" href="<%= Cartoonist::Admin::Tab[tab] %>"><%= t tab, :scope => "admin.layout.tab" %></a>
+      <% end %>
+      | <%= t "admin.layout.user_heading", :user => session[:user] %> <a href="/admin/logout"><%= t "admin.layout.logout" %></a>
+    </p>
+
+    <% if content_for? :subtabs %>
+      <p class="subtabs">
+        <%= yield :subtabs %>
+      </p>
+    <% end %>
+
+    <% if Rails.env.production? %>
+      <p style="background-color: red; color: white; font-size: 20px; font-weight: bold; text-align: center;">
+        <%= t "admin.layout.production_warning" %>
+      </p>
+    <% else %>
+      <p style="background-color: yellow; color: black; font-size: 20px; text-align: center;">
+        <%= t "admin.layout.not_live_warning" %>
+      </p>
+    <% end %>
+
+    <% if flash[:message] %>
+      <p style="color: red;">
+        <%= flash[:message] %>
+      </p>
+    <% end %>
+
+    <h1><%= yield :page_title %></h1>
+    <%= content_for?(:content) ? yield(:content) : yield %>
+  </body>
+</html>
