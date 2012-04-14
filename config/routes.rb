@@ -57,20 +57,5 @@ Cartoonist::Application.routes.draw do
     end
   end
 
-  resources :page_admin do
-    member do
-      post "lock"
-      post "post"
-      get "preview"
-      post "unlock"
-      post "unpost"
-    end
-
-    collection do
-      post "preview_content"
-    end
-  end
-
   Cartoonist::Routes.load! self
-  match ":id", :controller => "page", :action => "show"
 end

@@ -104,19 +104,34 @@ module Cartoonist
     end
   end
 
-  # Ultimately this will have 3 sections to add from... the beggining,
-  # middle or end.  However, this isn't needed until comics and pages
-  # are pushed out to gems.
   class Routes
-    @@all = []
+    @@begin = []
+    @@middle = []
+    @@end = []
 
     class << self
+      def add_begin(&block)
+        @@begin << block
+      end
+
       def add(&block)
-        @@all << block
+        @@middle << block
+      end
+
+      def add_end(&block)
+        @@end << block
       end
 
       def load!(instance)
-        @@all.each do |routes|
+        @@begin.each do |routes|
+          instance.instance_exec &routes
+        end
+
+        @@middle.each do |routes|
+          instance.instance_exec &routes
+        end
+
+        @@end.each do |routes|
           instance.instance_exec &routes
         end
       end
