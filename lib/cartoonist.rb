@@ -138,6 +138,20 @@ module Cartoonist
     end
   end
 
+  class Sitemap
+    @@all = []
+
+    class << self
+      def all
+        @all.map(&:call).flatten
+      end
+
+      def add(&block)
+        @@all << block
+      end
+    end
+  end
+
   class Theme
     @@all = []
     @@themes = {}

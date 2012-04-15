@@ -1,38 +1,12 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <% @comics.each do |comic| %>
+  <% @entries do |entry| %>
     <url>
-      <loc>http://<%= Setting[:domain] %>/<%= comic.number %></loc>
-      <lastmod><%= comic.posted_at.strftime "%Y-%m-%d" %></lastmod>
-      <changefreq>never</changefreq>
-    </url>
-  <% end %>
-  <% @blog_posts.each do |post| %>
-    <url>
-      <loc>http://<%= Setting[:domain] %>/blog/<%= post.url_title %></loc>
-      <lastmod><%= post.posted_at.strftime "%Y-%m-%d" %></lastmod>
-      <changefreq>never</changefreq>
-    </url>
-  <% end %>
-  <url>
-    <loc>http://<%= Setting[:domain] %>/</loc>
-    <lastmod><%= @comics.first.posted_at.strftime "%Y-%m-%d" %></lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1.0</priority>
-  </url>
-  <% unless @blog_posts.empty? %>
-    <url>
-      <loc>http://<%= Setting[:domain] %>/blog</loc>
-      <lastmod><%= @blog_posts.first.posted_at.strftime "%Y-%m-%d" %></lastmod>
-      <changefreq>weekly</changefreq>
-      <priority>0.9</priority>
-    </url>
-  <% end %>
-  <% @pages.each do |page| %>
-    <url>
-      <loc>http://<%= Setting[:domain] %>/<%= page.path %></loc>
-      <lastmod><%= page.posted_at.strftime "%Y-%m-%d" %></lastmod>
-      <changefreq>monthly</changefreq>
-      <priority>0.4</priority>
+      <loc>http://<%= Setting[:domain] %><%= entry.path %></loc>
+      <lastmod><%= entry.formatted_lastmod %></lastmod>
+      <changefreq><%= entry.changefreq %></changefreq>
+      <% if entry.priority %>
+        <priority><%= entry.priority %></priority>
+      <% end %>
     </url>
   <% end %>
 </urlset>
