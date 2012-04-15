@@ -7,6 +7,21 @@ module CartoonistBlog
       BlogPost.order(:id).all
     end
 
+    Cartoonist::Sitemap.add do
+      posts = BlogPost.sitemap
+
+      result = posts.map do |post|
+        SitemapEntry.new "/blog/#{post.url_title}", post.posted_at, :never
+      end
+
+      unless result.empty?
+        first = posts.first
+        result << SitemapEntry.new "/blog", first.posted_at, :weekly, "0.9"
+      end
+
+      result
+    end
+
     Cartoonist::Routes.add do
       resources :blog do
         collection do
