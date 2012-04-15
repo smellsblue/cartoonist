@@ -16,7 +16,7 @@ module CartoonistBlog
 
       unless result.empty?
         first = posts.first
-        result << SitemapEntry.new "/blog", first.posted_at, :weekly, "0.9"
+        result << SitemapEntry.new("/blog", first.posted_at, :weekly, "0.9")
       end
 
       result
