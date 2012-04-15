@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name          = "cartoonist"
   s.version       = "0.0.4"
-  s.date          = "2012-04-13"
+  s.date          = Time.now.strftime "%Y-%m-%d"
   s.summary       = "Cartoonist Core"
   s.description   = "This provides the main functionality and plugin api for Cartoonist."
   s.authors       = ["Mike Virata-Stone"]
