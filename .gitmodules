@@ -1,0 +1,18 @@
+[submodule "cartoonist-announcements"]
+	path = cartoonist-announcements
+	url = git@github.com:mikestone/cartoonist-announcements.git
+[submodule "cartoonist-blog"]
+	path = cartoonist-blog
+	url = git@github.com:mikestone/cartoonist-blog.git
+[submodule "cartoonist-comics"]
+	path = cartoonist-comics
+	url = git@github.com:mikestone/cartoonist-comics.git
+[submodule "cartoonist-core"]
+	path = cartoonist-core
+	url = git@github.com:mikestone/cartoonist-core.git
+[submodule "cartoonist-default-theme"]
+	path = cartoonist-default-theme
+	url = git@github.com:mikestone/cartoonist-default-theme.git
+[submodule "cartoonist-pages"]
+	path = cartoonist-pages
+	url = git@github.com:mikestone/cartoonist-pages.git
