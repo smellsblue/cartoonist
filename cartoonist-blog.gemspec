@@ -1,6 +1,7 @@
 Gem::Specification.new do |s|
   s.name          = "cartoonist-blog"
-  s.version       = "0.0.4"
+  raise "Cannot find version file!" unless File.exists?(File.join(File.dirname(__FILE__), "../CARTOONIST_VERSION"))
+  s.version       = File.read File.join(File.dirname(__FILE__), "../CARTOONIST_VERSION")
   s.date          = Time.now.strftime "%Y-%m-%d"
   s.summary       = "Cartoonist Blog"
   s.description   = "This core plugin for Cartoonist adds a simple blog."
