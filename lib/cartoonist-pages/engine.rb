@@ -7,6 +7,12 @@ module CartoonistPages
       Page.order(:id).all
     end
 
+    Cartoonist::Sitemap.add do
+      Page.sitemap.map do |page|
+        SitemapEntry.new "/#{page.path}", page.posted_at, :monthly, "0.4"
+      end
+    end
+
     Cartoonist::Routes.add_end do
       match ":id", :controller => "page", :action => "show"
     end
