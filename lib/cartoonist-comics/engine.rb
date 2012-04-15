@@ -10,7 +10,7 @@ module CartoonistComics
     Cartoonist::Sitemap.add do
       comics = Comic.sitemap
 
-      result = commics.map do |comic|
+      result = comics.map do |comic|
         SitemapEntry.new "/#{comic.number}", comic.posted_at, :never
       end
 
