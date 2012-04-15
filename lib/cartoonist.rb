@@ -194,5 +194,3 @@ module Cartoonist
 
   require "cartoonist/engine"
 end
-
-CartoonistThemes = Cartoonist::Theme
