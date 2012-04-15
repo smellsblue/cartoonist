@@ -18,6 +18,11 @@ class CartoonistGem
     system_exec "cd #{File.join File.dirname(__FILE__), @dir} && gem install #{@gemname}-#{CartoonistGem.version}.gem"
   end
 
+  def push
+    puts "Pushing #{@gemname}"
+    system_exec "cd #{File.join File.dirname(__FILE__), @dir} && gem push #{@gemname}-#{CartoonistGem.version}.gem"
+  end
+
   class << self
     def version
       @@version ||= File.read(File.join(File.dirname(__FILE__), "CARTOONIST_VERSION")).strip
@@ -40,4 +45,8 @@ end
 
 task :install => :build do
   CARTOONIST_GEMS.each &:install
+end
+
+task :push => :build do
+  CARTOONIST_GEMS.each &:push
 end
