@@ -143,7 +143,7 @@ module Cartoonist
 
     class << self
       def all
-        @all.map(&:call).flatten
+        @@all.map(&:call).flatten
       end
 
       def add(&block)
