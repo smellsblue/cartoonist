@@ -7,6 +7,18 @@ module CartoonistComics
       Comic.order(:id).all
     end
 
+    Cartoonist::Sitemap.add do
+      comics = Comic.sitemap
+
+      result = commics.map do |comic|
+        SitemapEntry.new "/#{comic.number}", comic.posted_at, :never
+      end
+
+      first = comics.first
+      result << SitemapEntry.new("/", first.posted_at, :daily, "1.0")
+      result
+    end
+
     Cartoonist::Routes.add_begin do
       root :to => "comic#current"
       match ":id", :controller => "comic", :action => "show", :id => /\d+/
