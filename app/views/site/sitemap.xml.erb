@@ -1,5 +1,5 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <% @entries do |entry| %>
+  <% @entries.each do |entry| %>
     <url>
       <loc>http://<%= Setting[:domain] %><%= entry.path %></loc>
       <lastmod><%= entry.formatted_lastmod %></lastmod>
