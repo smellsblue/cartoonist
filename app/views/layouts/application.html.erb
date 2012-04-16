@@ -8,7 +8,9 @@
     <% end %>
     <link rel="icon" href="http://<%= Setting[:domain] %><%= asset_path Cartoonist::Theme.favicon %>" type="image/x-icon" />
     <link rel="shortcut icon" href="http://<%= Setting[:domain] %><%= asset_path Cartoonist::Theme.favicon %>" type="image/x-icon" />
-    <link href="<%= rss_path %>" rel="alternate" title="<%= rss_title %>" type="application/rss+xml" />
+    <% if rss? %>
+      <link href="<%= rss_path %>" rel="alternate" title="<%= rss_title %>" type="application/rss+xml" />
+    <% end %>
     <% if !preview? && Rails.env.production? %>
       <script type="text/javascript">
         var _gaq = _gaq || [];

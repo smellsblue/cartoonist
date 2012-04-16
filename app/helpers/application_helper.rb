@@ -23,6 +23,23 @@ module ApplicationHelper
     @licensed
   end
 
+  def rss!(path, title)
+    @rss_path = path
+    @rss_title = title
+  end
+
+  def rss?
+    @rss_path
+  end
+
+  def rss_path
+    @rss_path
+  end
+
+  def rss_title
+    @rss_title
+  end
+
   def mobile?
     @mobile
   end
