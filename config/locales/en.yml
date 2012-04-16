@@ -17,6 +17,10 @@ en:
     layout:
       tab:
         comics: Comics
+  application:
+    layout:
+      navigation:
+        comic: Comic
   comic:
     layout:
       facebook: Facebook

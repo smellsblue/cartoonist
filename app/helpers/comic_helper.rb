@@ -1,4 +1,12 @@
 module ComicHelper
+  def comic_current_url
+    if preview?
+      "/comic_admin/preview"
+    else
+      "/"
+    end
+  end
+
   def comic_url(number)
     if preview?
       "/comic_admin/#{number}/preview"

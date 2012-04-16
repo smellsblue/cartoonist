@@ -32,7 +32,7 @@
           <a class="last-disabled">last</a>
         <% else %>
           <a class="next" href="<%= comic_url yield(:next) %>">next</a>
-          <a class="last" href="<%= current_url %>">last</a>
+          <a class="last" href="<%= comic_current_url %>">last</a>
         <% end %>
       </div>
     </div>
@@ -58,7 +58,7 @@
           <a class="last-disabled">last</a>
         <% else %>
           <a class="next" href="<%= comic_url yield(:next) %>">next</a>
-          <a class="last" href="<%= current_url %>">last</a>
+          <a class="last" href="<%= comic_current_url %>">last</a>
         <% end %>
       </div>
     </div>
