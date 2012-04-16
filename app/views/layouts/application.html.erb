@@ -43,9 +43,9 @@
 
         <div class="navigation">
           <div class="long-buttons">
-            <a class="comic" href="<%= current_url %>"><%= t "application.layout.navigation.comic" %></a>
-            <a class="blog" href="<%= blog_current_url %>"><%= t "application.layout.navigation.blog" %></a>
-            <a class="follow-us" href="https://twitter.com/<%= Setting[:twitter_handle] %>" title="<%= t "application.layout.navigation.follow_on_twitter_title" %>"><%= t "application.layout.navigation.follow_on_twitter" %></a>
+            <% Cartoonist::Navigation::Link.all.each do |link| %>
+              <a class="<%= link.class %>" href="<%= link.url preview? %>" title="<%= t link.title if link.title %>"><%= t link.label %></a>
+            <% end %>
           </div>
         </div>
       </div>

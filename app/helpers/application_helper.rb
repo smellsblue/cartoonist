@@ -61,30 +61,6 @@ module ApplicationHelper
     @for_preview
   end
 
-  def blog_current_url
-    if preview?
-      "/blog_admin/preview"
-    else
-      "/blog"
-    end
-  end
-
-  def blog_post_url(url_title)
-    if preview?
-      "/blog_admin/#{url_title}/preview"
-    else
-      "/blog/#{url_title}"
-    end
-  end
-
-  def current_url
-    if preview?
-      "/comic_admin/preview"
-    else
-      "/"
-    end
-  end
-
   def content_license_url
     "http://creativecommons.org/licenses/by-nc/3.0/"
   end

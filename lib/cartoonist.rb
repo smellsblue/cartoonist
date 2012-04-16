@@ -104,6 +104,49 @@ module Cartoonist
     end
   end
 
+  class Navigation
+    class Link
+      attr_reader :preview_url, :class, :label, :title, :order
+
+      @@all = []
+      @@cached_order = []
+
+      def initialize(options)
+        @url = options[:url]
+        @preview_url = options[:preview_url]
+        @class = options[:class]
+        @label = options[:label]
+        @title = options[:title]
+        @order = options[:order]
+      end
+
+      def url(preview = false)
+        if preview && @preview_url
+          result = @preview_url
+        else
+          result = @url
+        end
+
+        if result.kind_of? Proc
+          result.call
+        else
+          result
+        end
+      end
+
+      class << self
+        def all
+          @@cached_order
+        end
+
+        def add(options)
+          @@all << Cartoonist::Navigation::Link.new(options)
+          @@cached_order = @@all.sort { |x, y| x.order <=> y.order }
+        end
+      end
+    end
+  end
+
   class Routes
     @@begin = []
     @@middle = []
