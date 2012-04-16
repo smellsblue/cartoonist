@@ -5,6 +5,12 @@ module Cartoonist
       Rails.application.config.assets.precompile += ["admin.css"]
       Rails.application.config.assets.precompile += Cartoonist::Asset.all
       Rails.application.config.paths["db/migrate"] += Cartoonist::Migration.all
+
+      if File.directory? File.join(Rails.root, "public/errors")
+        Rails.application.config.exceptions_app = ActionDispatch::PublicExceptions.new(File.join Rails.root, "public/errors")
+      else
+        Rails.application.config.exceptions_app = ActionDispatch::PublicExceptions.new(File.join File.dirname(__FILE__), "../../public/errors")
+      end
     end
 
     config.to_prepare do
