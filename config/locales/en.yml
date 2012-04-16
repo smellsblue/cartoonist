@@ -17,3 +17,15 @@ en:
     layout:
       tab:
         comics: Comics
+  comic:
+    layout:
+      facebook: Facebook
+      facebook_text_message: Check out %{title}
+      facebook_title: Share this comic on Facebook
+      google_plus: Google Plus
+      google_plus_title: Post this comic to Google Plus
+      rss: RSS
+      rss_title: RSS Feed for %{site_name}
+      twitter: Twitter
+      twitter_text_message: "Check out %{title}: %{url}"
+      twitter_title: Tweet about this comic

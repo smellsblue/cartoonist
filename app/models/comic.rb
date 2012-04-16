@@ -40,6 +40,10 @@ class Comic < ActiveRecord::Base
     end
   end
 
+  def absolute_url
+    "http://#{Setting[:domain]}/#{number}"
+  end
+
   def img_url
     "/comic/#{number}.png"
   end
