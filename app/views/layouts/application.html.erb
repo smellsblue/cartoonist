@@ -35,12 +35,7 @@
           <h2 class="site-updates"><%= Setting[:site_update_description] %></h2>
 
           <div class="small-buttons">
-            <% if show_social_links? %>
-              <a class="facebook" href="https://www.facebook.com/sharer.php?u=<%= u share_facebook_url_message %>&t=<%= u share_facebook_text_message %>" title="<%= facebook_link_title %>"><%= t "application.layout.social.facebook" %></a>
-              <a class="twitter" href="https://twitter.com/intent/tweet?source=<%= Setting[:domain] %>&text=<%= u share_twitter_message %>" title="<%= twitter_link_title %>"><%= t "application.layout.social.twitter" %></a>
-              <a class="google-plus" href="https://plus.google.com/share?url=<%= u share_google_plus_message %>" title="<%= google_plus_link_title %>"><%= t "application.layout.social.google_plus" %></a>
-              <a class="rss" href="<%= rss_path %>" title="<%= rss_title %>"><%= t "application.layout.social.rss" %></a>
-            <% end %>
+            <%= yield :small_buttons %>
           </div>
         </div>
 
