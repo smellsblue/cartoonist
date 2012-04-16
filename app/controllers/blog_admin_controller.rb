@@ -1,4 +1,5 @@
 class BlogAdminController < ApplicationController
+  helper :blog
   before_filter :preview!, :only => [:preview]
   before_filter :ensure_ssl!
   before_filter :check_admin!
