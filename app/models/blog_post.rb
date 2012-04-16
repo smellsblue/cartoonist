@@ -85,6 +85,14 @@ class BlogPost < ActiveRecord::Base
     next_post.url_title if next_post
   end
 
+  def real?
+    url_title
+  end
+
+  def absolute_url
+    "http://#{Setting[:domain]}/blog/#{url_title}"
+  end
+
   class << self
     def url_titlize(title)
       title.downcase.gsub(" ", "-").gsub(/[^-_a-z0-9]/, "")
