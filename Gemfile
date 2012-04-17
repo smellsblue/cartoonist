@@ -29,5 +29,9 @@ group :test do
   gem "turn", "0.8.2", :require => false
 end
 
+gem "cartoonist"
 gem "cartoonist-default-theme"
+gem "cartoonist-comics"
+gem "cartoonist-blog"
+gem "cartoonist-pages"
 gem "cartoonist-announcements"

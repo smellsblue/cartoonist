@@ -1,7 +1,7 @@
 require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
-require File.join(File.dirname(__FILE__), "cartoonist-boot")
+require 'cartoonist'
 
 if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line
@@ -46,10 +46,5 @@ module Cartoonist
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
-
-    # Add in various configuration from plugins
-    config.assets.precompile += ["admin.css"]
-    config.assets.precompile += Cartoonist::Asset.all
-    config.paths["db/migrate"] += Cartoonist::Migration.all
   end
 end
