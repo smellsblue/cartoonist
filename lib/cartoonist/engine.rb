@@ -315,8 +315,13 @@ module Cartoonist
       Setting.order(:id).all
     end
 
+    Cartoonist::Backup.for :users do
+      User.order(:id).all
+    end
+
     Cartoonist::Routes.add_begin do
       root :to => Cartoonist::RootPath.current
+      devise_for :users
     end
 
     Cartoonist::Routes.add do
