@@ -147,6 +147,34 @@ module Cartoonist
     end
   end
 
+  class RootPath
+    @@all = []
+    @@paths = {}
+
+    class << self
+      def all
+        @@all
+      end
+
+      def add(path_name, path)
+        (@@all << path_name.to_sym).sort! unless @@all.include? path_name.to_sym
+        @@paths[path_name.to_sym] = path unless @@paths.include? path_name.to_sym
+      end
+
+      def [](key)
+        @@paths[key.to_sym]
+      end
+
+      def current_key
+        Setting[:root_path]
+      end
+
+      def current
+        self[current_key]
+      end
+    end
+  end
+
   class Routes
     @@begin = []
     @@middle = []

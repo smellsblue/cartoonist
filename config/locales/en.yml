@@ -67,6 +67,7 @@ en:
         site_name: "Site Name: "
         site_heading: "Site Heading: "
         site_update_description: "Site Update Description: "
+        root_path: "Root Path: "
         theme: "Theme: "
         schedule: "Schedule: "
         copyright_starting_year: "Copyright Starting Year: "

@@ -36,12 +36,13 @@ module Cartoonist
         Setting.define :site_name, :order => 2
         Setting.define :site_heading, :order => 3
         Setting.define :site_update_description, :order => 4
-        Setting.define :theme, :type => :symbol, :default => :cartoonist_default_theme, :order => 5, :select_from => lambda { Cartoonist::Theme.all }
-        Setting.define :schedule, :type => :array, :default => [:monday, :wednesday, :friday], :order => 6
-        Setting.define :copyright_starting_year, :type => :int, :order => 7
-        Setting.define :copyright_owners, :order => 8
-        Setting.define :default_title, :order => 9
-        Setting.define :admin_users, :type => :hash, :order => 10
+        Setting.define :root_path, :type => :symbol, :default => Cartoonist::RootPath.all.first, :order => 5, :select_from => lambda { Cartoonist::RootPath.all }, :onchange => lambda { Rails.application.reload_routes! }
+        Setting.define :theme, :type => :symbol, :default => :cartoonist_default_theme, :order => 6, :select_from => lambda { Cartoonist::Theme.all }
+        Setting.define :schedule, :type => :array, :default => [:monday, :wednesday, :friday], :order => 7
+        Setting.define :copyright_starting_year, :type => :int, :order => 8
+        Setting.define :copyright_owners, :order => 9
+        Setting.define :default_title, :order => 10
+        Setting.define :admin_users, :type => :hash, :order => 11
 
         Setting::Tab.define :social_and_analytics, :order => 1 do
           Setting::Section.define :google_analytics, :order => 1 do
@@ -87,6 +88,10 @@ module Cartoonist
 
     Cartoonist::Backup.for :settings do
       Setting.order(:id).all
+    end
+
+    Cartoonist::Routes.add_begin do
+      root :to => Cartoonist::RootPath.current
     end
 
     Cartoonist::Routes.add do
