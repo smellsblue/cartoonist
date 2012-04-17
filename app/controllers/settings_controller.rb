@@ -30,6 +30,7 @@ class SettingsController < ApplicationController
     Setting[:domain] = params[:domain]
     Setting[:site_name] = params[:site_name]
     Setting[:secret_token] = SecureRandom.hex 30
+    Setting[:devise_pepper] = SecureRandom.hex 64
     redirect_to "/admin/sign_in"
   end
 end

@@ -1,3 +1,8 @@
+require "devise"
+require "jquery-rails"
+require "redcarpet"
+require "twitter"
+
 module Cartoonist
   module Admin
     class Tab
