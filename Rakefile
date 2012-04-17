@@ -15,7 +15,7 @@ class CartoonistGem
 
   def install
     puts "Installing #{@gemname}"
-    system_exec "#{cd} && gem install #{gem}"
+    system_exec "#{cd} && gem install --no-ri --no-rdoc #{gem}"
   end
 
   def tag
