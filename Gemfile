@@ -21,8 +21,6 @@ group :production do
 end
 
 gem "jquery-rails"
-gem "twitter"
-gem "redcarpet"
 
 group :test do
   gem "rspec-rails", :require => false
