@@ -21,6 +21,7 @@ class BlogController < ApplicationController
     @disabled_next = true
     @title = "Blog for #{Setting[:site_name]}"
     render :show
+    cache_page_as ".#{cache_type}.tmp.html" if Cartoonist::RootPath.current_key == :blog
     cache_page_as "blog.#{cache_type}.tmp.html"
   end
 
