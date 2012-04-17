@@ -1,6 +1,6 @@
 <% content_for :content_class, "comic-content" %>
 <% licensed! %>
-<% rss! "/feed", t("comic.layout.rss_title", :site_name => Setting[:site_name]) %>
+<% rss! "/comic/feed", t("comic.layout.rss_title", :site_name => Setting[:site_name]) %>
 
 <% content_for :small_buttons do %>
   <% if @comic.real? %>

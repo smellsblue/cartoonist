@@ -1,5 +1,5 @@
 class ComicController < ApplicationController
-  def current
+  def index
     @comic = Comic.current
     @disabled_prev = true if @comic.oldest?
     @disabled_next = true
@@ -9,21 +9,21 @@ class ComicController < ApplicationController
   end
 
   def random
-    redirect_to "/#{rand(max_comic) + 1}"
+    redirect_to "/comic/#{rand(max_comic) + 1}"
   end
 
   def show
     respond_to do |format|
       format.html do
         begin
-          return redirect_to "/1" if params[:id].to_i < 1
+          return redirect_to "/comic/1" if params[:id].to_i < 1
           @comic = Comic.from_number params[:id], true
           @disabled_prev = true if @comic.oldest?
           @disabled_next = @comic.maybe_newest?
           render
           cache_show_page
         rescue
-          redirect_to "/"
+          redirect_to "/comic"
         end
       end
 
@@ -35,19 +35,19 @@ class ComicController < ApplicationController
     end
   end
 
-  def index
+  def feed
     respond_to do |format|
-      format.html { redirect_to "/" }
+      format.html { redirect_to "/comic" }
 
       format.rss do
-        @feed = feed
+        @feed = feed_contents
         render :content_type => "application/xml"
       end
     end
   end
 
   private
-  def feed
+  def feed_contents
     result = comic_cache.read "feed"
     return result if result
     result = ComicFeed.new Comic.feed
@@ -69,13 +69,14 @@ class ComicController < ApplicationController
 
   def cache_current_page
     cache_page_as ".#{cache_type}.tmp.html"
+    cache_page_as "comic.#{cache_type}.tmp.html"
   end
 
   def cache_show_page
     if @disabled_next
-      cache_page_as "#{@comic.number}.#{cache_type}.tmp.html"
+      cache_page_as "comic/#{@comic.number}.#{cache_type}.tmp.html"
     else
-      cache_page_as "#{@comic.number}.#{cache_type}.html"
+      cache_page_as "comic/#{@comic.number}.#{cache_type}.html"
     end
   end
 end

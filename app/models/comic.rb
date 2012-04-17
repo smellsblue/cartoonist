@@ -41,7 +41,7 @@ class Comic < ActiveRecord::Base
   end
 
   def absolute_url
-    "http://#{Setting[:domain]}/#{number}"
+    "http://#{Setting[:domain]}/comic/#{number}"
   end
 
   def img_url

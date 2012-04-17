@@ -3,7 +3,7 @@ module ComicHelper
     if preview?
       "/comic_admin/preview"
     else
-      "/"
+      "/comic"
     end
   end
 
@@ -11,7 +11,7 @@ module ComicHelper
     if preview?
       "/comic_admin/#{number}/preview"
     else
-      "/#{number}"
+      "/comic/#{number}"
     end
   end
 
@@ -27,7 +27,7 @@ module ComicHelper
     if preview?
       "/comic_admin/preview_random"
     else
-      "/random"
+      "/comic/random"
     end
   end
 end

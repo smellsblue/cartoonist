@@ -1,7 +1,7 @@
 module CartoonistComics
   class Engine < ::Rails::Engine
     Cartoonist::Admin::Tab.add :comics, :url => "/comic_admin", :order => 0
-    Cartoonist::Navigation::Link.add :url => "/", :preview_url => "/comic_admin/preview", :class => "comic", :label => "application.layout.navigation.comic", :order => 0
+    Cartoonist::Navigation::Link.add :url => "/comic", :preview_url => "/comic_admin/preview", :class => "comic", :label => "application.layout.navigation.comic", :order => 0
     Cartoonist::Migration.add_for self
 
     Cartoonist::Backup.for :comics do
@@ -12,24 +12,25 @@ module CartoonistComics
       comics = Comic.sitemap
 
       result = comics.map do |comic|
-        SitemapEntry.new "/#{comic.number}", comic.posted_at, :never
+        SitemapEntry.new "/comic/#{comic.number}", comic.posted_at, :never
       end
 
       first = comics.first
-      result << SitemapEntry.new("/", first.posted_at, :daily, "1.0")
+      result << SitemapEntry.new("/comic", first.posted_at, :daily, "1.0")
       result
     end
 
     Cartoonist::Routes.add_begin do
-      root :to => "comic#current"
-      match ":id", :controller => "comic", :action => "show", :id => /\d+/
+      root :to => "comic#index"
     end
 
     Cartoonist::Routes.add do
-      match "comic/:id.png", :controller => "comic", :action => "show", :id => /\d+/, :defaults => { :format => "png" }
-      match "current" => "comic#current"
-      match "random" => "comic#random"
-      match "feed" => "comic#index", :defaults => { :format => "rss" }
+      resources :comic do
+        collection do
+          get "random"
+          get "feed", :defaults => { :format => "rss" }
+        end
+      end
 
       resources :comic_admin do
         member do
