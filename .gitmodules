@@ -16,3 +16,6 @@
 [submodule "cartoonist-pages"]
 	path = cartoonist-pages
 	url = git@github.com:mikestone/cartoonist-pages.git
+[submodule "cartoonist"]
+	path = cartoonist
+	url = git@github.com:mikestone/cartoonist.git
