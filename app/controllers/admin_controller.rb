@@ -1,9 +1,9 @@
 class AdminController < ApplicationController
   before_filter :ensure_ssl!, :except => [:cache_cron, :tweet_cron]
-  before_filter :check_admin!, :except => [:cache_cron, :index, :sign_in, :tweet_cron]
+  before_filter :check_admin!, :except => [:cache_cron, :tweet_cron]
 
   def index
-    redirect_to "/admin/sign_in"
+    redirect_to "/admin/main"
   end
 
   def backup
@@ -64,30 +64,5 @@ class AdminController < ApplicationController
     render :text => "#{content}Success.", :layout => false
   rescue
     render :text => "Failure.", :layout => false
-  end
-
-  def sign_in
-    return redirect_to "/admin/main" if session[:admin]
-    return redirect_to "/settings/initial_setup" if initial_setup_required?
-
-    if request.post?
-      user = Setting[:admin_users][params[:username]]
-
-      if user && params[:password] == user[:password]
-        session[:admin] = true
-        session[:user] = user[:name]
-        return redirect_to "/admin/main"
-      else
-        flash[:error] = "Wrong username or password!"
-        return redirect_to "/admin/sign_in"
-      end
-    end
-
-    render :layout => "sign_in"
-  end
-
-  def logout
-    reset_session
-    redirect_to "/admin/sign_in"
   end
 end

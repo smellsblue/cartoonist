@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
 
   private
   def initial_setup_required?
-    Setting[:admin_users].empty?
+    User.count == 0
   end
 
   def ensure_ssl!
@@ -13,7 +13,19 @@ class ApplicationController < ActionController::Base
   end
 
   def check_admin!
-    raise ActionController::RoutingError.new("Not Found") unless session[:admin]
+    if initial_setup_required?
+      redirect_to "/settings/initial_setup"
+    else
+      authenticate_user!
+    end
+  end
+
+  def after_sign_out_path_for(resource_or_scope)
+    "/admin"
+  end
+
+  def after_sign_in_path_for(resource_or_scope)
+    "/admin"
   end
 
   def check_mobile

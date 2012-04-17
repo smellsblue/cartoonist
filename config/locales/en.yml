@@ -43,9 +43,10 @@ en:
       www_tmp: www tmp
   settings:
     initial_setup:
+      default_email: you@youremail.com
       default_name: Anonymous
-      default_username: admin
       domain: "Domain: "
+      email: "Email: "
       name: "Name: "
       password: "Password: "
       save: Save
@@ -87,8 +88,8 @@ en:
         disqus_comic_category: "Disqus Comic Category: "
         disqus_blog_post_category: "Disqus Blog Post Category: "
         disqus_page_category: "Disqus Page Category: "
-        admin_users: "Admin Users: "
         secret_token: "Secret Token: "
+        devise_pepper: "Devise Pepper: "
       tabs:
         advanced: Advanced
         general: General

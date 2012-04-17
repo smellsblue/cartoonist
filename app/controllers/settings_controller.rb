@@ -20,17 +20,18 @@ class SettingsController < ApplicationController
   end
 
   def initial_setup
-    return redirect_to "/admin/sign_in" unless initial_setup_required?
-    render :layout => "sign_in"
+    return redirect_to "/admin" unless initial_setup_required?
+    render :layout => "initial_setup"
   end
 
   def save_initial_setup
-    return redirect_to "/admin/sign_in" unless initial_setup_required?
-    Setting[:admin_users] = { params[:admin_username] => { :name => params[:admin_name], :password => params[:admin_password] } }
+    return redirect_to "/admin" unless initial_setup_required?
     Setting[:domain] = params[:domain]
     Setting[:site_name] = params[:site_name]
     Setting[:secret_token] = SecureRandom.hex 30
     Setting[:devise_pepper] = SecureRandom.hex 64
-    redirect_to "/admin/sign_in"
+    # This MUST go AFTER we set the pepper
+    User.create! :email => params[:admin_email], :password => params[:admin_password], :name => params[:admin_name]
+    redirect_to "/admin"
   end
 end

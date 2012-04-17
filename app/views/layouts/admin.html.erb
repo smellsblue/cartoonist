@@ -8,12 +8,15 @@
     <link rel="shortcut icon" href="http://<%= Setting[:domain] %><%= asset_path Cartoonist::Theme.favicon %>" type="image/x-icon" />
   </head>
   <body>
-    <p class="tabs">
-      <% Cartoonist::Admin::Tab.all.each do |tab| %>
-        <a class="tab" href="<%= Cartoonist::Admin::Tab[tab] %>"><%= t tab, :scope => "admin.layout.tab" %></a>
-      <% end %>
-      | <%= t "admin.layout.user_heading", :user => session[:user] %> <a href="/admin/logout"><%= t "admin.layout.logout" %></a>
-    </p>
+    <%= form_tag "/users/sign_out", :method => :delete do %>
+      <p class="tabs">
+        <% Cartoonist::Admin::Tab.all.each do |tab| %>
+          <a class="tab" href="<%= Cartoonist::Admin::Tab[tab] %>"><%= t tab, :scope => "admin.layout.tab" %></a>
+        <% end %>
+        | <%= t "admin.layout.user_heading", :user => current_user.name %>
+        <input type="submit" value="<%= t "admin.layout.logout" %>" />
+      </p>
+    <% end %>
 
     <% if content_for? :subtabs %>
       <p class="subtabs">
