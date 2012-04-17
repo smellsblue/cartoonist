@@ -5,7 +5,8 @@ class ComicController < ApplicationController
     @disabled_next = true
     @title = Setting[:site_name]
     render :show
-    cache_current_page
+    cache_page_as ".#{cache_type}.tmp.html" if Cartoonist::RootPath.current_key == :comics
+    cache_page_as "comic.#{cache_type}.tmp.html"
   end
 
   def random
@@ -65,11 +66,6 @@ class ComicController < ApplicationController
 
   def comic_cache
     @@comic_cache ||= ActiveSupport::Cache::MemoryStore.new(:expires_in => 2.hours)
-  end
-
-  def cache_current_page
-    cache_page_as ".#{cache_type}.tmp.html"
-    cache_page_as "comic.#{cache_type}.tmp.html"
   end
 
   def cache_show_page

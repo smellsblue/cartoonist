@@ -1,6 +1,7 @@
 module CartoonistComics
   class Engine < ::Rails::Engine
     Cartoonist::Admin::Tab.add :comics, :url => "/comic_admin", :order => 0
+    Cartoonist::RootPath.add :comics, "comic#index"
     Cartoonist::Navigation::Link.add :url => "/comic", :preview_url => "/comic_admin/preview", :class => "comic", :label => "application.layout.navigation.comic", :order => 0
     Cartoonist::Migration.add_for self
 
@@ -15,13 +16,12 @@ module CartoonistComics
         SitemapEntry.new "/comic/#{comic.number}", comic.posted_at, :never
       end
 
-      first = comics.first
-      result << SitemapEntry.new("/comic", first.posted_at, :daily, "1.0")
-      result
-    end
+      unless result.empty?
+        first = comics.first
+        result << SitemapEntry.new("/comic", first.posted_at, :daily, "1.0")
+      end
 
-    Cartoonist::Routes.add_begin do
-      root :to => "comic#index"
+      result
     end
 
     Cartoonist::Routes.add do
