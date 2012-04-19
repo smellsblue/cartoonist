@@ -312,6 +312,7 @@ module Cartoonist
       end
     end
 
+    Mime::Type.register "image/x-icon", :ico
     Cartoonist::Admin::Tab.add :general, :url => "/admin", :order => 3
     Cartoonist::Navigation::Link.add :url => (lambda { "https://twitter.com/#{Setting[:twitter_handle]}" }), :class => "follow-us", :label => "application.layout.navigation.follow_on_twitter", :title => "application.layout.navigation.follow_on_twitter_title", :order => 2
     Cartoonist::Migration.add_for self
