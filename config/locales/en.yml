@@ -17,7 +17,7 @@ en:
       not_live_warning: development
       production_warning: PRODUCTION
       user_heading: "%{user}:"
-  application:
+  cartoonist:
     layout:
       disqus:
         noscript_pre_link: "Please enable JavaScript to view the "
