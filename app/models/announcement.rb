@@ -1,4 +1,5 @@
 class Announcement < ActiveRecord::Base
+  attr_accessible :posted_at, :expired_at, :title, :content, :location, :enabled
   validate :posted_at_must_be_before_expired_at, :posted_at_must_exist_if_expired_at_exists
 
   def posted_at_must_be_before_expired_at
