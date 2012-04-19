@@ -1,4 +1,4 @@
-class ComicAdminController < ApplicationController
+class ComicAdminController < CartoonistController
   helper :comic
   before_filter :preview!, :only => [:preview, :preview_random]
   before_filter :ensure_ssl!

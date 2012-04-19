@@ -1,4 +1,4 @@
-class ComicController < ApplicationController
+class ComicController < CartoonistController
   def index
     @comic = Comic.current
     @disabled_prev = true if @comic.oldest?
