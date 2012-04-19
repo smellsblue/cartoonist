@@ -229,6 +229,7 @@ module Cartoonist
       Rails.application.config.assets.precompile += ["admin.css"]
       Rails.application.config.assets.precompile += Cartoonist::Asset.all
       Rails.application.config.paths["db/migrate"] += Cartoonist::Migration.all
+      Rails.application.config.action_controller.include_all_helpers = false
 
       if File.directory? File.join(Rails.root, "public/errors")
         Rails.application.config.exceptions_app = ActionDispatch::PublicExceptions.new(File.join Rails.root, "public/errors")
