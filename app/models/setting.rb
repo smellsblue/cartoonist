@@ -1,4 +1,6 @@
 class Setting < ActiveRecord::Base
+  attr_accessible :label, :value, :locked
+
   class << self
     def [](label)
       raise "Invalid label" unless label.present?
