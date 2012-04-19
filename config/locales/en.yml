@@ -14,7 +14,7 @@ en:
     layout:
       tab:
         blog: Blog
-  application:
+  cartoonist:
     layout:
       navigation:
         blog: Blog
