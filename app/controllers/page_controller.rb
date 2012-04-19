@@ -1,4 +1,4 @@
-class PageController < ApplicationController
+class PageController < CartoonistController
   def show
     path = params[:id].downcase
     @page = Page.from_path path

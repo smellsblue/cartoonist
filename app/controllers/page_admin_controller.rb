@@ -1,4 +1,4 @@
-class PageAdminController < ApplicationController
+class PageAdminController < CartoonistController
   before_filter :preview!, :only => [:preview]
   before_filter :ensure_ssl!
   before_filter :check_admin!
