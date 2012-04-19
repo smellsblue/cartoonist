@@ -1,2 +1,2 @@
-class AnnouncementsController < ApplicationController
+class AnnouncementsController < CartoonistController
 end
