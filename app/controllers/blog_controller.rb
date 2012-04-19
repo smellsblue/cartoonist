@@ -31,7 +31,7 @@ class BlogController < CartoonistController
 
       format.rss do
         @feed = feed_content
-        render :content_type => "application/xml"
+        render :content_type => "application/xml", :layout => "cartoonist"
       end
     end
   end
