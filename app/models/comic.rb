@@ -1,4 +1,5 @@
 class Comic < ActiveRecord::Base
+  attr_accessible :number, :posted_at, :title, :description, :scene_description, :dialogue, :title_text, :database_file_id, :tweet, :tweeted_at, :locked
   belongs_to :database_file
   include Tweetable
 
