@@ -50,12 +50,12 @@ module Cartoonist
 
     class << self
       # This does not include javascript files included in
-      # application.js.  This is purely standalone assets.
+      # cartoonist.js.  This is purely standalone assets.
       def all
         @@all
       end
 
-      # Include the following js files into application.js.
+      # Include the following js files into cartoonist.js.
       def include_js(*js_files)
         @@included_js.push *js_files
         @@included_js.tap &:uniq!

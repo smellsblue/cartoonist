@@ -226,7 +226,7 @@ module Cartoonist
 
     config.before_initialize do
       # Add in various configuration from plugins
-      Rails.application.config.assets.precompile += ["admin.css"]
+      Rails.application.config.assets.precompile += ["admin.css", "cartoonist.js"]
       Rails.application.config.assets.precompile += Cartoonist::Asset.all
       Rails.application.config.paths["db/migrate"] += Cartoonist::Migration.all
       Rails.application.config.action_controller.include_all_helpers = false
