@@ -2,7 +2,15 @@ class ComicFeed
   attr_reader :pub_date, :items
 
   def initialize(feed)
-    @pub_date = feed.first.posted_at.to_time.strftime "%a, %d %b %Y 00:00:01 %z"
+    first = feed.first
+
+    if first
+      first_date = first.posted_at
+    else
+      first_date = Date.today
+    end
+
+    @pub_date = first_date.to_time.strftime "%a, %d %b %Y 00:00:01 %z"
     @items = feed.map do |item|
       ComicFeed::Item.new item
     end
