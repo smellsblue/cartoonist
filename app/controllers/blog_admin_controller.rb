@@ -1,4 +1,4 @@
-class BlogAdminController < ApplicationController
+class BlogAdminController < CartoonistController
   helper :blog
   before_filter :preview!, :only => [:preview]
   before_filter :ensure_ssl!

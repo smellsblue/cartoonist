@@ -1,4 +1,4 @@
-class BlogController < ApplicationController
+class BlogController < CartoonistController
   def archives
     @posts = BlogPost.archives
     render :layout => "page"
