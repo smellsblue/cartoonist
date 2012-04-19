@@ -38,7 +38,7 @@ class BlogAdminController < ApplicationController
 
   def create
     url_title = BlogPost.url_titlize params[:title]
-    post = BlogPost.create :title => params[:title], :url_title => url_title, :content => params[:content], :author => session[:user], :tweet => tweet_message(url_title), :locked => true
+    post = BlogPost.create :title => params[:title], :url_title => url_title, :content => params[:content], :author => current_user.name, :tweet => tweet_message(url_title), :locked => true
     redirect_to "/blog_admin/#{post.id}/edit"
   end
 
