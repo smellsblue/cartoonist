@@ -1,7 +1,7 @@
 class BlogController < CartoonistController
   def archives
     @posts = BlogPost.archives
-    render :layout => "page"
+    render :layout => "blog_archives"
     cache_page_as "blog/archives.#{cache_type}.tmp.html"
   end
 
