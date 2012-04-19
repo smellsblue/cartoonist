@@ -2,7 +2,7 @@ module CartoonistComics
   class Engine < ::Rails::Engine
     Cartoonist::Admin::Tab.add :comics, :url => "/comic_admin", :order => 0
     Cartoonist::RootPath.add :comics, "comic#index"
-    Cartoonist::Navigation::Link.add :url => "/comic", :preview_url => "/comic_admin/preview", :class => "comic", :label => "application.layout.navigation.comic", :order => 0
+    Cartoonist::Navigation::Link.add :url => "/comic", :preview_url => "/comic_admin/preview", :class => "comic", :label => "cartoonist.layout.navigation.comic", :order => 0
     Cartoonist::Migration.add_for self
 
     Cartoonist::Backup.for :comics do

@@ -17,7 +17,7 @@ en:
     layout:
       tab:
         comics: Comics
-  application:
+  cartoonist:
     layout:
       navigation:
         comic: Comic
