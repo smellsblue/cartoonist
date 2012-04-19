@@ -1,4 +1,4 @@
-class AdminController < ApplicationController
+class AdminController < CartoonistController
   before_filter :ensure_ssl!, :except => [:cache_cron, :tweet_cron]
   before_filter :check_admin!, :except => [:cache_cron, :tweet_cron]
 

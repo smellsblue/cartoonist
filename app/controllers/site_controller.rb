@@ -1,4 +1,4 @@
-class SiteController < ApplicationController
+class SiteController < CartoonistController
   def favicon
     respond_to do |format|
       format.html { redirect_to "/" }

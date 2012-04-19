@@ -1,4 +1,5 @@
-class ApplicationController < ActionController::Base
+class CartoonistController < ActionController::Base
+  helper :cartoonist
   protect_from_forgery
   before_filter :check_mobile
 

@@ -1,4 +1,4 @@
-module ApplicationHelper
+module CartoonistHelper
   def selected(a, b = true)
     if a == b
       'selected="selected"'.html_safe

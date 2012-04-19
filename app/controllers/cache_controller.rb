@@ -1,4 +1,4 @@
-class CacheController < ApplicationController
+class CacheController < CartoonistController
   before_filter :ensure_ssl!
   before_filter :check_admin!
   layout "general_admin"

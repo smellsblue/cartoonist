@@ -1,4 +1,4 @@
-class SettingsController < ApplicationController
+class SettingsController < CartoonistController
   before_filter :ensure_ssl!
   before_filter :check_admin!, :except => [:initial_setup, :save_initial_setup]
 
