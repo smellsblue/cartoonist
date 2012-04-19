@@ -67,10 +67,10 @@ class CartoonistGems
   end
 end
 
-CARTOONIST_GEMS = [CartoonistGem.new("cartoonist-announcements"),
+CARTOONIST_GEMS = [CartoonistGem.new("cartoonist-core", "cartoonist"),
+                   CartoonistGem.new("cartoonist-announcements"),
                    CartoonistGem.new("cartoonist-blog"),
                    CartoonistGem.new("cartoonist-comics"),
-                   CartoonistGem.new("cartoonist-core", "cartoonist"),
                    CartoonistGem.new("cartoonist-default-theme"),
                    CartoonistGem.new("cartoonist-pages")]
 CARTOONIST_AND_GEMS = CARTOONIST_GEMS + [CartoonistGems.new, Cartoonist.new]
