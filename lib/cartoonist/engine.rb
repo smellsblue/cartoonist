@@ -329,7 +329,9 @@ module Cartoonist
     end
 
     Cartoonist::Routes.add_begin do
-      root :to => Cartoonist::RootPath.current
+      if Setting.table_exists?
+        root :to => Cartoonist::RootPath.current
+      end
     end
 
     Cartoonist::Routes.add do
