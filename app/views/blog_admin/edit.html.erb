@@ -26,6 +26,8 @@
       <option value="am" <%= selected "am", format_posted_at("%P") %>>am</option>
       <option value="pm" <%= selected "pm", format_posted_at("%P") %>>pm</option>
     </select>
+    <input type="submit" name="post_now" value="Post Now" <%= post_lock_disabled %> />
+    <input type="submit" name="post_in_hour" value="Post in an Hour" <%= post_lock_disabled %> />
   </p>
 
   <p>

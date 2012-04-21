@@ -3,6 +3,10 @@ class BlogPost < ActiveRecord::Base
   attr_accessor :for_preview
   attr_accessible :title, :url_title, :author, :posted_at, :content, :tweet, :tweeted_at, :locked
 
+  def posted?
+    posted_at && posted_at <= Time.now
+  end
+
   def expected_tweet_time
     posted_at
   end
