@@ -26,6 +26,7 @@ class SettingsController < CartoonistController
 
   def save_initial_setup
     return redirect_to "/admin" unless initial_setup_required?
+    Setting[:copyright_starting_year] = Date.today.strftime("%Y").to_i
     Setting[:domain] = params[:domain]
     Setting[:site_name] = params[:site_name]
     Setting[:secret_token] = SecureRandom.hex 30
