@@ -53,9 +53,7 @@ class ComicAdminController < CartoonistController
       return redirect_to "/comic_admin/new"
     end
 
-    last = Comic.current_created
-    comic_number = Comic.next_number last
-    comic = Comic.create :number => comic_number, :title => params[:title], :posted_at => Comic.next_post_date(last), :description => params[:description], :scene_description => params[:scene_description], :dialogue => params[:dialogue], :title_text => params[:title_text], :tweet => params[:tweet], :database_file => DatabaseFile.create(:content => params[:image].read), :locked => true
+    comic = Comic.create_comic params
     redirect_to "/comic_admin/#{comic.number}/edit"
   end
 
@@ -69,31 +67,18 @@ class ComicAdminController < CartoonistController
 
   def lock
     comic = Comic.from_number params[:id].to_i
-    comic.locked = true
-    comic.save!
+    comic.lock!
     redirect_to "/comic_admin/#{comic.number}/edit"
   end
 
   def unlock
     comic = Comic.from_number params[:id].to_i
-    comic.locked = false
-    comic.save!
+    comic.unlock!
     redirect_to "/comic_admin/#{comic.number}/edit"
   end
 
   def update
-    comic_number = params[:id].to_i
-    comic = Comic.from_number comic_number
-    raise "Cannot update locked comic!" if comic.locked
-    comic.title = params[:title]
-    comic.description = params[:description]
-    comic.scene_description = params[:scene_description]
-    comic.dialogue = params[:dialogue]
-    comic.title_text = params[:title_text]
-    comic.tweet = params[:tweet] unless comic.tweeted?
-    comic.locked = true
-    comic.database_file = DatabaseFile.create(:content => params[:image].read) if params[:image]
-    comic.save!
+    comic = Comic.update_comic params
     redirect_to "/comic_admin/#{comic.number}/edit"
   end
 

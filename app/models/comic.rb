@@ -3,6 +3,16 @@ class Comic < ActiveRecord::Base
   belongs_to :database_file
   include Tweetable
 
+  def lock!
+    self.locked = true
+    save!
+  end
+
+  def unlock!
+    self.locked = false
+    save!
+  end
+
   def expected_tweet_time
     Time.local posted_at.year, posted_at.month, posted_at.day, 8, 0
   end
@@ -63,6 +73,26 @@ class Comic < ActiveRecord::Base
     FRIDAY = 5
 
     VALID_DAYS = [MONDAY, WEDNESDAY, FRIDAY]
+
+    def create_comic(params)
+      last = current_created
+      create :number => next_number(last), :title => params[:title], :posted_at => next_post_date(last), :description => params[:description], :scene_description => params[:scene_description], :dialogue => params[:dialogue], :title_text => params[:title_text], :tweet => params[:tweet], :database_file => DatabaseFile.create(:content => params[:image].read), :locked => true
+    end
+
+    def update_comic(params)
+      comic = from_number params[:id].to_i
+      raise "Cannot update locked comic!" if comic.locked
+      comic.title = params[:title]
+      comic.description = params[:description]
+      comic.scene_description = params[:scene_description]
+      comic.dialogue = params[:dialogue]
+      comic.title_text = params[:title_text]
+      comic.tweet = params[:tweet] unless comic.tweeted?
+      comic.locked = true
+      comic.database_file = DatabaseFile.create(:content => params[:image].read) if params[:image]
+      comic.save!
+      comic
+    end
 
     def next_number(comic)
       if comic
