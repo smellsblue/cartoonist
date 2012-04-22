@@ -37,8 +37,7 @@ class BlogAdminController < CartoonistController
   end
 
   def create
-    url_title = BlogPost.url_titlize params[:title]
-    post = BlogPost.create :title => params[:title], :url_title => url_title, :content => params[:content], :author => current_user.name, :tweet => tweet_message(url_title), :locked => true
+    post = BlogPost.create_post current_user, params
     redirect_to "/blog_admin/#{post.id}/edit"
   end
 
@@ -49,58 +48,19 @@ class BlogAdminController < CartoonistController
   end
 
   def update
-    post = BlogPost.find params[:id].to_i
-    raise "Cannot update locked post!" if post.locked
-    original_tweet = post.tweet
-    original_url_title = post.url_title
-    post.title = params[:title]
-    post.url_title = BlogPost.url_titlize params[:title]
-    post.author = params[:author]
-    post.tweet = params[:tweet]
-    post.content = params[:content]
-    post.locked = true
-
-    if original_tweet == post.tweet && original_url_title != post.url_title && !post.tweeted?
-      post.tweet = tweet_message post.url_title
-    end
-
-    if params[:post_now].present? && !post.posted?
-      post.posted_at = Time.now
-    elsif params[:post_in_hour].present? && !post.posted?
-      post.posted_at = 1.hour.from_now
-    elsif params[:posted] && params[:posted_at_date].present?
-      time = "#{params[:posted_at_date]} #{params[:posted_at_hour]}:#{params[:posted_at_minute]} #{params[:posted_at_meridiem]}"
-      time = DateTime.parse time
-      time = Time.local time.year, time.month, time.day, time.hour, time.min
-      post.posted_at = time
-    elsif params[:posted]
-      post.posted_at = 1.hour.from_now
-    else
-      post.posted_at = nil
-    end
-
-    post.save!
+    post = BlogPost.update_post params
     redirect_to "/blog_admin/#{post.id}/edit"
   end
 
   def lock
     post = BlogPost.find params[:id].to_i
-    post.locked = true
-    post.save!
+    post.lock!
     redirect_to "/blog_admin/#{post.id}/edit"
   end
 
   def unlock
     post = BlogPost.find params[:id].to_i
-    post.locked = false
-    post.save!
+    post.unlock!
     redirect_to "/blog_admin/#{post.id}/edit"
-  end
-
-  private
-  def tweet_message(url_title)
-    tweet = "New blog post: http://#{Setting[:domain]}/blog/#{url_title}"
-    tweet = "New blog post: http://#{Setting[:domain]}/blog" if tweet.length > 140
-    tweet
   end
 end

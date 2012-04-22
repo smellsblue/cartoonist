@@ -3,6 +3,16 @@ class BlogPost < ActiveRecord::Base
   attr_accessor :for_preview
   attr_accessible :title, :url_title, :author, :posted_at, :content, :tweet, :tweeted_at, :locked
 
+  def lock!
+    self.locked = true
+    save!
+  end
+
+  def unlock!
+    self.locked = false
+    save!
+  end
+
   def posted?
     posted_at && posted_at <= Time.now
   end
@@ -99,6 +109,46 @@ class BlogPost < ActiveRecord::Base
   end
 
   class << self
+    def create_post(current_user, params)
+      url_title = url_titlize params[:title]
+      post = create :title => params[:title], :url_title => url_title, :content => params[:content], :author => current_user.name, :tweet => tweet_message(url_title), :locked => true
+    end
+
+    def update_post(params)
+      post = find params[:id].to_i
+      raise "Cannot update locked post!" if post.locked
+      original_tweet = post.tweet
+      original_url_title = post.url_title
+      post.title = params[:title]
+      post.url_title = url_titlize params[:title]
+      post.author = params[:author]
+      post.tweet = params[:tweet]
+      post.content = params[:content]
+      post.locked = true
+
+      if original_tweet == post.tweet && original_url_title != post.url_title && !post.tweeted?
+        post.tweet = tweet_message post.url_title
+      end
+
+      if params[:post_now].present? && !post.posted?
+        post.posted_at = Time.now
+      elsif params[:post_in_hour].present? && !post.posted?
+        post.posted_at = 1.hour.from_now
+      elsif params[:posted] && params[:posted_at_date].present?
+        time = "#{params[:posted_at_date]} #{params[:posted_at_hour]}:#{params[:posted_at_minute]} #{params[:posted_at_meridiem]}"
+        time = DateTime.parse time
+        time = Time.local time.year, time.month, time.day, time.hour, time.min
+        post.posted_at = time
+      elsif params[:posted]
+        post.posted_at = 1.hour.from_now
+      else
+        post.posted_at = nil
+      end
+
+      post.save!
+      post
+    end
+
     def url_titlize(title)
       title.downcase.gsub(" ", "-").gsub(/[^-_a-z0-9]/, "")
     end
@@ -187,6 +237,13 @@ class BlogPost < ActiveRecord::Base
 
     def sitemap
       posted.reversed.all
+    end
+
+    private
+    def tweet_message(url_title)
+      tweet = "New blog post: http://#{Setting[:domain]}/blog/#{url_title}"
+      tweet = "New blog post: http://#{Setting[:domain]}/blog" if tweet.length > 140
+      tweet
     end
   end
 end
