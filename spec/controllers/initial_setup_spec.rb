@@ -39,5 +39,21 @@ describe SettingsController do
       response.should redirect_to("/settings/initial_setup")
       flash[:error].should be
     end
+
+    it "succeeds and sets all the settings if all the info is provided" do
+      SecureRandom.should_receive(:hex).and_return("first")
+      SecureRandom.should_receive(:hex).and_return("second")
+      Setting.should_receive(:[]=).with(:copyright_starting_year, Date.today.strftime("%Y").to_i)
+      Setting.should_receive(:[]=).with(:domain, "testing.com")
+      Setting.should_receive(:[]=).with(:site_name, "Testing")
+      Setting.should_receive(:[]=).with(:secret_token, "first")
+      Setting.should_receive(:[]=).with(:devise_pepper, "second")
+      post :save_initial_setup, :domain => "testing.com", :site_name => "Testing", :admin_email => "user@example.com", :admin_password => "test123", :admin_confirm_password => "test123", :admin_name => "test"
+      User.count.should == 1
+      user = User.first
+      user.email.should == "user@example.com"
+      user.name.should == "test"
+      response.should redirect_to("/admin")
+    end
   end
 end
