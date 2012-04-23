@@ -26,6 +26,12 @@ class SettingsController < CartoonistController
 
   def save_initial_setup
     return redirect_to "/admin" unless initial_setup_required?
+
+    if params[:admin_password] != params[:admin_confirm_password]
+      flash[:error] = t "admin.settings.initial_setup.passwords_dont_match"
+      return redirect_to "/settings/initial_setup"
+    end
+
     Setting[:copyright_starting_year] = Date.today.strftime("%Y").to_i
     Setting[:domain] = params[:domain]
     Setting[:site_name] = params[:site_name]

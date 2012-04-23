@@ -17,6 +17,9 @@ en:
       not_live_warning: development
       production_warning: PRODUCTION
       user_heading: "%{user}:"
+    settings:
+      initial_setup:
+        passwords_dont_match: Your passwords must match.
   cartoonist:
     layout:
       disqus:
