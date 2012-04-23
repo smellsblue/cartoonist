@@ -28,7 +28,7 @@ class SettingsController < CartoonistController
     return redirect_to "/admin" unless initial_setup_required?
 
     if params[:admin_password] != params[:admin_confirm_password]
-      flash[:error] = t "admin.settings.initial_setup.passwords_dont_match"
+      flash[:error] = t "settings.initial_setup.passwords_dont_match"
       return redirect_to "/settings/initial_setup"
     end
 
@@ -38,7 +38,7 @@ class SettingsController < CartoonistController
     Setting[:secret_token] = SecureRandom.hex 30
     Setting[:devise_pepper] = SecureRandom.hex 64
     # This MUST go AFTER we set the pepper
-    User.create! :email => params[:admin_email], :password => params[:admin_password], :name => params[:admin_name]
+    User.create! :email => params[:admin_email], :password => params[:admin_password], :password_confirmation => params[:admin_confirm_password], :name => params[:admin_name]
     redirect_to "/admin"
   end
 end

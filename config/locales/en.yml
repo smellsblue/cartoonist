@@ -17,9 +17,6 @@ en:
       not_live_warning: development
       production_warning: PRODUCTION
       user_heading: "%{user}:"
-    settings:
-      initial_setup:
-        passwords_dont_match: Your passwords must match.
   cartoonist:
     layout:
       disqus:
@@ -46,12 +43,14 @@ en:
       www_tmp: www tmp
   settings:
     initial_setup:
+      confirm_password: "Confirmation: "
       default_email: you@youremail.com
       default_name: Anonymous
       domain: "Domain: "
       email: "Email: "
       name: "Name: "
       password: "Password: "
+      passwords_dont_match: Your passwords must match.
       save: Save
       site_name: "Site Name: "
       username: "Username: "
