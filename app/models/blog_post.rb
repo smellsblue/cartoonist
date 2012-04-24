@@ -111,7 +111,7 @@ class BlogPost < ActiveRecord::Base
   class << self
     def create_post(current_user, params)
       url_title = url_titlize params[:title]
-      post = create :title => params[:title], :url_title => url_title, :content => params[:content], :author => current_user.name, :tweet => tweet_message(url_title), :locked => true
+      create :title => params[:title], :url_title => url_title, :content => params[:content], :author => current_user.name, :tweet => tweet_message(url_title), :locked => true
     end
 
     def update_post(params)
