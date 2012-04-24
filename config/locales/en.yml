@@ -6,6 +6,22 @@ en:
       name: "Name:"
       password: "Password:"
       save: Save
+      subtitle: Edit Account
+    index:
+      delete: Delete
+      delete_button: delete
+      edit: Edit
+      edit_button: edit
+      email: Email
+      name: Name
+      new_user: New User
+    new:
+      confirm: "Confirm:"
+      email: "Email:"
+      name: "Name:"
+      password: "Password:"
+      save: Save
+      subtitle: New Account
     show:
       edit: edit
       email: "Email:"

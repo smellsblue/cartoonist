@@ -5,6 +5,14 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me, :name
 
   class << self
+    def create_user(params)
+      create :email => params[:email], :name => params[:name], :password => params[:password], :password_confirmation => params[:confirm_password]
+    end
+
+    def delete_user(params)
+      User.find(params[:id].to_i).destroy
+    end
+
     def update_user(params)
       user = find params[:id].to_i
       user.email = params[:email]

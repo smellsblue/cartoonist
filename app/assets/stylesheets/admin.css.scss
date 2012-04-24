@@ -1,5 +1,17 @@
 form.inline { display: inline-block; }
 
+table {
+  tbody {
+    tr:nth-of-type(odd) {
+      background-color: #ddd;
+    }
+
+    tr:nth-of-type(even) {
+      background-color: #fff;
+    }
+  }
+}
+
 table.cache {
   tbody {
     tr:nth-of-type(odd) {
