@@ -1,0 +1,8 @@
+<% content_for :subtabs do %>
+  <a class="subtab" href="/accounts/<%= current_user.id %>"><%= t "admin.accounts.layout.my_account" %></a>
+  <a class="subtab" href="/accounts"><%= t "admin.accounts.layout.users" %></a>
+<% end %>
+
+<% content_for :page_title, t("admin.accounts.layout.section") %>
+<% content_for(:content) { yield } %>
+<%= render :template => "layouts/admin" %>

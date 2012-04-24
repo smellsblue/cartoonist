@@ -3,4 +3,20 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :name
+
+  class << self
+    def update_user(params)
+      user = find params[:id].to_i
+      user.email = params[:email]
+      user.name = params[:name]
+
+      if params[:password].present? || params[:confirm_password].present?
+        user.password = params[:password]
+        user.password_confirmation = params[:confirm_password]
+      end
+
+      user.save!
+      user
+    end
+  end
 end

@@ -360,6 +360,8 @@ module Cartoonist
         end
       end
 
+      resources :accounts
+
       resources :admin do
         collection do
           get "cache_cron"

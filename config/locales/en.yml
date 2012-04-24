@@ -1,5 +1,21 @@
 en:
+  accounts:
+    edit:
+      confirm: "Confirm:"
+      email: "Email:"
+      name: "Name:"
+      password: "Password:"
+      save: Save
+    show:
+      edit: edit
+      email: "Email:"
+      name: "Name:"
   admin:
+    accounts:
+      layout:
+        my_account: My Account
+        section: Account
+        users: Users
     general:
       actions:
         backup: Download Backup
@@ -11,6 +27,7 @@ en:
         settings: Settings
         static_cache: Static Cache
     layout:
+      account: Account
       tab:
         general: General
       logout: Logout
