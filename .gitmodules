@@ -19,3 +19,6 @@
 [submodule "cartoonist"]
 	path = cartoonist
 	url = git@github.com:mikestone/cartoonist.git
+[submodule "cartoonist-twitter"]
+	path = cartoonist-twitter
+	url = git@github.com:mikestone/cartoonist-twitter.git
