@@ -1,0 +1,19 @@
+en:
+  cartoonist:
+    layout:
+      navigation:
+        follow_on_twitter: Follow us on Twitter
+        follow_on_twitter_title: Follow us on Twitter
+  settings:
+    show:
+      sections:
+        social_and_analytics:
+          twitter: Twitter
+      settings:
+        default_tweet: "Default Tweet: "
+        twitter_enabled: "Twitter Enabled: "
+        twitter_handle: "Twitter Handle: "
+        twitter_consumer_key: "Twitter Consumer Key: "
+        twitter_consumer_secret: "Twitter Consumer Secret: "
+        twitter_oauth_token: "Twitter Oauth Token: "
+        twitter_oauth_token_secret: "Twitter Oauth Token Secret: "
