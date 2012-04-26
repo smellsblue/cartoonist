@@ -89,6 +89,20 @@ module Cartoonist
     end
   end
 
+  class Cron
+    @@all = []
+
+    class << self
+      def all
+        @@all
+      end
+
+      def add(&block)
+        @@all << block
+      end
+    end
+  end
+
   class Migration
     @@all = []
 
