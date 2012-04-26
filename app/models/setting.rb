@@ -6,7 +6,12 @@ class Setting < ActiveRecord::Base
       raise "Invalid label" unless label.present?
       meta = Meta[label.to_sym]
       raise "Missing setting definition for '#{label}'" unless meta
-      record = where(:label => label.to_s).first
+
+      begin
+        record = where(:label => label.to_s).first
+      rescue => e
+        raise unless e.to_s =~ /Could not find table/
+      end
 
       if record
         meta.convert record.value
