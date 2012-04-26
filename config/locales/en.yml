@@ -57,9 +57,6 @@ en:
         noscript_link: Disqus comments.
         noscript_post_link:
       logo: Logo
-      navigation:
-        follow_on_twitter: Follow us on Twitter
-        follow_on_twitter_title: Follow us on Twitter
   cache:
     index:
       cached: cached
@@ -97,7 +94,6 @@ en:
         social_and_analytics:
           disqus: Disqus
           google_analytics: Google Analytics
-          twitter: Twitter
       settings:
         domain: "Domain: "
         site_name: "Site Name: "
@@ -109,13 +105,6 @@ en:
         copyright_starting_year: "Copyright Starting Year: "
         copyright_owners: "Copyright Owners: "
         default_title: "Default Title: "
-        default_tweet: "Default Tweet: "
-        twitter_enabled: "Twitter Enabled: "
-        twitter_handle: "Twitter Handle: "
-        twitter_consumer_key: "Twitter Consumer Key: "
-        twitter_consumer_secret: "Twitter Consumer Secret: "
-        twitter_oauth_token: "Twitter Oauth Token: "
-        twitter_oauth_token_secret: "Twitter Oauth Token Secret: "
         google_analytics_enabled: "Google Analytics Enabled: "
         google_analytics_account: "Google Analytics Account: "
         disqus_enabled: "Disqus Enabled: "

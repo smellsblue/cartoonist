@@ -14,5 +14,4 @@ Gem::Specification.new do |s|
   s.add_dependency "jquery-rails", "~> 2.0.0"
   s.add_dependency "railties", "~> 3.2.0"
   s.add_dependency "redcarpet", "~> 2.1.0"
-  s.add_dependency "twitter", "~> 2.2.0"
 end
