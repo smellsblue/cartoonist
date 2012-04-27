@@ -1,5 +1,6 @@
 class Page < ActiveRecord::Base
   attr_accessible :title, :path, :posted_at, :content, :locked, :comments, :in_sitemap
+  include Postable
 
   def has_comments?
     comments
@@ -16,14 +17,6 @@ class Page < ActiveRecord::Base
 
     def in_sitemap
       where :in_sitemap => true
-    end
-
-    def posted
-      where "posted_at IS NOT NULL"
-    end
-
-    def unposted
-      where "posted_at IS NULL"
     end
 
     def ordered
