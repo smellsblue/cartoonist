@@ -1,4 +1,5 @@
 class BlogPost < ActiveRecord::Base
+  include Postable
   include Tweetable
   attr_accessor :for_preview
   attr_accessible :title, :url_title, :author, :posted_at, :content, :tweet, :tweeted_at, :locked
@@ -13,20 +14,8 @@ class BlogPost < ActiveRecord::Base
     save!
   end
 
-  def posted?
-    posted_at && posted_at <= Time.now
-  end
-
   def expected_tweet_time
     posted_at
-  end
-
-  def formatted_posted_at(default_msg = "not yet posted")
-    if posted_at
-      posted_at.localtime.strftime "%-m/%-d/%Y at %-l:%M %P"
-    else
-      default_msg
-    end
   end
 
   def first_post
@@ -154,31 +143,15 @@ class BlogPost < ActiveRecord::Base
     end
 
     def newest_preview_post
-      reversed.first || new(:title => "No Posts Yet", :content => "There are no blog posts yet.")
+      reverse_chronological.first || new(:title => "No Posts Yet", :content => "There are no blog posts yet.")
     end
 
     def newest_post
-      posted.reversed.first || new(:title => "No Posts Yet", :content => "There are no blog posts yet.")
+      posted.reverse_chronological.first || new(:title => "No Posts Yet", :content => "There are no blog posts yet.")
     end
 
     def first_post
       posted.chronological.first || new(:title => "No Posts Yet", :content => "There are no blog posts yet.")
-    end
-
-    def posted
-      where "blog_posts.posted_at IS NOT NULL AND blog_posts.posted_at <= ?", Time.now
-    end
-
-    def unposted
-      where "blog_posts.posted_at IS NULL OR blog_posts.posted_at > ?", Time.now
-    end
-
-    def chronological
-      order "blog_posts.posted_at ASC"
-    end
-
-    def reversed
-      order "blog_posts.posted_at DESC"
     end
 
     def all_columns
@@ -186,13 +159,13 @@ class BlogPost < ActiveRecord::Base
     end
 
     def current
-      post = posted.reversed.first
+      post = posted.reverse_chronological.first
       post = new :title => "No Posts Yet", :content => "There are no blog posts yet." unless post
       post
     end
 
     def preview_current
-      post = reversed.first
+      post = reverse_chronological.first
       post = new :title => "No Posts Yet", :content => "There are no blog posts yet." unless post
       post.for_preview = true
       post
@@ -201,7 +174,7 @@ class BlogPost < ActiveRecord::Base
     def previous_post(post)
       context = BlogPost
       context = posted unless post.for_preview
-      context.where("blog_posts.posted_at < ?", post.posted_at).reversed.first
+      context.where("blog_posts.posted_at < ?", post.posted_at).reverse_chronological.first
     end
 
     def next_post(post)
@@ -224,7 +197,7 @@ class BlogPost < ActiveRecord::Base
     end
 
     def archives
-      posted.reversed.select([:url_title, :title, :posted_at]).all
+      posted.reverse_chronological.select([:url_title, :title, :posted_at]).all
     end
 
     def untweeted
@@ -232,11 +205,11 @@ class BlogPost < ActiveRecord::Base
     end
 
     def feed
-      posted.reversed.take 10
+      posted.reverse_chronological.take 10
     end
 
     def sitemap
-      posted.reversed.all
+      posted.reverse_chronological.all
     end
 
     private

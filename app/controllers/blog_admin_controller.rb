@@ -33,7 +33,7 @@ class BlogAdminController < CartoonistController
 
   def index
     @unposted = BlogPost.unposted.chronological
-    @posted = BlogPost.posted.reversed
+    @posted = BlogPost.posted.reverse_chronological
   end
 
   def create
