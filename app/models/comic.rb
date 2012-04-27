@@ -1,6 +1,7 @@
 class Comic < ActiveRecord::Base
   attr_accessible :number, :posted_at, :title, :description, :scene_description, :dialogue, :title_text, :database_file_id, :database_file, :tweet, :tweeted_at, :locked
   belongs_to :database_file
+  include Postable
   include Tweetable
 
   def lock!
@@ -15,14 +16,6 @@ class Comic < ActiveRecord::Base
 
   def expected_tweet_time
     Time.local posted_at.year, posted_at.month, posted_at.day, 8, 0
-  end
-
-  def formatted_posted_at(default_msg = "not yet posted")
-    if posted_at
-      posted_at.strftime "%-m/%-d/%Y"
-    else
-      default_msg
-    end
   end
 
   def real?
@@ -124,14 +117,6 @@ class Comic < ActiveRecord::Base
 
     def untweeted
       posted.where(:tweeted_at => nil).all
-    end
-
-    def posted
-      where "comics.posted_at <= ?", Date.today
-    end
-
-    def unposted
-      where "comics.posted_at > ?", Date.today
     end
 
     def reverse_numerical
