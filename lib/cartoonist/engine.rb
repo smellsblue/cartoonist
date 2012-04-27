@@ -328,7 +328,7 @@ module Cartoonist
 
       devise_for :users
 
-      resources :cache do
+      resources :cache, :constraints => { :id => /.*/ } do
         collection do
           post "expire_www"
           post "expire_m"
