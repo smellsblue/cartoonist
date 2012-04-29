@@ -2,6 +2,7 @@ module CartoonistPages
   class Engine < ::Rails::Engine
     Cartoonist::Admin::Tab.add :pages, :url => "/page_admin", :order => 2
     Cartoonist::Migration.add_for self
+    Cartoonist::Entity.add :page, :label => "cartoonist.entity.page", :model_class => "Page"
 
     Cartoonist::Backup.for :pages do
       Page.order(:id).all

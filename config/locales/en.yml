@@ -13,3 +13,6 @@ en:
         list: List
         new: New Page
         section: Pages
+  cartoonist:
+    entity:
+      page: Page
