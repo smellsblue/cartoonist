@@ -12,6 +12,8 @@ en:
       settings:
         default_tweet: "%{entity} Default Tweet: "
         tweet_style: "%{entity} Tweet Style: "
+        tweet_time: "%{entity} Tweet Time: "
+        tweet_time_info: "Time to tweet when style is \"Automatic at a specific time\" (format example: 3:30 pm)"
         twitter_consumer_key: "Twitter Consumer Key: "
         twitter_consumer_secret: "Twitter Consumer Secret: "
         twitter_handle: "Twitter Handle: "
