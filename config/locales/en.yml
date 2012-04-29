@@ -18,6 +18,8 @@ en:
       tab:
         comics: Comics
   cartoonist:
+    entity:
+      comic: Comic
     layout:
       navigation:
         comic: Comic

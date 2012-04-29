@@ -4,6 +4,7 @@ module CartoonistComics
     Cartoonist::RootPath.add :comics, "comic#index"
     Cartoonist::Navigation::Link.add :url => "/comic", :preview_url => "/comic_admin/preview", :class => "comic", :label => "cartoonist.layout.navigation.comic", :order => 0
     Cartoonist::Migration.add_for self
+    Cartoonist::Entity.add :comic, :label => "cartoonist.entity.comic", :model_class => "Comic"
 
     Cartoonist::Backup.for :comics do
       Comic.order(:id).all
