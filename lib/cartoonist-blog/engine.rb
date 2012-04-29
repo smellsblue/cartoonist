@@ -4,6 +4,7 @@ module CartoonistBlog
     Cartoonist::RootPath.add :blog, "blog#index"
     Cartoonist::Navigation::Link.add :url => "/blog", :preview_url => "/blog_admin/preview", :class => "blog", :label => "cartoonist.layout.navigation.blog", :order => 1
     Cartoonist::Migration.add_for self
+    Cartoonist::Entity.add :blog, :label => "cartoonist.entity.blog", :model_class => "BlogPost"
 
     Cartoonist::Backup.for :blog_posts do
       BlogPost.order(:id).all
