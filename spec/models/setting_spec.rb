@@ -188,4 +188,24 @@ describe Setting do
     Setting::Meta[:test5].tab.should == :general
     Setting::Meta[:test5].section.should == :general
   end
+
+  it "doesn't break when defining tab content in multiple engines" do
+    Setting::Tab.define :fruits do
+      Setting::Section.define :banana, :order => 1 do
+        Setting.define :banana_allowed, :type => :boolean
+      end
+
+      Setting::Section.define :apple, :order => 3 do
+        Setting.define :apple_allowed, :type => :boolean
+      end
+    end
+
+    Setting::Section.define :orange, :order => 2, :tab => :fruits do
+      Setting.define :orange_allowed, :type => :boolean
+    end
+
+    Setting::Tab[:fruits][:banana].settings.should == [:banana_allowed]
+    Setting::Tab[:fruits][:apple].settings.should == [:apple_allowed]
+    Setting::Tab[:fruits][:orange].settings.should == [:orange_allowed]
+  end
 end
