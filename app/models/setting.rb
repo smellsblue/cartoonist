@@ -198,16 +198,25 @@ class Setting < ActiveRecord::Base
         @@default
       end
 
+      def with_default_tab(label)
+        original = @@default
+
+        begin
+          @@default = label.to_sym
+          yield
+        ensure
+          @@default = original
+        end
+      end
+
       def define(label, options = {})
         raise "Duplicate tab '#{label}' being defined" if @@by_label.include? label.to_sym
         tab = Tab.new label, options
         @@all << tab
         @@by_label[label.to_sym] = tab
-        begin
-          @@default = label.to_sym
+
+        with_default_tab label do
           yield if block_given?
-        ensure
-          @@default = :general
         end
       end
     end
@@ -251,7 +260,10 @@ class Setting < ActiveRecord::Base
         @@by_tab_and_label[section.tab][label.to_sym] = section
         begin
           @@default = label.to_sym
-          yield if block_given?
+
+          Tab.with_default_tab section.tab do
+            yield if block_given?
+          end
         ensure
           @@default = :general
         end
