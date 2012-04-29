@@ -10,10 +10,16 @@ en:
         social_and_analytics:
           twitter: Twitter
       settings:
-        default_tweet: "Default Tweet: "
-        twitter_enabled: "Twitter Enabled: "
-        twitter_handle: "Twitter Handle: "
+        default_tweet: "%{entity} Default Tweet: "
+        tweet_style: "%{entity} Tweet Style: "
         twitter_consumer_key: "Twitter Consumer Key: "
         twitter_consumer_secret: "Twitter Consumer Secret: "
+        twitter_handle: "Twitter Handle: "
         twitter_oauth_token: "Twitter Oauth Token: "
         twitter_oauth_token_secret: "Twitter Oauth Token Secret: "
+  tweet:
+    style:
+      automatic: Automatic after posted
+      automatic_timed: Automatic at a specific time
+      disabled: Disabled
+      manual: Manual only

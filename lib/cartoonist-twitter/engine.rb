@@ -11,13 +11,18 @@ module CartoonistTwitter
       end
 
       Setting::Section.define :twitter, :order => 2, :tab => :social_and_analytics do
-        Setting.define :twitter_enabled, :type => :boolean, :order => 1
-        Setting.define :default_tweet, :order => 2
-        Setting.define :twitter_handle, :order => 3
-        Setting.define :twitter_consumer_key, :onchange => twitter_auth_changed, :order => 4
-        Setting.define :twitter_consumer_secret, :onchange => twitter_auth_changed, :order => 5
-        Setting.define :twitter_oauth_token, :onchange => twitter_auth_changed, :order => 6
-        Setting.define :twitter_oauth_token_secret, :onchange => twitter_auth_changed, :order => 7
+        order = 0
+
+        Cartoonist::Entity.all.each do |entity|
+          Setting.define :"#{entity}_tweet_style", :type => :symbol, :order => (order += 1), :label => lambda { I18n.t("settings.show.settings.tweet_style", :entity => I18n.t(Cartoonist::Entity[entity].label)) }, :select_from => lambda { Tweet.styles(entity) }, :default => :disabled
+          Setting.define :"#{entity}_default_tweet", :order => (order += 1), :label => lambda { I18n.t("settings.show.settings.default_tweet", :entity => I18n.t(Cartoonist::Entity[entity].label)) }
+        end
+
+        Setting.define :twitter_handle, :order => (order += 1)
+        Setting.define :twitter_consumer_key, :onchange => twitter_auth_changed, :order => (order += 1)
+        Setting.define :twitter_consumer_secret, :onchange => twitter_auth_changed, :order => (order += 1)
+        Setting.define :twitter_oauth_token, :onchange => twitter_auth_changed, :order => (order += 1)
+        Setting.define :twitter_oauth_token_secret, :onchange => twitter_auth_changed, :order => (order += 1)
       end
 
       twitter_auth_changed.call
