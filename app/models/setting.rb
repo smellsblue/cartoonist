@@ -4,7 +4,7 @@ class Setting < ActiveRecord::Base
   class << self
     def [](label)
       raise "Invalid label" unless label.present?
-      meta = Meta[label.to_sym]
+      meta = Setting::Meta[label.to_sym]
       raise "Missing setting definition for '#{label}'" unless meta
 
       begin
@@ -24,7 +24,7 @@ class Setting < ActiveRecord::Base
 
     def []=(label, value)
       raise "Invalid label" unless label.present?
-      meta = Meta[label.to_sym]
+      meta = Setting::Meta[label.to_sym]
       raise "Missing setting definition for '#{label}'" unless meta
       old_value = self[label]
       record = where(:label => label.to_s).first
@@ -36,11 +36,11 @@ class Setting < ActiveRecord::Base
     end
 
     def define(label, options = {})
-      Meta[label.to_sym] = Meta.new label, options
+      Setting::Meta[label.to_sym] = Setting::Meta.new label, options
     end
 
     def tabs
-      Tab.all.sort.map &:label
+      Setting::Tab.all.sort.map &:label
     end
   end
 
@@ -51,8 +51,9 @@ class Setting < ActiveRecord::Base
 
     def initialize(label, options)
       @label = label.to_sym
-      @tab = (options[:tab] || Tab.default)
-      @section = (options[:section] || Section.default)
+      @label_override = options[:label]
+      @tab = (options[:tab] || Setting::Tab.default)
+      @section = (options[:section] || Setting::Section.default)
       @order = (options[:order] || 0)
       @type = (options[:type] || :string).to_sym
       @onchange = options[:onchange]
@@ -60,12 +61,12 @@ class Setting < ActiveRecord::Base
       raise "Invalid setting type #{@type}" unless [:string, :symbol, :boolean, :int, :float, :array, :hash].include? @type
 
       # Auto create general tab and section if it isn't created
-      if @tab == :general && !Tab[@tab]
-        Tab.define :general, :order => 0
+      if @tab == :general && !Setting::Tab[@tab]
+        Setting::Tab.define :general, :order => 0
       end
 
-      if @section == :general && !Section.by_tab_and_label[@tab][@section]
-        Section.define :general, :order => 0, :tab => @tab
+      if @section == :general && !Setting::Section.by_tab_and_label[@tab][@section]
+        Setting::Section.define :general, :order => 0, :tab => @tab
       end
 
       if options.include? :default
@@ -88,6 +89,7 @@ class Setting < ActiveRecord::Base
     end
 
     def localized
+      return @label_override if @label_override
       I18n.t @label, :scope => "settings.show.settings"
     end
 
@@ -169,22 +171,24 @@ class Setting < ActiveRecord::Base
 
     def initialize(label, options = {})
       @label = label.to_sym
+      @label_override = options[:label]
       @order = options[:order] || 1
-      Section.by_tab_and_label[@label] ||= {}
+      Setting::Section.by_tab_and_label[@label] ||= {}
     end
 
     def localized
+      return @label_override if @label_override
       I18n.t @label, :scope => "settings.show.tabs"
     end
 
     def sections
-      Section.by_tab_and_label[label] ||= {}
-      Section.by_tab_and_label[label].values.sort.map &:label
+      Setting::Section.by_tab_and_label[label] ||= {}
+      Setting::Section.by_tab_and_label[label].values.sort.map &:label
     end
 
     def [](section_label)
-      Section.by_tab_and_label[label] ||= {}
-      Section.by_tab_and_label[label][section_label.to_sym]
+      Setting::Section.by_tab_and_label[label] ||= {}
+      Setting::Section.by_tab_and_label[label][section_label.to_sym]
     end
 
     def <=>(other)
@@ -219,7 +223,7 @@ class Setting < ActiveRecord::Base
 
       def define(label, options = {})
         raise "Duplicate tab '#{label}' being defined" if @@by_label.include? label.to_sym
-        tab = Tab.new label, options
+        tab = Setting::Tab.new label, options
         @@all << tab
         @@by_label[label.to_sym] = tab
 
@@ -238,16 +242,18 @@ class Setting < ActiveRecord::Base
 
     def initialize(label, options = {})
       @label = label.to_sym
+      @label_override = options[:label]
       @order = options[:order] || 1
-      @tab = (options[:tab] || Tab.default).to_sym
+      @tab = (options[:tab] || Setting::Tab.default).to_sym
     end
 
     def localized
-      I18n.t @label, :scope => "settings.show.sections.#{@tab.label}"
+      return @label_override if @label_override
+      I18n.t @label, :scope => "settings.show.sections.#{Setting::Tab[@tab].label}"
     end
 
     def settings
-      Meta.by_tab_section_and_label[tab][label].values.sort.map &:label
+      Setting::Meta.by_tab_section_and_label[tab][label].values.sort.map &:label
     end
 
     def <=>(other)
@@ -266,14 +272,14 @@ class Setting < ActiveRecord::Base
       end
 
       def define(label, options = {})
-        section = Section.new label, options
+        section = Setting::Section.new label, options
         @@all << section
         @@by_tab_and_label[section.tab] ||= {}
         @@by_tab_and_label[section.tab][label.to_sym] = section
         begin
           @@default = label.to_sym
 
-          Tab.with_default_tab section.tab do
+          Setting::Tab.with_default_tab section.tab do
             yield if block_given?
           end
         ensure
