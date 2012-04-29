@@ -12,7 +12,7 @@
       <% @tab[section].settings.each do |setting| %>
         <%# Other setting types to come later %>
         <% next unless Setting::Meta[setting].select_from || [:string, :boolean, :int].include?(Setting::Meta[setting].type) %>
-        <p>
+        <p class="setting">
           <input type="hidden" name="included_settings[]" value="<%= setting %>" />
           <label>
             <%= Setting::Meta[setting].localized %>
@@ -30,6 +30,10 @@
               <input type="checkbox" name="<%= setting %>" value="true" <%= checked Setting[setting] %> />
             <% end %>
           </label>
+
+          <% if Setting::Meta[setting].info_label %>
+            <em class="info"><%= t Setting::Meta[setting].info_label %></em>
+          <% end %>
         </p>
       <% end %>
     </div>

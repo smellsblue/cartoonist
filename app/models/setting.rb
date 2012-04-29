@@ -45,13 +45,14 @@ class Setting < ActiveRecord::Base
   end
 
   class Meta
-    attr_reader :label, :tab, :section, :order, :type, :default, :onchange, :select_from
+    attr_reader :label, :info_label, :tab, :section, :order, :type, :default, :onchange, :select_from
     @@settings = {}
     @@by_tab_section_and_label = {}
 
     def initialize(label, options)
       @label = label.to_sym
       @label_override = options[:label]
+      @info_label = options[:info_label]
       @tab = (options[:tab] || Setting::Tab.default)
       @section = (options[:section] || Setting::Section.default)
       @order = (options[:order] || 0)
