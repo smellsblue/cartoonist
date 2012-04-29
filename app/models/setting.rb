@@ -89,6 +89,7 @@ class Setting < ActiveRecord::Base
     end
 
     def localized
+      return @label_override.call if @label_override.respond_to? :call
       return @label_override if @label_override
       I18n.t @label, :scope => "settings.show.settings"
     end
@@ -177,6 +178,7 @@ class Setting < ActiveRecord::Base
     end
 
     def localized
+      return @label_override.call if @label_override.respond_to? :call
       return @label_override if @label_override
       I18n.t @label, :scope => "settings.show.tabs"
     end
@@ -248,6 +250,7 @@ class Setting < ActiveRecord::Base
     end
 
     def localized
+      return @label_override.call if @label_override.respond_to? :call
       return @label_override if @label_override
       I18n.t @label, :scope => "settings.show.sections.#{Setting::Tab[@tab].label}"
     end

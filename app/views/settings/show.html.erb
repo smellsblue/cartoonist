@@ -19,7 +19,7 @@
             <% if Setting::Meta[setting].select_from %>
               <select name="<%= setting %>">
                 <% Setting::Meta[setting].select_from_options.each do |option| %>
-                  <option value="<%= option %>" <%= selected option, Setting[setting] %>><%= option %></option>
+                  <option value="<%= setting_select_value option %>" <%= selected setting_select_value(option), Setting[setting] %>><%= setting_select_label option %></option>
                 <% end %>
               <select name="<%= setting %>" value="<%= Setting[setting] %>">
             <% elsif Setting::Meta[setting].type == :string %>
