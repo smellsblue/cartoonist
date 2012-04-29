@@ -87,6 +87,10 @@ class Setting < ActiveRecord::Base
       end
     end
 
+    def localized
+      I18n.t @label, :scope => "settings.show.settings"
+    end
+
     def select_from_options
       if select_from.respond_to? :call
         select_from.call
@@ -169,6 +173,10 @@ class Setting < ActiveRecord::Base
       Section.by_tab_and_label[@label] ||= {}
     end
 
+    def localized
+      I18n.t @label, :scope => "settings.show.tabs"
+    end
+
     def sections
       Section.by_tab_and_label[label] ||= {}
       Section.by_tab_and_label[label].values.sort.map &:label
@@ -232,6 +240,10 @@ class Setting < ActiveRecord::Base
       @label = label.to_sym
       @order = options[:order] || 1
       @tab = (options[:tab] || Tab.default).to_sym
+    end
+
+    def localized
+      I18n.t @label, :scope => "settings.show.sections.#{@tab.label}"
     end
 
     def settings
