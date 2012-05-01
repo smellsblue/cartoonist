@@ -4,6 +4,14 @@
   <% end %>
 </div>
 
+<% if flash[:update_errors] %>
+  <% flash[:update_errors].each do |message| %>
+    <p class="message">
+      <%= message %>
+    </p>
+  <% end %>
+<% end %>
+
 <%= form_tag "/settings/#{@tab.label}", :method => :put do %>
   <% @tab.sections.each do |section| %>
     <div class="section">

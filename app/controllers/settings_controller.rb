@@ -13,7 +13,12 @@ class SettingsController < CartoonistController
 
   def update
     params[:included_settings].each do |setting|
-      Setting[setting] = params[setting]
+      begin
+        Setting[setting] = params[setting]
+      rescue Setting::InvalidError => e
+        flash[:update_errors] ||= []
+        flash[:update_errors] << e.message
+      end
     end
 
     redirect_to "/settings/#{params[:id]}"

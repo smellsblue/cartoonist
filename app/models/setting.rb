@@ -26,6 +26,7 @@ class Setting < ActiveRecord::Base
       raise "Invalid label" unless label.present?
       meta = Setting::Meta[label.to_sym]
       raise "Missing setting definition for '#{label}'" unless meta
+      meta.validation.call value if meta.validation
       old_value = self[label]
       record = where(:label => label.to_s).first
       record = Setting.new :label => label.to_s unless record
@@ -45,7 +46,7 @@ class Setting < ActiveRecord::Base
   end
 
   class Meta
-    attr_reader :label, :info_label, :tab, :section, :order, :type, :default, :onchange, :select_from
+    attr_reader :label, :info_label, :tab, :section, :order, :type, :default, :onchange, :validation, :select_from
     @@settings = {}
     @@by_tab_section_and_label = {}
 
@@ -58,6 +59,7 @@ class Setting < ActiveRecord::Base
       @order = (options[:order] || 0)
       @type = (options[:type] || :string).to_sym
       @onchange = options[:onchange]
+      @validation = options[:validation]
       @select_from = options[:select_from]
       raise "Invalid setting type #{@type}" unless [:string, :symbol, :boolean, :int, :float, :array, :hash].include? @type
 
@@ -295,5 +297,8 @@ class Setting < ActiveRecord::Base
         @@by_tab_and_label
       end
     end
+  end
+
+  class InvalidError < StandardError
   end
 end
