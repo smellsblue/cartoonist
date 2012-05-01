@@ -208,4 +208,12 @@ describe Setting do
     Setting::Tab[:fruits][:apple].settings.should == [:apple_allowed]
     Setting::Tab[:fruits][:orange].settings.should == [:orange_allowed]
   end
+
+  it "allows specifying custom validation" do
+    Setting.define :test_setting, :validation => lambda { |value| raise "Invalid!" unless value == "valid" }
+    lambda { Setting[:test_setting] = "invalid" }.should raise_error
+    Setting[:test_setting].should == ""
+    lambda { Setting[:test_setting] = "valid" }.should_not raise_error
+    Setting[:test_setting].should == "valid"
+  end
 end
