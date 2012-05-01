@@ -6,6 +6,8 @@ en:
         follow_on_twitter_title: Follow us on Twitter
   settings:
     show:
+      errors:
+        invalid_tweet_time: "Invalid tweet time '%{value}' should be formatted like: '1:22 pm' or '11:30 am'"
       sections:
         social_and_analytics:
           twitter: Twitter

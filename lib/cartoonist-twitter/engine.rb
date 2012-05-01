@@ -15,7 +15,7 @@ module CartoonistTwitter
 
         Cartoonist::Entity.all.each do |entity|
           Setting.define :"#{entity}_tweet_style", :type => :symbol, :order => (order += 1), :label => lambda { I18n.t("settings.show.settings.tweet_style", :entity => I18n.t(Cartoonist::Entity[entity].label)) }, :select_from => lambda { Tweet.styles(entity) }, :default => :disabled
-          Setting.define :"#{entity}_tweet_time", :order => (order += 1), :label => lambda { I18n.t("settings.show.settings.tweet_time", :entity => I18n.t(Cartoonist::Entity[entity].label)) }, :info_label => "settings.show.settings.tweet_time_info"
+          Setting.define :"#{entity}_tweet_time", :order => (order += 1), :label => lambda { I18n.t("settings.show.settings.tweet_time", :entity => I18n.t(Cartoonist::Entity[entity].label)) }, :info_label => "settings.show.settings.tweet_time_info", :validation => lambda { |value| raise Setting::InvalidError.new I18n.t("settings.show.errors.invalid_tweet_time", :value => value) unless value =~ /^((1[0-2]|[1-9])\:[0-5]\d (am|pm|AM|PM))?$/ }
           Setting.define :"#{entity}_default_tweet", :order => (order += 1), :label => lambda { I18n.t("settings.show.settings.default_tweet", :entity => I18n.t(Cartoonist::Entity[entity].label)) }
         end
 
