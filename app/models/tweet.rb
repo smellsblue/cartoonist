@@ -1,4 +1,8 @@
-class Tweet
+class Tweet < ActiveRecord::Base
+  def entity
+    @entity ||= Cartoonist::Entity[entity_type.to_sym].model_class.find(entity_id)
+  end
+
   class << self
     def styles(entity)
       results = []
