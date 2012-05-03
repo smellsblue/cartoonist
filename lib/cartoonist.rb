@@ -104,20 +104,8 @@ module Cartoonist
   end
 
   class Entity
-    attr_reader :key, :label
-
     @@all = {}
     @@cached_order = []
-
-    def initialize(key, options)
-      @key = key
-      @label = options[:label]
-      @model_class = options[:model_class]
-    end
-
-    def model_class
-      @model_class.constantize
-    end
 
     class << self
       def all
@@ -128,9 +116,9 @@ module Cartoonist
         @@all[key]
       end
 
-      def add(key, options)
-        @@all[key] = new key, options
-        @@cached_order = @@all.keys.sort
+      def add(model)
+        @@all[model.entity_type] = model
+        @@cached_order = @@all.keys.sort.map { |key| self[key] }
       end
     end
   end
