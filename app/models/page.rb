@@ -1,6 +1,8 @@
 class Page < ActiveRecord::Base
-  attr_accessible :title, :path, :posted_at, :content, :locked, :comments, :in_sitemap
   include Postable
+  include Entity
+  entity_type :page
+  attr_accessible :title, :path, :posted_at, :content, :locked, :comments, :in_sitemap
 
   def has_comments?
     comments
