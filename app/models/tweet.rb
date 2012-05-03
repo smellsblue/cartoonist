@@ -1,6 +1,6 @@
 class Tweet < ActiveRecord::Base
   def entity
-    @entity ||= Cartoonist::Entity[entity_type.to_sym].model_class.find(entity_id)
+    @entity ||= Cartoonist::Entity[entity_type.to_sym].find(entity_id)
   end
 
   class << self
@@ -9,7 +9,7 @@ class Tweet < ActiveRecord::Base
       results << { :value => :disabled, :label => "tweet.style.disabled" }
       results << { :value => :manual, :label => "tweet.style.manual" }
 
-      if Cartoonist::Entity[entity].model_class.include? Postable
+      if Cartoonist::Entity[entity].include? Postable
         results << { :value => :automatic, :label => "tweet.style.automatic" }
         results << { :value => :automatic_timed, :label => "tweet.style.automatic_timed" }
       end
