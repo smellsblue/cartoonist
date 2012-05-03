@@ -1,6 +1,8 @@
 class BlogPost < ActiveRecord::Base
   include Postable
   include Tweetable
+  include Entity
+  entity_type :blog
   attr_accessor :for_preview
   attr_accessible :title, :url_title, :author, :posted_at, :content, :tweet, :tweeted_at, :locked
 
