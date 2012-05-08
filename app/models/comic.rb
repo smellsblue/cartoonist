@@ -3,6 +3,8 @@ class Comic < ActiveRecord::Base
   include Tweetable
   include Entity
   entity_type :comic
+  entity_global_url "/comic"
+  entity_url { |comic| "/comic/#{comic.number}" }
   attr_accessible :number, :posted_at, :title, :description, :scene_description, :dialogue, :title_text, :database_file_id, :database_file, :tweet, :tweeted_at, :locked
   belongs_to :database_file
 
@@ -44,10 +46,6 @@ class Comic < ActiveRecord::Base
     if respond_to? :max_number
       max_number.to_i == number
     end
-  end
-
-  def absolute_url
-    "http://#{Setting[:domain]}/comic/#{number}"
   end
 
   def img_url
