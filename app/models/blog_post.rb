@@ -3,6 +3,8 @@ class BlogPost < ActiveRecord::Base
   include Tweetable
   include Entity
   entity_type :blog
+  entity_global_url "/blog"
+  entity_url { |post| "/blog/#{post.url_title}" }
   attr_accessor :for_preview
   attr_accessible :title, :url_title, :author, :posted_at, :content, :tweet, :tweeted_at, :locked
 
@@ -93,10 +95,6 @@ class BlogPost < ActiveRecord::Base
 
   def real?
     url_title
-  end
-
-  def absolute_url
-    "http://#{Setting[:domain]}/blog/#{url_title}"
   end
 
   class << self

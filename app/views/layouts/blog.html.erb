@@ -4,9 +4,9 @@
 
 <% content_for :small_buttons do %>
   <% if @post.real? %>
-    <a class="facebook" href="https://www.facebook.com/sharer.php?u=<%= u @post.absolute_url %>&t=<%= u t("blog.layout.facebook_text_message", :title => @post.title) %>" title="<%= t "blog.layout.facebook_title" %>"><%= t "blog.layout.facebook" %></a>
-    <a class="twitter" href="https://twitter.com/intent/tweet?source=<%= u Setting[:domain] %>&text=<%= u t("blog.layout.twitter_text_message", :url => @post.absolute_url) %>" title="<%= t "blog.layout.twitter_title" %>"><%= t "blog.layout.twitter" %></a>
-    <a class="google-plus" href="https://plus.google.com/share?url=<%= u @post.absolute_url %>" title="<%= t "blog.layout.google_plus_title" %>"><%= t "blog.layout.google_plus" %></a>
+    <a class="facebook" href="https://www.facebook.com/sharer.php?u=<%= u @post.entity_absolute_url %>&t=<%= u t("blog.layout.facebook_text_message", :title => @post.title) %>" title="<%= t "blog.layout.facebook_title" %>"><%= t "blog.layout.facebook" %></a>
+    <a class="twitter" href="https://twitter.com/intent/tweet?source=<%= u Setting[:domain] %>&text=<%= u t("blog.layout.twitter_text_message", :url => @post.entity_absolute_url) %>" title="<%= t "blog.layout.twitter_title" %>"><%= t "blog.layout.twitter" %></a>
+    <a class="google-plus" href="https://plus.google.com/share?url=<%= u @post.entity_absolute_url %>" title="<%= t "blog.layout.google_plus_title" %>"><%= t "blog.layout.google_plus" %></a>
     <a class="rss" href="<%= rss_path %>" title="<%= rss_title %>"><%= t "blog.layout.rss" %></a>
   <% end %>
 <% end %>
