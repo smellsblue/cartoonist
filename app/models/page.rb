@@ -2,6 +2,7 @@ class Page < ActiveRecord::Base
   include Postable
   include Entity
   entity_type :page
+  entity_url { |page| "/#{page.path}" }
   attr_accessible :title, :path, :posted_at, :content, :locked, :comments, :in_sitemap
 
   def has_comments?

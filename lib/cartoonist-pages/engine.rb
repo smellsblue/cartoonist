@@ -10,7 +10,7 @@ module CartoonistPages
 
     Cartoonist::Sitemap.add do
       Page.sitemap.map do |page|
-        SitemapEntry.new "/#{page.path}", page.posted_at, :monthly, "0.4"
+        SitemapEntry.new page.entity_relative_url, page.posted_at, :monthly, "0.4"
       end
     end
 
