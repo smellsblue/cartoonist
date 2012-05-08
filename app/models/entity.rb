@@ -11,7 +11,23 @@ module Entity
     base.extend ClassMethods
   end
 
+  def entity_relative_url
+    self.class.entity_url.call self if self.class.entity_url
+  end
+
+  def entity_absolute_url
+    "http://#{Setting[:domain]}#{entity_relative_url}" if entity_relative_url
+  end
+
   module ClassMethods
+    def entity_relative_url
+      entity_global_url
+    end
+
+    def entity_absolute_url
+      "http://#{Setting[:domain]}#{entity_relative_url}" if entity_relative_url
+    end
+
     def entity_type(value = nil)
       if value
         @entity_type = value
@@ -25,6 +41,22 @@ module Entity
         @entity_label = value
       else
         @entity_label || "cartoonist.entity.#{entity_type}"
+      end
+    end
+
+    def entity_global_url(value = nil)
+      if value
+        @entity_global_url = value
+      else
+        @entity_global_url
+      end
+    end
+
+    def entity_url(&block)
+      if block
+        @entity_url = block
+      else
+        @entity_url
       end
     end
   end
