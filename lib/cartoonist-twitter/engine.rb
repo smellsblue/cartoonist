@@ -30,6 +30,8 @@ module CartoonistTwitter
     end
 
     Cartoonist::Navigation::Link.add :url => (lambda { "https://twitter.com/#{Setting[:twitter_handle]}" }), :class => "follow-us", :label => "cartoonist.layout.navigation.follow_on_twitter", :title => "cartoonist.layout.navigation.follow_on_twitter_title", :order => 2
+    Cartoonist::Migration.add_for self
+    config.before_initialize { Cartoonist::Entity.register_hooks Tweet }
 
     Cartoonist::Cron.add do
       Comic.untweeted.each do |comic|

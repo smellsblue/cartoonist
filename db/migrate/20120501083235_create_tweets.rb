@@ -7,7 +7,7 @@ class CreateTweets < ActiveRecord::Migration
       t.datetime :tweeted_at
     end
 
-    add_index :tweets, :posted_at
+    add_index :tweets, :tweeted_at
     add_index :tweets, [:entity_id, :entity_type], :unique => true
   end
 end
