@@ -11,6 +11,8 @@ class SimpleTemplate
           value = variables[key]
           value = value.call if value.respond_to? :call
           value
+        elsif variables.include?(:self) && variables[:self].respond_to?(key)
+          variables[:self].send key
         else
           ""
         end

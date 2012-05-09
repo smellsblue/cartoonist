@@ -7,16 +7,22 @@ module Entity
     self.class.entity_label
   end
 
-  def self.included(base)
-    base.extend ClassMethods
-  end
-
   def entity_relative_url
     self.class.entity_url.call self if self.class.entity_url
   end
 
   def entity_absolute_url
     "http://#{Setting[:domain]}#{entity_relative_url}" if entity_relative_url
+  end
+
+  def self.included(base)
+    base.extend ClassMethods
+
+    base.after_save do |entity|
+      Cartoonist::Entity.hooks_with(:after_entity_save).each do |hook|
+        hook.after_entity_save entity
+      end
+    end
   end
 
   module ClassMethods

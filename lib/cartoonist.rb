@@ -106,6 +106,7 @@ module Cartoonist
   class Entity
     @@all = {}
     @@cached_order = []
+    @@hooks = []
 
     class << self
       def all
@@ -119,6 +120,18 @@ module Cartoonist
       def add(model)
         @@all[model.entity_type] = model
         @@cached_order = @@all.keys.sort.map { |key| self[key] }
+      end
+
+      def register_hooks(hooks)
+        @@hooks << hooks unless @@hooks.include? hooks
+      end
+
+      def hooks
+        @@hooks
+      end
+
+      def hooks_with(method)
+        @@hooks.select { |x| x.respond_to? method }
       end
     end
   end
