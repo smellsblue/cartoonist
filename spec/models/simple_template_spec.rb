@@ -56,4 +56,18 @@ describe SimpleTemplate do
     SimpleTemplate["{{abc}} {{abc}}", :abc => lambda { invoked += 1; (123 + invoked) }].should == "124 125"
     invoked.should == 2
   end
+
+  it "supports referencing methods via special self" do
+    example = Object.new
+    def example.abc; "123"; end
+    def example.xyz; "456"; end
+    SimpleTemplate["{{abc}} {{xyz}}", :self => example].should == "123 456"
+  end
+
+  it "allows overriding self methods" do
+    example = Object.new
+    def example.abc; "123"; end
+    def example.xyz; "456"; end
+    SimpleTemplate["{{abc}} {{xyz}}", :self => example, :abc => 789].should == "789 456"
+  end
 end
