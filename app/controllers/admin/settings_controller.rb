@@ -26,7 +26,7 @@ class Admin::SettingsController < CartoonistController
 
   def initial_setup
     return redirect_to "/admin" unless initial_setup_required?
-    render :layout => "initial_setup"
+    render :layout => "admin/initial_setup"
   end
 
   def save_initial_setup
