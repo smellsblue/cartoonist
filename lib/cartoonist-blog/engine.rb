@@ -1,9 +1,9 @@
 module CartoonistBlog
   class Engine < ::Rails::Engine
     config.before_initialize { Cartoonist::Entity.add BlogPost }
-    Cartoonist::Admin::Tab.add :blog, :url => "/blog_admin", :order => 1
+    Cartoonist::Admin::Tab.add :blog, :url => "/admin/blog", :order => 1
     Cartoonist::RootPath.add :blog, "blog#index"
-    Cartoonist::Navigation::Link.add :url => "/blog", :preview_url => "/blog_admin/preview", :class => "blog", :label => "cartoonist.layout.navigation.blog", :order => 1
+    Cartoonist::Navigation::Link.add :url => "/blog", :preview_url => "/admin/blog/preview", :class => "blog", :label => "cartoonist.layout.navigation.blog", :order => 1
     Cartoonist::Migration.add_for self
 
     Cartoonist::Backup.for :blog_posts do
@@ -33,16 +33,18 @@ module CartoonistBlog
         end
       end
 
-      resources :blog_admin do
-        member do
-          post "lock"
-          get "preview"
-          post "unlock"
-        end
+      namespace :admin do
+        resources :blog do
+          member do
+            post "lock"
+            get "preview"
+            post "unlock"
+          end
 
-        collection do
-          get "preview"
-          post "preview_content"
+          collection do
+            get "preview"
+            post "preview_content"
+          end
         end
       end
     end

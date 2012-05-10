@@ -1,7 +1,7 @@
 module BlogHelper
   def blog_current_url
     if preview?
-      "/blog_admin/preview"
+      "/admin/blog/preview"
     else
       "/blog"
     end
@@ -9,7 +9,7 @@ module BlogHelper
 
   def blog_post_url(url_title)
     if preview?
-      "/blog_admin/#{url_title}/preview"
+      "/admin/blog/#{url_title}/preview"
     else
       "/blog/#{url_title}"
     end

@@ -1,4 +1,4 @@
-<%= form_tag "/blog_admin", :method => :post do %>
+<%= form_tag "/admin/blog", :method => :post do %>
   <p>
     Title: <input type="text" name="title" autofocus="autofocus" size="100" /><br />
   </p>
@@ -25,7 +25,7 @@
     $(".preview-content").click(function() {
       var $this = $(this).attr("disabled", "disabled");
       $.ajax({
-        url: "/blog_admin/preview_content",
+        url: "/admin/blog/preview_content",
         type: "post",
         data: {
           authenticity_token: $("form input[name='authenticity_token']").val(),

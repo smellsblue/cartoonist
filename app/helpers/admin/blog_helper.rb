@@ -1,4 +1,4 @@
-module BlogAdminHelper
+module Admin::BlogHelper
   def lock_toggle_target
     if @post.locked
       "unlock"

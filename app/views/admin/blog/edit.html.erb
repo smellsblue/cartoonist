@@ -1,14 +1,14 @@
 <p>
-  <a href="/blog_admin/<%= @post.url_title %>/preview">Preview this post</a>
+  <a href="/admin/blog/<%= @post.url_title %>/preview">Preview this post</a>
 </p>
 
 <p>
-  <%= form_tag "/blog_admin/#{@post.id}/#{lock_toggle_target}", :method => :post do %>
+  <%= form_tag "/admin/blog/#{@post.id}/#{lock_toggle_target}", :method => :post do %>
     <input type="submit" value="<%= lock_toggle_target %>" />
   <% end %>
 </p>
 
-<%= form_tag "/blog_admin/#{@post.id}", :method => :put do %>
+<%= form_tag "/admin/blog/#{@post.id}", :method => :put do %>
   <p>
     <label><input type="checkbox" name="posted" value="true" <%= checked="checked".html_safe if @post.posted_at %> <%= lock_disabled %> />Posted at</label>
     <input type="text" name="posted_at_date" value="<%= format_posted_at "%Y-%m-%d" %>" <%= lock_disabled %> />
@@ -83,7 +83,7 @@
     $(".preview-content").click(function() {
       var $this = $(this).attr("disabled", "disabled");
       $.ajax({
-        url: "/blog_admin/preview_content",
+        url: "/admin/blog/preview_content",
         type: "post",
         data: {
           authenticity_token: $("form input[name='authenticity_token']").val(),

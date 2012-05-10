@@ -1,4 +1,4 @@
-class BlogAdminController < CartoonistController
+class Admin::BlogController < CartoonistController
   helper :blog
   before_filter :preview!, :only => [:preview]
   before_filter :ensure_ssl!
@@ -9,7 +9,7 @@ class BlogAdminController < CartoonistController
       begin
         @post = BlogPost.preview_from_url_title params[:id]
       rescue
-        redirect_to "/blog_admin/preview"
+        redirect_to "/admin/blog/preview"
       end
 
       if @post.posted_at
@@ -38,29 +38,29 @@ class BlogAdminController < CartoonistController
 
   def create
     post = BlogPost.create_post current_user, params
-    redirect_to "/blog_admin/#{post.id}/edit"
+    redirect_to "/admin/blog/#{post.id}/edit"
   end
 
   def edit
     @post = BlogPost.find params[:id].to_i
   rescue ActiveRecord::RecordNotFound
-    redirect_to "/blog_admin/new"
+    redirect_to "/admin/blog/new"
   end
 
   def update
     post = BlogPost.update_post params
-    redirect_to "/blog_admin/#{post.id}/edit"
+    redirect_to "/admin/blog/#{post.id}/edit"
   end
 
   def lock
     post = BlogPost.find params[:id].to_i
     post.lock!
-    redirect_to "/blog_admin/#{post.id}/edit"
+    redirect_to "/admin/blog/#{post.id}/edit"
   end
 
   def unlock
     post = BlogPost.find params[:id].to_i
     post.unlock!
-    redirect_to "/blog_admin/#{post.id}/edit"
+    redirect_to "/admin/blog/#{post.id}/edit"
   end
 end
