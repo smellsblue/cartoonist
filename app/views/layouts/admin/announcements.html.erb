@@ -1,0 +1,11 @@
+<% content_for :subtabs do %>
+  <a class="subtab" href="/admin/announcements"><%= t "admin.announcements.layout.list" %></a>
+  <!-- Disable until they are ready.
+  <a class="subtab" href="/admin/announcements/new"><%= t "admin.announcements.layout.new" %></a>
+  <a class="subtab" href="/admin/announcements/preview"><%= t "admin.announcements.layout.preview" %></a>
+  -->
+<% end %>
+
+<% content_for :page_title, t("admin.announcements.layout.section") %>
+<% content_for(:content) { yield } %>
+<%= render :template => "layouts/admin" %>

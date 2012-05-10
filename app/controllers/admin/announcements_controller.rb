@@ -1,4 +1,4 @@
-class AnnouncementsAdminController < CartoonistController
+class Admin::AnnouncementsController < CartoonistController
   before_filter :ensure_ssl!
   before_filter :check_admin!
 
