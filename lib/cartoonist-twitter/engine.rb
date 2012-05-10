@@ -29,9 +29,14 @@ module CartoonistTwitter
       twitter_auth_changed.call
     end
 
+    Cartoonist::Admin::Tab.add :tweets, :url => "/admin/tweets"
     Cartoonist::Navigation::Link.add :url => (lambda { "https://twitter.com/#{Setting[:twitter_handle]}" }), :class => "follow-us", :label => "cartoonist.layout.navigation.follow_on_twitter", :title => "cartoonist.layout.navigation.follow_on_twitter_title", :order => 2
     Cartoonist::Migration.add_for self
     config.before_initialize { Cartoonist::Entity.register_hooks Tweet }
+
+    Cartoonist::Backup.for :tweets do
+      Tweet.order(:id).all
+    end
 
     Cartoonist::Cron.add do
       Comic.untweeted.each do |comic|
@@ -42,6 +47,12 @@ module CartoonistTwitter
       BlogPost.untweeted.each do |post|
         post.tweet!
         Rails.logger.info "Blog Post Tweet: #{post.tweet}" unless Rails.env.production?
+      end
+    end
+
+    Cartoonist::Routes.add do
+      namespace :admin do
+        resources :tweets
       end
     end
   end

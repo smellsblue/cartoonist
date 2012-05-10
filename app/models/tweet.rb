@@ -29,6 +29,22 @@ class Tweet < ActiveRecord::Base
       where({ :entity_id => entity.id, :entity_type => entity.entity_type }).first
     end
 
+    def tweeted
+      where "tweeted_at IS NOT NULL"
+    end
+
+    def untweeted
+      where "tweeted_at IS NULL"
+    end
+
+    def chronological
+      order "tweeted_at ASC"
+    end
+
+    def reverse_chronological
+      order "tweeted_at DESC"
+    end
+
     def after_entity_save(entity)
       return if Setting[:"#{entity.entity_type}_tweet_style"] == :disabled
       result = find_for entity

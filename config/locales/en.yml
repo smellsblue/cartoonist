@@ -1,4 +1,14 @@
 en:
+  admin:
+    layout:
+      tab:
+        tweets: Tweets
+    tweets:
+      index:
+        not_posted: Not yet posted
+        posted: Posted
+      layout:
+        section: Tweets
   cartoonist:
     layout:
       navigation:
