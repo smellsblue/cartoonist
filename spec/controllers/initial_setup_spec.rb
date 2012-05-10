@@ -3,14 +3,14 @@ require "spec_helper"
 describe AdminController do
   it "redirects to initial setup when an admin page is loaded and there are no users" do
     User.should_receive(:count).and_return(0)
-    get :index
+    get :show
     response.should redirect_to("/settings/initial_setup")
   end
 
   it "doesn't redirect to initial setup if there are users" do
     User.should_receive(:count).and_return(1)
     controller.should_receive(:authenticate_user!).and_return(true)
-    get :index
+    get :show
     response.should_not redirect_to("/settings/initial_setup")
   end
 end
