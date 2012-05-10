@@ -49,7 +49,27 @@ describe Tweet do
     Tweet.find_for(post).tweet.should == "New blog post at http://example.com/blog/example-post"
   end
 
-  it "allows changing the tweet manually via updates"
-  it "creates a tweet if it doesn't exist when manually tweeting immediately"
-  it "doesn't update a tweet that has already been sent out"
+  it "allows changing before being sent, but not after" do
+    tweet = Tweet.create :entity_id => 42, :entity_type => :blog, :tweet => "This is the first draft tweet"
+    Tweet.find(tweet.id).tweet.should == "This is the first draft tweet"
+    tweet.tweet = "This is the second draft tweet"
+    tweet.save!
+    Tweet.find(tweet.id).tweet.should == "This is the second draft tweet"
+    tweet.tweet = "This is the third draft tweet"
+    tweet.tweeted_at = DateTime.now
+    tweet.save!
+    Tweet.find(tweet.id).tweet.should == "This is the third draft tweet"
+    tweet.tweet = "This is the fourth draft tweet"
+    tweet.save.should == false
+    Tweet.find(tweet.id).tweet.should == "This is the third draft tweet"
+  end
+
+  it "doesn't allow changing the entity type or entity id" do
+    tweet = Tweet.create :entity_id => 42, :entity_type => :blog, :tweet => "The tweet message"
+    tweet.entity_id = 41
+    tweet.save.should == false
+    tweet = Tweet.find tweet.id
+    tweet.entity_type = :comic
+    tweet.save.should == false
+  end
 end
