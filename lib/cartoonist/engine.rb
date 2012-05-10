@@ -328,21 +328,6 @@ module Cartoonist
 
       devise_for :users
 
-      resources :cache, :constraints => { :id => /.*/ } do
-        collection do
-          post "expire_www"
-          post "expire_m"
-          post "expire_tmp"
-          post "expire_all"
-        end
-      end
-
-      resources :static_cache, :constraints => { :id => /.*/ } do
-        collection do
-          post "expire_all"
-        end
-      end
-
       resources :accounts
 
       resource :admin, :controller => :admin do
@@ -355,6 +340,21 @@ module Cartoonist
       end
 
       namespace :admin do
+        resources :cache, :constraints => { :id => /.*/ } do
+          collection do
+            post "expire_www"
+            post "expire_m"
+            post "expire_tmp"
+            post "expire_all"
+          end
+        end
+
+        resources :static_cache, :constraints => { :id => /.*/ } do
+          collection do
+            post "expire_all"
+          end
+        end
+
         resources :settings do
           collection do
             get "initial_setup"

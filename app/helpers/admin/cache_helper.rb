@@ -1,4 +1,4 @@
-module CacheHelper
+module Admin::CacheHelper
   def td_cache_class(test)
     if test
       "cached"

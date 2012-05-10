@@ -1,5 +1,5 @@
 <p>
-  <%= form_tag "/static_cache/expire_all", :method => :post, :class => "inline" do %>
+  <%= form_tag "/admin/static_cache/expire_all", :method => :post, :class => "inline" do %>
     <input type="submit" value="<%= t "static_cache.index.expire_all" %>" />
   <% end %>
 </p>
@@ -18,7 +18,7 @@
           <td><%= cache.name %></td>
 
           <td>
-            <%= form_tag "/static_cache/#{u cache.name}", :method => :delete do %>
+            <%= form_tag "/admin/static_cache/#{u cache.name}", :method => :delete do %>
               <input type="submit" value="<%= t "static_cache.index.expire" %>" />
             <% end %>
           </td>
