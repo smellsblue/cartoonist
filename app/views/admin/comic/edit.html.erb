@@ -1,10 +1,10 @@
 <p>
-  <%= form_tag "/comic_admin/#{@comic.number}/#{lock_toggle_target}", :method => :post do %>
+  <%= form_tag "/admin/comic/#{@comic.number}/#{lock_toggle_target}", :method => :post do %>
     <input type="submit" value="<%= lock_toggle_target %>" />
   <% end %>
 </p>
 
-<%= form_tag "/comic_admin/#{@comic.number}", :method => :put, :multipart => true do %>
+<%= form_tag "/admin/comic/#{@comic.number}", :method => :put, :multipart => true do %>
   <table>
     <tr><td colspan="2">Comic: <%= @comic.number %></td></tr>
     <tr><td colspan="2">Post Date: <%= @comic.posted_at.strftime "%a, %-m/%-d/%Y" %></td></tr>

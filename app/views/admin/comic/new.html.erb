@@ -1,4 +1,4 @@
-<%= form_tag "/comic_admin", :method => :post, :multipart => true do %>
+<%= form_tag "/admin/comic", :method => :post, :multipart => true do %>
   <table>
     <tr><td colspan="2">Comic: <%= @next_number %></td></tr>
     <tr><td colspan="2">Post Date: <%= @next_post_date.strftime "%a, %-m/%-d/%Y" %></td></tr>

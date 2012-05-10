@@ -1,7 +1,7 @@
 module ComicHelper
   def comic_current_url
     if preview?
-      "/comic_admin/preview"
+      "/admin/comic/preview"
     else
       "/comic"
     end
@@ -9,7 +9,7 @@ module ComicHelper
 
   def comic_url(number)
     if preview?
-      "/comic_admin/#{number}/preview"
+      "/admin/comic/#{number}/preview"
     else
       "/comic/#{number}"
     end
@@ -25,7 +25,7 @@ module ComicHelper
 
   def random_url
     if preview?
-      "/comic_admin/preview_random"
+      "/admin/comic/preview_random"
     else
       "/comic/random"
     end

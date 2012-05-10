@@ -1,4 +1,4 @@
-module ComicAdminHelper
+module Admin::ComicHelper
   def lock_toggle_target
     if @comic.locked
       "unlock"

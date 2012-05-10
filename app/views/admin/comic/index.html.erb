@@ -4,8 +4,8 @@
   <% @unposted.each do |comic| %>
     <li>
       <%= comic.formatted_posted_at "" %>
-      <a href="/comic_admin/<%= comic.number %>/edit"><%= comic.title %></a>
-      (<a href="/comic_admin/<%= comic.number %>/preview"><%= t "admin.comic.index.preview" %></a>)
+      <a href="/admin/comic/<%= comic.number %>/edit"><%= comic.title %></a>
+      (<a href="/admin/comic/<%= comic.number %>/preview"><%= t "admin.comic.index.preview" %></a>)
     </li>
   <% end %>
 </ul>
@@ -16,8 +16,8 @@
   <% @posted.each do |comic| %>
     <li>
       <%= comic.formatted_posted_at "" %>
-      <a href="/comic_admin/<%= comic.number %>/edit"><%= comic.title %></a>
-      (<a href="/comic_admin/<%= comic.number %>/preview"><%= t "admin.comic.index.preview" %></a>)
+      <a href="/admin/comic/<%= comic.number %>/edit"><%= comic.title %></a>
+      (<a href="/admin/comic/<%= comic.number %>/preview"><%= t "admin.comic.index.preview" %></a>)
       (<a href="/comic/<%= comic.number %>"><%= t "admin.comic.index.show" %></a>)
     </li>
   <% end %>

@@ -1,9 +1,9 @@
 module CartoonistComics
   class Engine < ::Rails::Engine
     config.before_initialize { Cartoonist::Entity.add Comic }
-    Cartoonist::Admin::Tab.add :comics, :url => "/comic_admin", :order => 0
+    Cartoonist::Admin::Tab.add :comics, :url => "/admin/comic", :order => 0
     Cartoonist::RootPath.add :comics, "comic#index"
-    Cartoonist::Navigation::Link.add :url => "/comic", :preview_url => "/comic_admin/preview", :class => "comic", :label => "cartoonist.layout.navigation.comic", :order => 0
+    Cartoonist::Navigation::Link.add :url => "/comic", :preview_url => "/admin/comic/preview", :class => "comic", :label => "cartoonist.layout.navigation.comic", :order => 0
     Cartoonist::Migration.add_for self
 
     Cartoonist::Backup.for :comics do
@@ -33,16 +33,18 @@ module CartoonistComics
         end
       end
 
-      resources :comic_admin do
-        member do
-          post "lock"
-          get "preview"
-          post "unlock"
-        end
+      namespace :admin do
+        resources :comic do
+          member do
+            post "lock"
+            get "preview"
+            post "unlock"
+          end
 
-        collection do
-          get "preview"
-          get "preview_random"
+          collection do
+            get "preview"
+            get "preview_random"
+          end
         end
       end
     end

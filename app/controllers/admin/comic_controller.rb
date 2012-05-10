@@ -1,4 +1,4 @@
-class ComicAdminController < CartoonistController
+class Admin::ComicController < CartoonistController
   helper :comic
   before_filter :preview!, :only => [:preview, :preview_random]
   before_filter :ensure_ssl!
@@ -14,11 +14,11 @@ class ComicAdminController < CartoonistController
       format.html do
         if params[:id].present?
           begin
-            return redirect_to "/comic_admin/1/preview" if params[:id].to_i < 1
+            return redirect_to "/admin/comic/1/preview" if params[:id].to_i < 1
             @comic = Comic.from_number params[:id]
             @disabled_next = @comic.maybe_newest?
           rescue
-            return redirect_to "/comic_admin/preview"
+            return redirect_to "/admin/comic/preview"
           end
         else
           @comic = Comic.preview_current
@@ -37,7 +37,7 @@ class ComicAdminController < CartoonistController
   end
 
   def preview_random
-    redirect_to "/comic_admin/#{rand(max_preview_comic) + 1}/preview"
+    redirect_to "/admin/comic/#{rand(max_preview_comic) + 1}/preview"
   end
 
   def new
@@ -50,11 +50,11 @@ class ComicAdminController < CartoonistController
   def create
     unless params[:image]
       flash[:message] = "Error: You must include an image when creating a new comic."
-      return redirect_to "/comic_admin/new"
+      return redirect_to "/admin/comic/new"
     end
 
     comic = Comic.create_comic params
-    redirect_to "/comic_admin/#{comic.number}/edit"
+    redirect_to "/admin/comic/#{comic.number}/edit"
   end
 
   def edit
@@ -62,24 +62,24 @@ class ComicAdminController < CartoonistController
     @edit_last_number = @comic.number - 1
     @edit_next_number = @comic.number + 1
   rescue ActiveRecord::RecordNotFound
-    redirect_to "/comic_admin/new"
+    redirect_to "/admin/comic/new"
   end
 
   def lock
     comic = Comic.from_number params[:id].to_i
     comic.lock!
-    redirect_to "/comic_admin/#{comic.number}/edit"
+    redirect_to "/admin/comic/#{comic.number}/edit"
   end
 
   def unlock
     comic = Comic.from_number params[:id].to_i
     comic.unlock!
-    redirect_to "/comic_admin/#{comic.number}/edit"
+    redirect_to "/admin/comic/#{comic.number}/edit"
   end
 
   def update
     comic = Comic.update_comic params
-    redirect_to "/comic_admin/#{comic.number}/edit"
+    redirect_to "/admin/comic/#{comic.number}/edit"
   end
 
   private

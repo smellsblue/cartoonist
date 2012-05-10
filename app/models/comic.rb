@@ -53,7 +53,7 @@ class Comic < ActiveRecord::Base
   end
 
   def preview_img_url
-    "/comic_admin/#{number}/preview.png"
+    "/admin/comic/#{number}/preview.png"
   end
 
   def absolute_img_url
