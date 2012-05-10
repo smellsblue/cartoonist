@@ -1,7 +1,7 @@
 module CartoonistPages
   class Engine < ::Rails::Engine
     config.before_initialize { Cartoonist::Entity.add Page }
-    Cartoonist::Admin::Tab.add :pages, :url => "/page_admin", :order => 2
+    Cartoonist::Admin::Tab.add :pages, :url => "/admin/page", :order => 2
     Cartoonist::Migration.add_for self
 
     Cartoonist::Backup.for :pages do
@@ -19,17 +19,19 @@ module CartoonistPages
     end
 
     Cartoonist::Routes.add do
-      resources :page_admin do
-        member do
-          post "lock"
-          post "post"
-          get "preview"
-          post "unlock"
-          post "unpost"
-        end
+      namespace :admin do
+        resources :page do
+          member do
+            post "lock"
+            post "post"
+            get "preview"
+            post "unlock"
+            post "unpost"
+          end
 
-        collection do
-          post "preview_content"
+          collection do
+            post "preview_content"
+          end
         end
       end
     end

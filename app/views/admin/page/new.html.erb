@@ -1,4 +1,4 @@
-<%= form_tag "/page_admin", :method => :post do %>
+<%= form_tag "/admin/page", :method => :post do %>
   <p>
     Path: <input type="text" name="path" autofocus="autofocus" size="20" /><br />
   </p>
@@ -29,7 +29,7 @@
     $(".preview-content").click(function() {
       var $this = $(this).attr("disabled", "disabled");
       $.ajax({
-        url: "/page_admin/preview_content",
+        url: "/admin/page/preview_content",
         type: "post",
         data: {
           authenticity_token: $("form input[name='authenticity_token']").val(),

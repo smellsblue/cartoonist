@@ -1,4 +1,4 @@
-class PageAdminController < CartoonistController
+class Admin::PageController < CartoonistController
   before_filter :preview!, :only => [:preview]
   before_filter :ensure_ssl!
   before_filter :check_admin!
@@ -21,13 +21,13 @@ class PageAdminController < CartoonistController
     path = params[:path].downcase
     raise "Invalid path" unless path =~ /^[-_a-z0-9]+$/
     page = Page.create :title => params[:title], :path => path, :content => params[:content], :locked => true
-    redirect_to "/page_admin/#{page.id}/edit"
+    redirect_to "/admin/page/#{page.id}/edit"
   end
 
   def edit
     @page = Page.find params[:id].to_i
   rescue ActiveRecord::RecordNotFound
-    redirect_to "/page_admin/new"
+    redirect_to "/admin/page/new"
   end
 
   def update
@@ -49,20 +49,20 @@ class PageAdminController < CartoonistController
     end
 
     page.save!
-    redirect_to "/page_admin/#{page.id}/edit"
+    redirect_to "/admin/page/#{page.id}/edit"
   end
 
   def lock
     page = Page.find params[:id].to_i
     page.locked = true
     page.save!
-    redirect_to "/page_admin/#{page.id}/edit"
+    redirect_to "/admin/page/#{page.id}/edit"
   end
 
   def unlock
     page = Page.find params[:id].to_i
     page.locked = false
     page.save!
-    redirect_to "/page_admin/#{page.id}/edit"
+    redirect_to "/admin/page/#{page.id}/edit"
   end
 end

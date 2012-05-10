@@ -1,4 +1,4 @@
-module PageAdminHelper
+module Admin::PageHelper
   def lock_toggle_target
     if @page.locked
       "unlock"
