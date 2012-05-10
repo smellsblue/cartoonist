@@ -2,7 +2,7 @@ class AdminController < CartoonistController
   before_filter :ensure_ssl!, :except => [:cron]
   before_filter :check_admin!, :except => [:cron]
 
-  def index
+  def show
     redirect_to "/admin/main"
   end
 

@@ -345,7 +345,7 @@ module Cartoonist
 
       resources :accounts
 
-      resources :admin do
+      resource :admin, :controller => :admin do
         collection do
           get "cron"
           get "backup"
