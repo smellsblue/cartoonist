@@ -1,9 +1,9 @@
-class SettingsController < CartoonistController
+class Admin::SettingsController < CartoonistController
   before_filter :ensure_ssl!
   before_filter :check_admin!, :except => [:initial_setup, :save_initial_setup]
 
   def index
-    redirect_to "/settings/general"
+    redirect_to "/admin/settings/general"
   end
 
   def show
@@ -21,7 +21,7 @@ class SettingsController < CartoonistController
       end
     end
 
-    redirect_to "/settings/#{params[:id]}"
+    redirect_to "/admin/settings/#{params[:id]}"
   end
 
   def initial_setup
@@ -34,7 +34,7 @@ class SettingsController < CartoonistController
 
     if params[:admin_password] != params[:admin_confirm_password]
       flash[:error] = t "settings.initial_setup.passwords_dont_match"
-      return redirect_to "/settings/initial_setup"
+      return redirect_to "/admin/settings/initial_setup"
     end
 
     Setting[:copyright_starting_year] = Date.today.strftime("%Y").to_i

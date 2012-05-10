@@ -1,6 +1,6 @@
 <div class="tabs">
   <% Setting.tabs.each do |tab| %>
-    <a href="/settings/<%= tab %>" class="tab <%= "selected_tab" if tab == params[:id].to_sym %>"><%= Setting::Tab[tab].localized %></a>
+    <a href="/admin/settings/<%= tab %>" class="tab <%= "selected_tab" if tab == params[:id].to_sym %>"><%= Setting::Tab[tab].localized %></a>
   <% end %>
 </div>
 
@@ -12,7 +12,7 @@
   <% end %>
 <% end %>
 
-<%= form_tag "/settings/#{@tab.label}", :method => :put do %>
+<%= form_tag "/admin/settings/#{@tab.label}", :method => :put do %>
   <% @tab.sections.each do |section| %>
     <div class="section">
       <h2><%= @tab[section].localized %></h2>

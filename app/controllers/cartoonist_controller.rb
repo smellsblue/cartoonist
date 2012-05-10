@@ -15,7 +15,7 @@ class CartoonistController < ActionController::Base
 
   def check_admin!
     if initial_setup_required?
-      redirect_to "/settings/initial_setup"
+      redirect_to "/admin/settings/initial_setup"
     else
       authenticate_user!
     end

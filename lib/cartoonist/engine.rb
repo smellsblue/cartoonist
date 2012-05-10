@@ -354,10 +354,12 @@ module Cartoonist
         end
       end
 
-      resources :settings do
-        collection do
-          get "initial_setup"
-          post "save_initial_setup"
+      namespace :admin do
+        resources :settings do
+          collection do
+            get "initial_setup"
+            post "save_initial_setup"
+          end
         end
       end
     end

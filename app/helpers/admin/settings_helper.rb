@@ -1,4 +1,4 @@
-module SettingsHelper
+module Admin::SettingsHelper
   def setting_select_value(option)
     if option.kind_of? Hash
       option[:value]
