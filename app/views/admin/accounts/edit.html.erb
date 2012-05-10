@@ -1,6 +1,6 @@
 <h2><%= t "accounts.edit.subtitle" %></h2>
 
-<%= form_tag "/accounts/#{@user.id}", :method => :put do %>
+<%= form_tag "/admin/accounts/#{@user.id}", :method => :put do %>
   <p>
     <%= t "accounts.edit.email" %> <input type="text" name="email" value="<%= @user.email %>" />
   </p>

@@ -326,10 +326,6 @@ module Cartoonist
       match "sitemap" => "site#sitemap", :defaults => { :format => "xml" }
       match "robots" => "site#robots", :defaults => { :format => "text" }
 
-      devise_for :users
-
-      resources :accounts
-
       resource :admin, :controller => :admin do
         collection do
           get "cron"
@@ -339,7 +335,11 @@ module Cartoonist
         end
       end
 
+      devise_for :users
+
       namespace :admin do
+        resources :accounts
+
         resources :cache, :constraints => { :id => /.*/ } do
           collection do
             post "expire_www"

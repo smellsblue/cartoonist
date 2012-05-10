@@ -1,4 +1,4 @@
-<a href="/accounts/new"><%= t "accounts.index.new_user" %></a>
+<a href="/admin/accounts/new"><%= t "accounts.index.new_user" %></a>
 
 <table>
   <thead>
@@ -15,10 +15,10 @@
       <tr>
         <td><%= user.name %></td>
         <td><%= user.email %></td>
-        <td><a href="/accounts/<%= user.id %>/edit"><%= t "accounts.index.edit_button" %></a></td>
+        <td><a href="/admin/accounts/<%= user.id %>/edit"><%= t "accounts.index.edit_button" %></a></td>
         <td>
           <% if current_user.id != user.id %>
-            <%= form_tag "/accounts/#{user.id}", :method => :delete do %>
+            <%= form_tag "/admin/accounts/#{user.id}", :method => :delete do %>
               <input type="submit" value="<%= t "accounts.index.delete_button" %>" />
             <% end %>
           <% end %>

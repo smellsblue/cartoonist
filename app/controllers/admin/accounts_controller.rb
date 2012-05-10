@@ -1,4 +1,4 @@
-class AccountsController < CartoonistController
+class Admin::AccountsController < CartoonistController
   before_filter :ensure_ssl!
   before_filter :check_admin!
 
@@ -8,7 +8,7 @@ class AccountsController < CartoonistController
 
   def create
     user = User.create_user params
-    redirect_to "/accounts"
+    redirect_to "/admin/accounts"
   end
 
   def show
@@ -21,12 +21,12 @@ class AccountsController < CartoonistController
 
   def update
     user = User.update_user params
-    redirect_to "/accounts/#{user.id}"
+    redirect_to "/admin/accounts/#{user.id}"
   end
 
   def destroy
     raise "Cannot destroy yourself!" if current_user.id == params[:id].to_i
     User.delete_user params
-    redirect_to "/accounts"
+    redirect_to "/admin/accounts"
   end
 end
