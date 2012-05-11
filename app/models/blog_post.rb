@@ -4,9 +4,14 @@ class BlogPost < ActiveRecord::Base
   include Entity
   entity_type :blog
   entity_global_url "/blog"
-  entity_url { |post| "/blog/#{post.url_title}" }
+  entity_url &:url
+  entity_description &:title
   attr_accessor :for_preview
   attr_accessible :title, :url_title, :author, :posted_at, :content, :tweet, :tweeted_at, :locked
+
+  def url
+    "/blog/#{url_title}"
+  end
 
   def lock!
     self.locked = true

@@ -1,6 +1,6 @@
 module CartoonistBlog
   class Engine < ::Rails::Engine
-    config.before_initialize { Cartoonist::Entity.add BlogPost }
+    Cartoonist::Entity.add :blog, "BlogPost"
     Cartoonist::Admin::Tab.add :blog, :url => "/admin/blog", :order => 1
     Cartoonist::RootPath.add :blog, "blog#index"
     Cartoonist::Navigation::Link.add :url => "/blog", :preview_url => "/admin/blog/preview", :class => "blog", :label => "cartoonist.layout.navigation.blog", :order => 1
