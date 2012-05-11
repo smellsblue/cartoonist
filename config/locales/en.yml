@@ -5,8 +5,8 @@ en:
         tweets: Tweets
     tweets:
       index:
-        not_posted: Not yet posted
-        posted: Posted
+        not_tweeted: Not yet tweeted
+        tweeted: Tweeted
       layout:
         section: Tweets
   cartoonist:

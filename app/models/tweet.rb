@@ -16,7 +16,65 @@ class Tweet < ActiveRecord::Base
     tweeted_at.localtime.strftime "%-m/%-d/%Y at %-l:%M %P"
   end
 
+  def manual_tweet!
+    return if tweeted?
+    return if tweet_style == :disabled
+    send_tweet!
+  end
+
+  def auto_tweet!
+    return if tweeted?
+    return unless expected_tweet_time
+    return unless Time.now >= expected_tweet_time
+    send_tweet!
+  end
+
+  def tweet_style
+    Setting[:"#{entity.entity_type}_tweet_style"]
+  end
+
+  def tweet_time
+    Setting[:"#{entity.entity_type}_tweet_time"]
+  end
+
+  def expected_tweet_time
+    case tweet_style
+    when :disabled
+      nil
+    when :manual
+      nil
+    when :automatic
+      entity.posted_at
+    when :automatic_timed
+      if tweet_time.blank?
+        entity.posted_at
+      elsif entity.posted_at
+        parsed = DateTime.strptime("#{entity.posted_at.year}-#{entity.posted_at.month}-#{entity.posted_at.day} #{tweet_time.downcase}", "%Y-%m-%d %I:%M %p").to_time
+        result = Time.local entity.posted_at.year, entity.posted_at.month, entity.posted_at.day, parsed.hour, parsed.min
+        result = result + 1.day if result < entity.posted_at.to_time
+        result
+      end
+    else
+      raise "Invalid tweet style #{tweet_style}"
+    end
+  end
+
+  def tweeted?
+    tweeted_at.present?
+  end
+
   private
+  def send_tweet!
+    if Rails.env.production?
+      Twitter.update tweet
+    else
+      logger.info "Fake Tweet: #{tweet}"
+    end
+
+    self.tweeted_at = Time.now
+    save!
+  end
+
   def doesnt_update_tweet_after_tweeted
     if !tweeted_at_was.nil? && tweet_changed?
       errors.add :tweet, "can't change after the tweet has been sent"
@@ -53,6 +111,14 @@ class Tweet < ActiveRecord::Base
 
     def reverse_chronological
       order "tweeted_at DESC"
+    end
+
+    def created_chronological
+      order "created_at ASC"
+    end
+
+    def created_reverse_chronological
+      order "created_at DESC"
     end
 
     def create_for(entity)

@@ -3,7 +3,7 @@ class Admin::TweetsController < CartoonistController
   before_filter :check_admin!
 
   def index
-    @unposted = Tweet.tweeted.chronological
-    @posted = Tweet.untweeted.reverse_chronological
+    @untweeted = Tweet.untweeted.created_chronological
+    @tweeted = Tweet.tweeted.reverse_chronological
   end
 end

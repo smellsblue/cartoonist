@@ -1,7 +1,7 @@
-<h2><%= t "admin.tweets.index.not_posted" %></h2>
+<h2><%= t "admin.tweets.index.not_tweeted" %></h2>
 
 <ul>
-  <% @unposted.each do |tweet| %>
+  <% @untweeted.each do |tweet| %>
     <li>
       <%= tweet.formatted_tweeted_at "" %>
       <a href="/admin/tweets/<%= tweet.id %>/edit"><%= tweet.description %></a>
@@ -9,10 +9,10 @@
   <% end %>
 </ul>
 
-<h2><%= t "admin.tweets.index.posted" %></h2>
+<h2><%= t "admin.tweets.index.tweeted" %></h2>
 
 <ul>
-  <% @posted.each do |tweet| %>
+  <% @tweeted.each do |tweet| %>
     <li>
       <%= tweet.formatted_tweeted_at "" %>
       <a href="/admin/tweets/<%= tweet.id %>/edit"><%= tweet.description %></a>

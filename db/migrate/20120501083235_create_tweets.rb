@@ -5,6 +5,7 @@ class CreateTweets < ActiveRecord::Migration
       t.string :entity_type, :null => false
       t.string :tweet, :null => false, :length => 140
       t.datetime :tweeted_at
+      t.timestamps
     end
 
     add_index :tweets, :tweeted_at
