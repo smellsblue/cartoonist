@@ -110,16 +110,16 @@ module Cartoonist
 
     class << self
       def all
-        @@cached_order
+        @@cached_order.map &:constantize
       end
 
       def [](key)
-        @@all[key]
+        @@all[key].constantize
       end
 
-      def add(model)
-        @@all[model.entity_type] = model
-        @@cached_order = @@all.keys.sort.map { |key| self[key] }
+      def add(key, model_name)
+        @@all[key] = model_name
+        @@cached_order = @@all.keys.sort.map { |key| @@all[key] }
       end
 
       def register_hooks(hooks)

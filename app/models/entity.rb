@@ -7,6 +7,14 @@ module Entity
     self.class.entity_label
   end
 
+  def entity_localized_label
+    I18n.t entity_label
+  end
+
+  def entity_description
+    self.class.entity_description.call self
+  end
+
   def entity_relative_url
     self.class.entity_url.call self if self.class.entity_url
   end
@@ -47,6 +55,14 @@ module Entity
         @entity_label = value
       else
         @entity_label || "cartoonist.entity.#{entity_type}"
+      end
+    end
+
+    def entity_description(&block)
+      if block
+        @entity_description = block
+      else
+        @entity_description
       end
     end
 
