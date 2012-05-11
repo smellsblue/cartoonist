@@ -1,9 +1,19 @@
 class Tweet < ActiveRecord::Base
   validate :doesnt_update_tweet_after_tweeted
   validate :entity_doesnt_change, :on => :update
+  attr_accessible :entity_id, :entity_type, :tweet, :tweeted_at
 
   def entity
     @entity ||= Cartoonist::Entity[entity_type.to_sym].find(entity_id)
+  end
+
+  def description
+    "#{entity.entity_localized_label}: #{entity.entity_description}"
+  end
+
+  def formatted_tweeted_at(default_msg = "not yet tweeted")
+    return default_msg unless tweeted_at
+    tweeted_at.localtime.strftime "%-m/%-d/%Y at %-l:%M %P"
   end
 
   private
@@ -43,12 +53,6 @@ class Tweet < ActiveRecord::Base
 
     def reverse_chronological
       order "tweeted_at DESC"
-    end
-
-    def after_entity_save(entity)
-      return if Setting[:"#{entity.entity_type}_tweet_style"] == :disabled
-      result = find_for entity
-      create_for entity unless result
     end
 
     def create_for(entity)
