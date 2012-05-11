@@ -4,9 +4,14 @@ class Comic < ActiveRecord::Base
   include Entity
   entity_type :comic
   entity_global_url "/comic"
-  entity_url { |comic| "/comic/#{comic.number}" }
+  entity_url &:url
+  entity_description &:title
   attr_accessible :number, :posted_at, :title, :description, :scene_description, :dialogue, :title_text, :database_file_id, :database_file, :tweet, :tweeted_at, :locked
   belongs_to :database_file
+
+  def url
+    "/comic/#{number}"
+  end
 
   def lock!
     self.locked = true

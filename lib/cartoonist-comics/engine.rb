@@ -1,6 +1,6 @@
 module CartoonistComics
   class Engine < ::Rails::Engine
-    config.before_initialize { Cartoonist::Entity.add Comic }
+    Cartoonist::Entity.add :comic, "Comic"
     Cartoonist::Admin::Tab.add :comics, :url => "/admin/comic", :order => 0
     Cartoonist::RootPath.add :comics, "comic#index"
     Cartoonist::Navigation::Link.add :url => "/comic", :preview_url => "/admin/comic/preview", :class => "comic", :label => "cartoonist.layout.navigation.comic", :order => 0
