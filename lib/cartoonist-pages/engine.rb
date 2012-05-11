@@ -1,6 +1,6 @@
 module CartoonistPages
   class Engine < ::Rails::Engine
-    config.before_initialize { Cartoonist::Entity.add Page }
+    Cartoonist::Entity.add :page, "Page"
     Cartoonist::Admin::Tab.add :pages, :url => "/admin/page", :order => 2
     Cartoonist::Migration.add_for self
 
