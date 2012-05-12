@@ -6,6 +6,10 @@ module CartoonistTwitter
         result = Tweet.find_for entity
         Tweet.create_for entity unless result
       end
+
+      def edit_entity_before_partial
+        "admin/tweets/entity_tweet"
+      end
     end
   end
 

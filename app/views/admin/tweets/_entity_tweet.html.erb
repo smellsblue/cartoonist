@@ -1,6 +1,22 @@
-TODO: Inject this in entities.
-TODO: Have form for the tweet, including the message, save, and tweet now.
-TODO: Don't allow save if tweeted
-TODO: Don't allow tweet now if tweeted or entity is unposted
-TODO: Redirect back to edit using a new entity_edit_url method
-<hr />
+<% tweet = Tweet.tweet_for entity %>
+<% if tweet.tweet_style != :disabled %>
+  <%= form_tag tweet.form_path, :method => tweet.form_method do %>
+    <input type="hidden" name="entity_id" value="<%= tweet.entity_id %>" />
+    <input type="hidden" name="entity_type" value="<%= tweet.entity_type %>" />
+
+    <p>
+      <textarea name="tweet" rows="2" cols="100"><%= tweet.tweet %></textarea>
+    </p>
+
+    <p>
+      <input type="submit" name="save" value="Save" />
+    </p>
+
+    <p>
+      <input type="submit" name="tweet_now" value="Tweet Now" />
+    </p>
+  <% end %>
+  TODO: Don't allow save if tweeted, disabled unless allow_save?
+  TODO: Don't allow tweet now if tweeted or entity is unposted, disabled unless allow_tweet_now?
+  TODO: Redirect back to edit using a new entity_edit_url method
+<% end %>

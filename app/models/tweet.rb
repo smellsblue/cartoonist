@@ -37,6 +37,22 @@ class Tweet < ActiveRecord::Base
     Setting[:"#{entity.entity_type}_tweet_time"]
   end
 
+  def form_path
+    if new_record?
+      "/admin/tweets"
+    else
+      "/admin/tweets/#{id}"
+    end
+  end
+
+  def form_method
+    if new_record?
+      :post
+    else
+      :put
+    end
+  end
+
   def expected_tweet_time
     case tweet_style
     when :disabled
@@ -92,6 +108,20 @@ class Tweet < ActiveRecord::Base
   end
 
   class << self
+    def tweet_for(entity)
+      result = find_for entity
+
+      if result
+        result
+      else
+        Tweet.new options_for(entity)
+      end
+    end
+
+    def options_for(entity)
+      { :entity_id => entity.id, :entity_type => entity.entity_type, :tweet => SimpleTemplate[Setting[:"#{entity.entity_type}_default_tweet"], :self => entity] }
+    end
+
     def find_for(entity)
       raise "Can only find tweets for entities!" unless entity.kind_of? Entity
       where({ :entity_id => entity.id, :entity_type => entity.entity_type }).first
@@ -122,7 +152,7 @@ class Tweet < ActiveRecord::Base
     end
 
     def create_for(entity)
-      create :entity_id => entity.id, :entity_type => entity.entity_type, :tweet => SimpleTemplate[Setting[:"#{entity.entity_type}_default_tweet"], :self => entity]
+      create options_for(entity)
     end
 
     def styles(entity)
