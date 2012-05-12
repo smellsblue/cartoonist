@@ -1,3 +1,8 @@
+<% Cartoonist::Entity.hooks_with(:edit_entity_before_partial).each do |hook| %>
+  <%= render :partial => hook.edit_entity_before_partial, :locals => { :entity => @page } %>
+  <hr />
+<% end %>
+
 <p>
   <a href="/admin/page/<%= @page.path %>/preview">Preview this page</a>
 </p>
@@ -84,4 +89,9 @@
       return false;
     });
   });
+<% end %>
+
+<% Cartoonist::Entity.hooks_with(:edit_entity_after_partial).each do |hook| %>
+  <hr />
+  <%= render :partial => hook.edit_entity_after_partial, :locals => { :entity => @page } %>
 <% end %>
