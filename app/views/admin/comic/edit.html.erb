@@ -1,3 +1,8 @@
+<% Cartoonist::Entity.hooks_with(:edit_entity_before_partial).each do |hook| %>
+  <%= render :partial => hook.edit_entity_before_partial, :locals => { :entity => @comic } %>
+  <hr />
+<% end %>
+
 <p>
   <%= form_tag "/admin/comic/#{@comic.number}/#{lock_toggle_target}", :method => :post do %>
     <input type="submit" value="<%= lock_toggle_target %>" />
@@ -68,3 +73,8 @@
   Current Image:<br />
   <img src="<%= @comic.preview_img_url %>" />
 </p>
+
+<% Cartoonist::Entity.hooks_with(:edit_entity_after_partial).each do |hook| %>
+  <hr />
+  <%= render :partial => hook.edit_entity_after_partial, :locals => { :entity => @comic } %>
+<% end %>
