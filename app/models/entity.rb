@@ -23,6 +23,10 @@ module Entity
     "http://#{Setting[:domain]}#{entity_relative_url}" if entity_relative_url
   end
 
+  def entity_edit_url
+    self.class.entity_edit_url.call self if self.class.entity_edit_url
+  end
+
   def self.included(base)
     base.extend ClassMethods
 
@@ -79,6 +83,14 @@ module Entity
         @entity_url = block
       else
         @entity_url
+      end
+    end
+
+    def entity_edit_url(&block)
+      if block
+        @entity_edit_url = block
+      else
+        @entity_edit_url
       end
     end
   end
