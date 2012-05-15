@@ -108,6 +108,13 @@ class Tweet < ActiveRecord::Base
   end
 
   class << self
+    def update_tweet(params)
+      tweet = find params[:id].to_i
+      tweet.tweet = params[:tweet]
+      tweet.save!
+      tweet
+    end
+
     def tweet_for(entity)
       result = find_for entity
 
@@ -149,6 +156,16 @@ class Tweet < ActiveRecord::Base
 
     def created_reverse_chronological
       order "created_at DESC"
+    end
+
+    def not_disabled
+      result = all
+
+      types = result.map(&:entity_type).uniq.select do |t|
+        Setting[:"#{t}_tweet_style"] != :disabled
+      end
+
+      result.select { |x| types.include? x.entity_type }
     end
 
     def create_for(entity)
