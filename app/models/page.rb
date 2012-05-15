@@ -3,11 +3,16 @@ class Page < ActiveRecord::Base
   include Entity
   entity_type :page
   entity_url &:url
+  entity_edit_url &:edit_url
   entity_description &:title
   attr_accessible :title, :path, :posted_at, :content, :locked, :comments, :in_sitemap
 
   def url
     "/#{path}"
+  end
+
+  def edit_url
+    "/admin/page/#{id}/edit"
   end
 
   def has_comments?
