@@ -53,14 +53,8 @@ module CartoonistTwitter
     end
 
     Cartoonist::Cron.add do
-      Comic.untweeted.each do |comic|
-        comic.tweet!
-        Rails.logger.info "Comic Tweet: #{comic.tweet}" unless Rails.env.production?
-      end
-
-      BlogPost.untweeted.each do |post|
-        post.tweet!
-        Rails.logger.info "Blog Post Tweet: #{post.tweet}" unless Rails.env.production?
+      Tweet.untweeted.each do |tweet|
+        tweet.auto_tweet!
       end
     end
 

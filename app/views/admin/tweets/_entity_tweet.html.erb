@@ -7,17 +7,16 @@
     <input type="hidden" name="destination" value="<%= destination %>" />
 
     <p>
-      <textarea name="tweet" rows="2" cols="100"><%= tweet.tweet %></textarea>
+      <%= t "admin.tweets.entity_tweet.tweet" %><br />
+      <textarea name="tweet" rows="2" cols="100" <%= 'disabled="disabled"'.html_safe unless tweet.allow_save? %>><%= tweet.tweet %></textarea>
     </p>
 
     <p>
-      <input type="submit" name="save" value="Save" />
+      <input type="submit" name="save" value="<%= t "admin.tweets.entity_tweet.save" %>" <%= 'disabled="disabled"'.html_safe unless tweet.allow_save? %> />
     </p>
 
     <p>
-      <input type="submit" name="tweet_now" value="Tweet Now" />
+      <input type="submit" name="tweet_now" value="<%= t "admin.tweets.entity_tweet.tweet_now" %>" <%= 'disabled="disabled"'.html_safe unless tweet.allow_tweet_now? %> />
     </p>
   <% end %>
-  TODO: Don't allow save if tweeted, disabled unless allow_save?
-  TODO: Don't allow tweet now if tweeted or entity is unposted, disabled unless allow_tweet_now?
 <% end %>

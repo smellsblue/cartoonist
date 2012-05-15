@@ -4,6 +4,10 @@ en:
       tab:
         tweets: Tweets
     tweets:
+      entity_tweet:
+        save: Save
+        tweet: "Tweet:"
+        tweet_now: Tweet Now
       index:
         not_tweeted: Not yet tweeted
         tweeted: Tweeted

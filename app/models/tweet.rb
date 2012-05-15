@@ -3,6 +3,24 @@ class Tweet < ActiveRecord::Base
   validate :entity_doesnt_change, :on => :update
   attr_accessible :entity_id, :entity_type, :tweet, :tweeted_at
 
+  def allow_tweet_now?
+    if entity.kind_of? Postable
+      posted = entity.posted?
+    else
+      posted = true
+    end
+
+    allow_save? && !disabled? && posted
+  end
+
+  def allow_save?
+    !tweeted?
+  end
+
+  def disabled?
+    tweet_style == :disabled
+  end
+
   def entity
     @entity ||= Cartoonist::Entity[entity_type.to_sym].find(entity_id)
   end
@@ -17,8 +35,9 @@ class Tweet < ActiveRecord::Base
   end
 
   def manual_tweet!
+    raise "Tweeting is not allowed!" unless allow_tweet_now?
     return if tweeted?
-    return if tweet_style == :disabled
+    return if disabled?
     send_tweet!
   end
 
@@ -110,9 +129,16 @@ class Tweet < ActiveRecord::Base
   class << self
     def update_tweet(params)
       tweet = find params[:id].to_i
+      raise "Saving is not allowed!" unless tweet.allow_save?
       tweet.tweet = params[:tweet]
       tweet.save!
       tweet
+    end
+
+    def create_tweet(params)
+      raise "The entity_id is required!" if params[:entity_id].blank?
+      raise "The entity_type is required!" if params[:entity_type].blank?
+      create :entity_id => params[:entity_id].to_i, :entity_type => params[:entity_type], :tweet => params[:tweet]
     end
 
     def tweet_for(entity)
@@ -121,8 +147,12 @@ class Tweet < ActiveRecord::Base
       if result
         result
       else
-        Tweet.new options_for(entity)
+        new options_for(entity)
       end
+    end
+
+    def create_for(entity)
+      create options_for(entity)
     end
 
     def options_for(entity)
@@ -166,10 +196,6 @@ class Tweet < ActiveRecord::Base
       end
 
       result.select { |x| types.include? x.entity_type }
-    end
-
-    def create_for(entity)
-      create options_for(entity)
     end
 
     def styles(entity)
