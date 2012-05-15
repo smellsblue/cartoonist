@@ -8,7 +8,7 @@ module Entity
   end
 
   def entity_localized_label
-    I18n.t entity_label
+    self.class.entity_localized_label
   end
 
   def entity_description
@@ -60,6 +60,10 @@ module Entity
       else
         @entity_label || "cartoonist.entity.#{entity_type}"
       end
+    end
+
+    def entity_localized_label
+      I18n.t entity_label
     end
 
     def entity_description(&block)
