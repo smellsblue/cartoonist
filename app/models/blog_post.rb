@@ -5,12 +5,17 @@ class BlogPost < ActiveRecord::Base
   entity_type :blog
   entity_global_url "/blog"
   entity_url &:url
+  entity_edit_url &:edit_url
   entity_description &:title
   attr_accessor :for_preview
   attr_accessible :title, :url_title, :author, :posted_at, :content, :tweet, :tweeted_at, :locked
 
   def url
     "/blog/#{url_title}"
+  end
+
+  def edit_url
+    "/admin/blog/#{id}/edit"
   end
 
   def lock!
