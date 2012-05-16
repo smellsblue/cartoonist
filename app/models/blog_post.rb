@@ -1,6 +1,5 @@
 class BlogPost < ActiveRecord::Base
   include Postable
-  include Tweetable
   include Entity
   entity_type :blog
   entity_global_url "/blog"
@@ -8,7 +7,7 @@ class BlogPost < ActiveRecord::Base
   entity_edit_url &:edit_url
   entity_description &:title
   attr_accessor :for_preview
-  attr_accessible :title, :url_title, :author, :posted_at, :content, :tweet, :tweeted_at, :locked
+  attr_accessible :title, :url_title, :author, :posted_at, :content, :locked
 
   def url
     "/blog/#{url_title}"
@@ -26,10 +25,6 @@ class BlogPost < ActiveRecord::Base
   def unlock!
     self.locked = false
     save!
-  end
-
-  def expected_tweet_time
-    posted_at
   end
 
   def first_post
@@ -110,24 +105,18 @@ class BlogPost < ActiveRecord::Base
   class << self
     def create_post(current_user, params)
       url_title = url_titlize params[:title]
-      create :title => params[:title], :url_title => url_title, :content => params[:content], :author => current_user.name, :tweet => tweet_message(url_title), :locked => true
+      create :title => params[:title], :url_title => url_title, :content => params[:content], :author => current_user.name, :locked => true
     end
 
     def update_post(params)
       post = find params[:id].to_i
       raise "Cannot update locked post!" if post.locked
-      original_tweet = post.tweet
       original_url_title = post.url_title
       post.title = params[:title]
       post.url_title = url_titlize params[:title]
       post.author = params[:author]
-      post.tweet = params[:tweet]
       post.content = params[:content]
       post.locked = true
-
-      if original_tweet == post.tweet && original_url_title != post.url_title && !post.tweeted?
-        post.tweet = tweet_message post.url_title
-      end
 
       if params[:post_now].present? && !post.posted?
         post.posted_at = Time.now
@@ -210,23 +199,12 @@ class BlogPost < ActiveRecord::Base
       posted.reverse_chronological.select([:url_title, :title, :posted_at]).all
     end
 
-    def untweeted
-      posted.where(:tweeted_at => nil).all
-    end
-
     def feed
       posted.reverse_chronological.take 10
     end
 
     def sitemap
       posted.reverse_chronological.all
-    end
-
-    private
-    def tweet_message(url_title)
-      tweet = "New blog post: http://#{Setting[:domain]}/blog/#{url_title}"
-      tweet = "New blog post: http://#{Setting[:domain]}/blog" if tweet.length > 140
-      tweet
     end
   end
 end

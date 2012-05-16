@@ -6,8 +6,6 @@ class CreateBlogPosts < ActiveRecord::Migration
       t.string :author, :null => false
       t.datetime :posted_at
       t.text :content, :null => false
-      t.string :tweet, :null => false, :length => 140
-      t.datetime :tweeted_at
       t.boolean :locked, :null => false, :default => false
       t.timestamps
     end

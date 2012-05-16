@@ -50,15 +50,6 @@
   </p>
 
   <p>
-    Tweet:
-    <% if @post.tweeted_at %>
-      <em>(sent <%= @post.tweeted_at.strftime "%-m/%-d/%Y %-l:%M %P" %>)</em>
-    <% end %>
-    <br />
-    <textarea name="tweet" rows="2" cols="100" tabindex="5" <%= lock_disabled %>><%= @post.tweet %></textarea>
-  </p>
-
-  <p>
     <input type="submit" value="Save" <%= lock_disabled %> />
     <input type="button" value="Preview" class="preview-content" />
   </p>
