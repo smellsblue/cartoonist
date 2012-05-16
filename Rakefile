@@ -72,7 +72,8 @@ CARTOONIST_GEMS = [CartoonistGem.new("cartoonist-core", "cartoonist"),
                    CartoonistGem.new("cartoonist-blog"),
                    CartoonistGem.new("cartoonist-comics"),
                    CartoonistGem.new("cartoonist-default-theme"),
-                   CartoonistGem.new("cartoonist-pages")]
+                   CartoonistGem.new("cartoonist-pages"),
+                   CartoonistGem.new("cartoonist-twitter")]
 CARTOONIST_AND_GEMS = CARTOONIST_GEMS + [CartoonistGems.new, Cartoonist.new]
 
 task :default => :build
