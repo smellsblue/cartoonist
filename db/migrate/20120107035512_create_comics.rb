@@ -9,8 +9,6 @@ class CreateComics < ActiveRecord::Migration
       t.text :dialogue, :null => false
       t.text :title_text, :null => false
       t.integer :database_file_id, :null => false
-      t.string :tweet, :null => false
-      t.datetime :tweeted_at
       t.boolean :locked, :default => false, :null => false
       t.timestamps
     end

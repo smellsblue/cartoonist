@@ -45,17 +45,6 @@
 
     <tr>
       <td colspan="2">
-        Tweet:
-        <% if @comic.tweeted_at %>
-          <em>(sent <%= @comic.tweeted_at.strftime "%-m/%-d/%Y %-l:%M %P" %>)</em>
-        <% end %>
-        <br />
-        <textarea name="tweet" rows="2" cols="100" tabindex="6" <%= lock_disabled %>><%= @comic.tweet %></textarea>
-      </td>
-    </tr>
-
-    <tr>
-      <td colspan="2">
         Image:<br />
         <input name="image" type="file" tabindex="7" <%= lock_disabled %> />
       </td>

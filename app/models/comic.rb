@@ -1,13 +1,12 @@
 class Comic < ActiveRecord::Base
   include Postable
-  include Tweetable
   include Entity
   entity_type :comic
   entity_global_url "/comic"
   entity_url &:url
   entity_edit_url &:edit_url
   entity_description &:title
-  attr_accessible :number, :posted_at, :title, :description, :scene_description, :dialogue, :title_text, :database_file_id, :database_file, :tweet, :tweeted_at, :locked
+  attr_accessible :number, :posted_at, :title, :description, :scene_description, :dialogue, :title_text, :database_file_id, :database_file, :locked
   belongs_to :database_file
 
   def url
@@ -26,10 +25,6 @@ class Comic < ActiveRecord::Base
   def unlock!
     self.locked = false
     save!
-  end
-
-  def expected_tweet_time
-    Time.local posted_at.year, posted_at.month, posted_at.day, 8, 0
   end
 
   def real?
@@ -79,7 +74,7 @@ class Comic < ActiveRecord::Base
 
     def create_comic(params)
       last = current_created
-      create :number => next_number(last), :title => params[:title], :posted_at => next_post_date(last), :description => params[:description], :scene_description => params[:scene_description], :dialogue => params[:dialogue], :title_text => params[:title_text], :tweet => params[:tweet], :database_file => DatabaseFile.create(:content => params[:image].read), :locked => true
+      create :number => next_number(last), :title => params[:title], :posted_at => next_post_date(last), :description => params[:description], :scene_description => params[:scene_description], :dialogue => params[:dialogue], :title_text => params[:title_text], :database_file => DatabaseFile.create(:content => params[:image].read), :locked => true
     end
 
     def update_comic(params)
@@ -90,7 +85,6 @@ class Comic < ActiveRecord::Base
       comic.scene_description = params[:scene_description]
       comic.dialogue = params[:dialogue]
       comic.title_text = params[:title_text]
-      comic.tweet = params[:tweet] unless comic.tweeted?
       comic.locked = true
       comic.database_file = DatabaseFile.create(:content => params[:image].read) if params[:image]
       comic.save!
@@ -123,10 +117,6 @@ class Comic < ActiveRecord::Base
 
     def largest_number
       preview_current.number
-    end
-
-    def untweeted
-      posted.where(:tweeted_at => nil).all
     end
 
     def reverse_numerical
