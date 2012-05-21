@@ -24,7 +24,7 @@ class ComicFeed
       @title = comic.title
       @img_url = comic.absolute_img_url
       @title_text = comic.title_text
-      @description = comic.description
+      @description = comic.formatted_description
       @pub_date = comic.posted_at.to_time.strftime "%a, %d %b %Y 00:00:01 %z"
     end
   end

@@ -17,9 +17,9 @@
   </div>
 </p>
 
-<p class="description">
-  <%= @comic.description %>
-</p>
+<div class="description">
+  <%= @comic.formatted_description %>
+</div>
 
 <% if mobile? %>
   <p class="title-text">

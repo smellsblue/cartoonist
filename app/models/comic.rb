@@ -17,6 +17,10 @@ class Comic < ActiveRecord::Base
     "/admin/comic/#{number}/edit"
   end
 
+  def formatted_description
+    Markdown.render description
+  end
+
   def lock!
     self.locked = true
     save!

@@ -10,9 +10,7 @@
         <p>
           <img src="#{h item.img_url}" title="#{h item.title_text}" />
         </p>
-        <p>
-          #{h item.description}
-        </p>
+        #{item.description}
       } %>
       <% if mobile? %>
         <%= %{
