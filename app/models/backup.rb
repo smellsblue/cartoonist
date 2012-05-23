@@ -2,7 +2,7 @@ class Backup
   class << self
     def each
       Cartoonist::Backup.all.each do |key, proc|
-        proc.call.each do |value|
+        proc.call.find_each do |value|
           if value.respond_to? :to_backup_entries
             value.to_backup_entries.each do |entry|
               yield entry.with_key(key)
