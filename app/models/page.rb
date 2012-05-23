@@ -7,6 +7,12 @@ class Page < ActiveRecord::Base
   entity_description &:title
   attr_accessible :title, :path, :posted_at, :content, :locked, :comments, :in_sitemap
 
+  def to_backup_entries
+    page = Backup::Entry.new id, path, "markdown", content
+    meta = Backup::Entry.new id, "#{path}.meta", "json", to_json(:except => :content)
+    [page, meta]
+  end
+
   def url
     "/#{path}"
   end
