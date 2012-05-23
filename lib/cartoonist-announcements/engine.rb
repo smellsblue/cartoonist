@@ -4,7 +4,7 @@ module CartoonistAnnouncements
     Cartoonist::Asset.include_js "cartoonist-announcements.js"
     Cartoonist::Migration.add_for self
     Cartoonist::Backup.for :announcements do
-      Announcement.order(:id).all
+      Announcement.order(:id)
     end
     Cartoonist::Routes.add do
       resources :announcements
