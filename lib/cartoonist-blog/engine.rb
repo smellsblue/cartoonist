@@ -7,7 +7,7 @@ module CartoonistBlog
     Cartoonist::Migration.add_for self
 
     Cartoonist::Backup.for :blog_posts do
-      BlogPost.order(:id).all
+      BlogPost.order(:id)
     end
 
     Cartoonist::Sitemap.add do
