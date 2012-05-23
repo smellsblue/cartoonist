@@ -1,6 +1,7 @@
 require "devise"
 require "jquery-rails"
 require "redcarpet"
+require "zip/zip"
 
 module Cartoonist
   module Admin

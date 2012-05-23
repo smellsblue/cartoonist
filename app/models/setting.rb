@@ -1,6 +1,10 @@
 class Setting < ActiveRecord::Base
   attr_accessible :label, :value, :locked
 
+  def zip_title
+    label
+  end
+
   class << self
     def [](label)
       raise "Invalid label" unless label.present?

@@ -9,11 +9,22 @@ class AdminController < CartoonistController
   def backup
     respond_to do |format|
       format.html { redirect_to "/admin/main" }
-      format.json do
+
+      format.zip do
         prefix = "dev-" unless Rails.env.production?
-        filename = "#{prefix}comics-backup-#{Time.now.strftime("%Y-%m-%d_%H%M%S")}.json"
+        filename = "#{prefix}cartoonist-backup-#{Time.now.strftime("%Y-%m-%d_%H%M%S")}.zip"
         headers["Content-Disposition"] = "attachment; filename=\"#{filename}\""
-        render :text => Backup.all.to_json, :content_type => "application/json"
+
+        self.response_body = Enumerator.new do |out|
+          buffer = Zip::ZipOutputStream.write_buffer do |zos|
+            Backup.each do |entry|
+              zos.put_next_entry entry.path
+              zos.write entry.content
+            end
+          end
+
+          out << buffer.string
+        end
       end
     end
   end

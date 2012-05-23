@@ -4,6 +4,10 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :name
 
+  def zip_title
+    name
+  end
+
   class << self
     def create_user(params)
       create :email => params[:email], :name => params[:name], :password => params[:password], :password_confirmation => params[:confirm_password]

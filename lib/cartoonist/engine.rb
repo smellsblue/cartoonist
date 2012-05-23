@@ -298,15 +298,15 @@ module Cartoonist
     Cartoonist::Migration.add_for self
 
     Cartoonist::Backup.for :files do
-      DatabaseFile.order(:id).all
+      DatabaseFile.order(:id)
     end
 
     Cartoonist::Backup.for :settings do
-      Setting.order(:id).all
+      Setting.order(:id)
     end
 
     Cartoonist::Backup.for :users do
-      User.order(:id).all
+      User.order(:id)
     end
 
     Cartoonist::Cron.add do
