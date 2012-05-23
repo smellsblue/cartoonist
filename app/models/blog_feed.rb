@@ -21,7 +21,7 @@ class BlogFeed
 
     def initialize(post)
       @title = post.title
-      @content = Markdown.render post.content, :html_safe => false
+      @content = Markdown.render post.content, :html_safe => false, :link_to_absolute => true
       @url_title = post.url_title
       @pub_date = post.posted_at.localtime.strftime "%a, %d %b %Y %H:%M:00 %z"
     end
