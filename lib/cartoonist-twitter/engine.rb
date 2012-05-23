@@ -49,7 +49,7 @@ module CartoonistTwitter
     Cartoonist::Entity.register_hooks CartoonistTwitter::EntityHooks
 
     Cartoonist::Backup.for :tweets do
-      Tweet.order(:id).all
+      Tweet.order(:id)
     end
 
     Cartoonist::Cron.add do
