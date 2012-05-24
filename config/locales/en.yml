@@ -34,7 +34,8 @@ en:
         users: Users
     general:
       actions:
-        backup: Download Backup
+        backup_tgz: Download Backup (tarball)
+        backup_zip: Download Backup (zip)
         reload: Update and Reload
       layout:
         actions: Actions

@@ -294,6 +294,7 @@ module Cartoonist
     end
 
     Mime::Type.register "image/x-icon", :ico
+    Mime::Type.register "application/octet-stream", :tgz
     Cartoonist::Admin::Tab.add :general, :url => "/admin", :order => 3
     Cartoonist::Migration.add_for self
 

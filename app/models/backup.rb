@@ -1,4 +1,59 @@
 class Backup
+  ALLOWED_EXTENSIONS = [:tgz, :zip]
+
+  def initialize(extension)
+    raise "Invalid extension '#{extension}'" unless ALLOWED_EXTENSIONS.include? extension.to_sym
+    @extension = extension.to_sym
+  end
+
+  def content_disposition
+    %{attachment; filename="#{filename}"}
+  end
+
+  def filename
+    prefix = "dev-" unless Rails.env.production?
+    "#{prefix}cartoonist-backup-#{Time.now.strftime("%Y-%m-%d_%H%M%S")}.#{@extension}"
+  end
+
+  def response_body
+    Enumerator.new do |out|
+      send @extension, out
+    end
+  end
+
+  def zip(out)
+    buffer = Zip::ZipOutputStream.write_buffer do |zos|
+      Backup.each do |entry|
+        zos.put_next_entry entry.path
+        zos.write entry.content
+      end
+    end
+
+    out << buffer.string
+  end
+
+  def tgz(out)
+    gzip = Zlib::GzipWriter.new Backup::ResponseOutWriter.new(out)
+
+    begin
+      Archive::Tar::Minitar::Writer.open gzip do |tar|
+        Backup.each do |entry|
+          tar.add_file_simple entry.path, :mode => 0644, :size => entry.content.length do |output|
+            output.write entry.content
+          end
+        end
+      end
+    ensure
+      gzip.close
+    end
+  end
+
+  class ResponseOutWriter < Struct.new(:stream)
+    def write(content)
+      stream << content
+    end
+  end
+
   class << self
     def each
       Cartoonist::Backup.all.each do |key, proc|

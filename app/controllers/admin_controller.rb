@@ -10,21 +10,16 @@ class AdminController < CartoonistController
     respond_to do |format|
       format.html { redirect_to "/admin/main" }
 
+      format.tgz do
+        backup = Backup.new :tgz
+        headers["Content-Disposition"] = backup.content_disposition
+        self.response_body = backup.response_body
+      end
+
       format.zip do
-        prefix = "dev-" unless Rails.env.production?
-        filename = "#{prefix}cartoonist-backup-#{Time.now.strftime("%Y-%m-%d_%H%M%S")}.zip"
-        headers["Content-Disposition"] = "attachment; filename=\"#{filename}\""
-
-        self.response_body = Enumerator.new do |out|
-          buffer = Zip::ZipOutputStream.write_buffer do |zos|
-            Backup.each do |entry|
-              zos.put_next_entry entry.path
-              zos.write entry.content
-            end
-          end
-
-          out << buffer.string
-        end
+        backup = Backup.new :zip
+        headers["Content-Disposition"] = backup.content_disposition
+        self.response_body = backup.response_body
       end
     end
   end

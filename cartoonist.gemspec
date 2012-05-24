@@ -15,4 +15,5 @@ Gem::Specification.new do |s|
   s.add_dependency "railties", "~> 3.2.0"
   s.add_dependency "redcarpet", "~> 2.1.0"
   s.add_dependency "rubyzip", "~> 0.9.0"
+  s.add_dependency "minitar", "~> 0.5.0"
 end

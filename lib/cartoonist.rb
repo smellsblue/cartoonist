@@ -1,6 +1,8 @@
 require "devise"
 require "jquery-rails"
 require "redcarpet"
+require "zlib"
+require "archive/tar/minitar"
 require "zip/zip"
 
 module Cartoonist
