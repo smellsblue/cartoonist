@@ -46,6 +46,21 @@ class CartoonistController < ActionController::Base
   end
 
   def cache_page_as(path)
+    if block_given?
+      expiration = expiration_for path
+      response.headers["Expires"] = CGI.rfc1123_date expiration.from_now
+      expires_in expiration, :public => true
+      yield
+    end
+
     cache_page @response, "/cache/#{path}"
+  end
+
+  def expiration_for(path)
+    if path =~ /\.tmp\.[^.]*$/
+      2.hours
+    else
+      7.days
+    end
   end
 end

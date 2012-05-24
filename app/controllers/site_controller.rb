@@ -5,8 +5,10 @@ class SiteController < CartoonistController
 
       format.ico do
         data = ActionController::Base.helpers.asset_paths.asset_environment[Cartoonist::Theme.favicon].to_s
-        send_data data, :filename => "favicon.ico", :type => "image/x-icon", :disposition => "inline"
-        cache_page_as "static/favicon.ico"
+
+        cache_page_as "static/favicon.ico" do
+          send_data data, :filename => "favicon.ico", :type => "image/x-icon", :disposition => "inline"
+        end
       end
     end
   end
@@ -16,8 +18,9 @@ class SiteController < CartoonistController
       format.html { redirect_to "/" }
 
       format.text do
-        render :layout => false
-        cache_page_as "static/robots.txt"
+        cache_page_as "static/robots.txt" do
+          render :layout => false
+        end
       end
     end
   end
