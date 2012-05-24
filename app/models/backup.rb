@@ -80,9 +80,10 @@ class Backup
         title = "%05d" % id
       end
 
-      title = Backup::Entry.sanitize title
-      extension = Backup::Entry.sanitize extension
-      @filename = "#{title}.#{extension}"
+      title = DatabaseFile.sanitize title
+      extension = DatabaseFile.sanitize(extension || "")
+      extension = ".#{extension}" if extension.present?
+      @filename = "#{title}#{extension}"
       @content = content
     end
 
@@ -92,7 +93,7 @@ class Backup
     end
 
     def safe_key
-      Backup::Entry.sanitize key.to_s
+      DatabaseFile.sanitize key.to_s
     end
 
     def path
@@ -100,10 +101,6 @@ class Backup
     end
 
     class << self
-      def sanitize(value)
-        value.gsub(/\s+/, "_").gsub(/[^0-9a-zA-Z.\-_]/, "")
-      end
-
       def from_record(record)
         title = record.zip_title if record.respond_to? :zip_title
         new record.id, title, "json", record.to_json
