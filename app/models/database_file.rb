@@ -18,16 +18,16 @@ class DatabaseFile < ActiveRecord::Base
       value.gsub(/\s+/, "_").gsub(/[^0-9a-zA-Z.\-_]/, "")
     end
 
-    def create_from_param(file)
+    def create_from_param(file, options = {})
       original_filename = file.original_filename
       extension = File.extname original_filename
       filename = File.basename original_filename, extension
       filename = nil if filename.blank?
+      extension = extension[/^\.?(.*?)$/, 1].downcase if extension
+      extension = nil if extension.blank?
 
-      if extension.blank?
-        extension = nil
-      else
-        extension = extension[/^\.?(.*?)$/, 1]
+      if options.include?(:allowed_extensions) && !options[:allowed_extensions].map(&:downcase).include?(extension)
+        raise "Extension must be one of: #{options[:allowed_extensions].join ", "}"
       end
 
       create :filename => filename, :extension => extension, :content => file.read
