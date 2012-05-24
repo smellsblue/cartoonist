@@ -2,7 +2,9 @@ class PageController < CartoonistController
   def show
     path = params[:id].downcase
     @page = Page.from_path path
-    render
-    cache_page_as "#{path}.#{cache_type}.html"
+
+    cache_page_as "#{path}.#{cache_type}.html" do
+      render
+    end
   end
 end
