@@ -78,7 +78,7 @@ class Comic < ActiveRecord::Base
 
     def create_comic(params)
       last = current_created
-      create :number => next_number(last), :title => params[:title], :posted_at => next_post_date(last), :description => params[:description], :scene_description => params[:scene_description], :dialogue => params[:dialogue], :title_text => params[:title_text], :database_file => DatabaseFile.create_from_param(params[:image]), :locked => true
+      create :number => next_number(last), :title => params[:title], :posted_at => next_post_date(last), :description => params[:description], :scene_description => params[:scene_description], :dialogue => params[:dialogue], :title_text => params[:title_text], :database_file => DatabaseFile.create_from_param(params[:image], :allowed_extensions => ["png"]), :locked => true
     end
 
     def update_comic(params)
@@ -90,7 +90,7 @@ class Comic < ActiveRecord::Base
       comic.dialogue = params[:dialogue]
       comic.title_text = params[:title_text]
       comic.locked = true
-      comic.database_file = DatabaseFile.create_from_param params[:image]
+      comic.database_file = DatabaseFile.create_from_param params[:image], :allowed_extensions => ["png"]
       comic.save!
       comic
     end
