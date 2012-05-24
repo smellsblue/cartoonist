@@ -4,9 +4,11 @@ class ComicController < CartoonistController
     @disabled_prev = true if @comic.oldest?
     @disabled_next = true
     @title = Setting[:site_name]
-    render :show
-    cache_page_as ".#{cache_type}.tmp.html" if Cartoonist::RootPath.current_key == :comics
-    cache_page_as "comic.#{cache_type}.tmp.html"
+
+    cache_page_as "comic.#{cache_type}.tmp.html" do
+      render :show
+      cache_page_as ".#{cache_type}.tmp.html" if Cartoonist::RootPath.current_key == :comics
+    end
   end
 
   def random
@@ -21,8 +23,10 @@ class ComicController < CartoonistController
           @comic = Comic.from_number params[:id], true
           @disabled_prev = true if @comic.oldest?
           @disabled_next = @comic.maybe_newest?
-          render
-          cache_show_page
+
+          cache_page_as show_page_cache_path do
+            render
+          end
         rescue
           redirect_to "/comic"
         end
@@ -30,8 +34,10 @@ class ComicController < CartoonistController
 
       format.png do
         comic = Comic.from_number params[:id], true
-        send_data comic.database_file.content, :filename => "comic_#{comic.number}.png", :type => "image/png", :disposition => "inline"
-        cache_page_as "static/comic/#{comic.number}.png"
+
+        cache_page_as "static/comic/#{comic.number}.png" do
+          send_data comic.database_file.content, :filename => "comic_#{comic.number}.png", :type => "image/png", :disposition => "inline"
+        end
       end
     end
   end
@@ -68,11 +74,11 @@ class ComicController < CartoonistController
     @@comic_cache ||= ActiveSupport::Cache::MemoryStore.new(:expires_in => 2.hours)
   end
 
-  def cache_show_page
+  def show_page_cache_path
     if @disabled_next
-      cache_page_as "comic/#{@comic.number}.#{cache_type}.tmp.html"
+      "comic/#{@comic.number}.#{cache_type}.tmp.html"
     else
-      cache_page_as "comic/#{@comic.number}.#{cache_type}.html"
+      "comic/#{@comic.number}.#{cache_type}.html"
     end
   end
 end
