@@ -1,16 +1,20 @@
 class BlogController < CartoonistController
   def archives
     @posts = BlogPost.archives
-    render :layout => "blog_archives"
-    cache_page_as "blog/archives.#{cache_type}.tmp.html"
+
+    cache_page_as "blog/archives.#{cache_type}.tmp.html" do
+      render :layout => "blog_archives"
+    end
   end
 
   def show
     @post = BlogPost.from_url_title params[:id]
     @disabled_prev = @post.oldest?
     @disabled_next = @post.newest?
-    render
-    cache_show_page
+
+    cache_page_as show_page_cache_path do
+      render
+    end
   rescue
     redirect_to "/blog"
   end
@@ -20,9 +24,11 @@ class BlogController < CartoonistController
     @disabled_prev = true if @post.oldest?
     @disabled_next = true
     @title = "Blog for #{Setting[:site_name]}"
-    render :show
-    cache_page_as ".#{cache_type}.tmp.html" if Cartoonist::RootPath.current_key == :blog
-    cache_page_as "blog.#{cache_type}.tmp.html"
+
+    cache_page_as "blog.#{cache_type}.tmp.html" do
+      render :show
+      cache_page_as ".#{cache_type}.tmp.html" if Cartoonist::RootPath.current_key == :blog
+    end
   end
 
   def feed
@@ -49,11 +55,11 @@ class BlogController < CartoonistController
     @@blog_cache ||= ActiveSupport::Cache::MemoryStore.new(:expires_in => 2.hours)
   end
 
-  def cache_show_page
+  def show_page_cache_path
     if @disabled_next
-      cache_page_as "blog/#{@post.url_title}.#{cache_type}.tmp.html"
+      "blog/#{@post.url_title}.#{cache_type}.tmp.html"
     else
-      cache_page_as "blog/#{@post.url_title}.#{cache_type}.html"
+      "blog/#{@post.url_title}.#{cache_type}.html"
     end
   end
 end
