@@ -90,7 +90,7 @@ class Comic < ActiveRecord::Base
       comic.dialogue = params[:dialogue]
       comic.title_text = params[:title_text]
       comic.locked = true
-      comic.database_file = DatabaseFile.create_from_param params[:image], :allowed_extensions => ["png"]
+      comic.database_file = DatabaseFile.create_from_param params[:image], :allowed_extensions => ["png"] if params[:image]
       comic.save!
       comic
     end
