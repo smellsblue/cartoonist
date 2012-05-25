@@ -3,6 +3,7 @@ class Page < ActiveRecord::Base
   include Entity
   entity_type :page
   entity_url &:url
+  entity_preview_url &:preview_url
   entity_edit_url &:edit_url
   entity_description &:title
   attr_accessible :title, :path, :posted_at, :content, :locked, :comments, :in_sitemap
@@ -15,6 +16,10 @@ class Page < ActiveRecord::Base
 
   def url
     "/#{path}"
+  end
+
+  def preview_url
+    "/admin/page/#{path}/preview"
   end
 
   def edit_url
