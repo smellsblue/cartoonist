@@ -1,0 +1,10 @@
+<% content_for :title, "Things tagged '#{@tag.label}'" %>
+
+<ul>
+  <% @tag.shown_entity_tags(preview?).each do |entity_tag| %>
+    <li>
+      <%= entity_tag.posted_header %>
+      <a href="<%= entity_tag.entity_url preview? %>"><%= entity_tag.description %></a>
+    </li>
+  <% end %>
+</ul>

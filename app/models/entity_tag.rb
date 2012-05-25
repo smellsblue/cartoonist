@@ -4,6 +4,20 @@ class EntityTag < ActiveRecord::Base
   validate :entity_doesnt_change, :on => :update
   attr_accessible :entity_id, :entity_type, :tag_id
 
+  def entity_url(preview)
+    if preview
+      entity.entity_relative_preview_url
+    else
+      entity.entity_relative_url
+    end
+  end
+
+  def posted_header
+    if entity.kind_of?(Postable) && entity.posted_at
+      "#{entity.posted_at.to_time.localtime.strftime "%m/%d/%Y"}:"
+    end
+  end
+
   def untag!
     destroy
     remaining = EntityTag.where(:tag_id => tag.id).count
