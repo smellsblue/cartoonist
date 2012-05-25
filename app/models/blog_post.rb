@@ -4,6 +4,7 @@ class BlogPost < ActiveRecord::Base
   entity_type :blog
   entity_global_url "/blog"
   entity_url &:url
+  entity_preview_url &:preview_url
   entity_edit_url &:edit_url
   entity_description &:title
   attr_accessor :for_preview
@@ -17,6 +18,10 @@ class BlogPost < ActiveRecord::Base
 
   def url
     "/blog/#{url_title}"
+  end
+
+  def preview_url
+    "/admin/blog/#{url_title}/preview"
   end
 
   def edit_url
