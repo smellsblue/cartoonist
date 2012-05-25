@@ -12,6 +12,11 @@
 <% end %>
 
 <% content_for :content do %>
+  <% Cartoonist::Entity.hooks_with(:show_entity_before_partial).each do |hook| %>
+    <%= render :partial => hook.show_entity_before_partial, :locals => { :entity => @post } %>
+    <hr />
+  <% end %>
+
   <div class="blog-page">
     <div class="nav-container">
       <div class="nav">
@@ -55,6 +60,11 @@
       </div>
     </div>
   </div>
+
+  <% Cartoonist::Entity.hooks_with(:show_entity_after_partial).each do |hook| %>
+    <%= render :partial => hook.show_entity_after_partial, :locals => { :entity => @post } %>
+    <hr />
+  <% end %>
 <% end %>
 
 <% content_for :post_date_content do %>
