@@ -4,10 +4,15 @@ class Comic < ActiveRecord::Base
   entity_type :comic
   entity_global_url "/comic"
   entity_url &:url
+  entity_preview_url &:preview_url
   entity_edit_url &:edit_url
   entity_description &:title
   attr_accessible :number, :posted_at, :title, :description, :scene_description, :dialogue, :title_text, :database_file_id, :database_file, :locked
   belongs_to :database_file
+
+  def preview_url
+    "/admin/comic/#{number}/preview"
+  end
 
   def url
     "/comic/#{number}"
