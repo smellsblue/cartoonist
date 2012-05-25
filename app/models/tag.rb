@@ -16,6 +16,9 @@ class Tag < ActiveRecord::Base
         a.description <=> b.description
       end
     end
+
+    raise ActiveRecord::RecordNotFound.new("No records found!") if @shown_entity_tags.empty?
+    @shown_entity_tags
   end
 
   class << self
