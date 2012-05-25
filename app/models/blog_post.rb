@@ -206,8 +206,10 @@ class BlogPost < ActiveRecord::Base
       post
     end
 
-    def archives
-      posted.reverse_chronological.select([:url_title, :title, :posted_at]).all
+    def archives(preview = false)
+      context = BlogPost
+      context = posted unless preview
+      context.reverse_chronological.select([:url_title, :title, :posted_at]).all
     end
 
     def feed

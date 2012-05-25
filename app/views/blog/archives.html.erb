@@ -3,8 +3,8 @@
 <ul>
   <% @posts.each do |post| %>
     <li>
-      <%= post.posted_at.localtime.strftime "%m/%d/%Y" %>:
-      <a href="/blog/<%= post.url_title %>"><%= post.title %></a>
+      <%= post.formatted_posted_at "Not Posted", :format => "%m/%d/%Y" %>:
+      <a href="<%= post.entity_relative_previewable_url preview? %>"><%= post.title %></a>
     </li>
   <% end %>
 </ul>

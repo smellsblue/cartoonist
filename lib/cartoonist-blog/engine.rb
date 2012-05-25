@@ -42,6 +42,7 @@ module CartoonistBlog
           end
 
           collection do
+            get "archives"
             get "preview"
             post "preview_content"
           end

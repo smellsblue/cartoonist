@@ -1,4 +1,12 @@
 module BlogHelper
+  def blog_archives_url
+    if preview?
+      "/admin/blog/archives"
+    else
+      "/blog/archives"
+    end
+  end
+
   def blog_current_url
     if preview?
       "/admin/blog/preview"

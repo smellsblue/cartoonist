@@ -22,7 +22,7 @@
           <a class="first" href="<%= blog_post_url yield(:first) %>">first</a>
           <a class="prev" href="<%= blog_post_url yield(:prev) %>">prev</a>
         <% end %>
-        <a class="archives" href="/blog/archives">archives</a>
+        <a class="archives" href="<%= blog_archives_url %>">archives</a>
         <% if @disabled_next %>
           <a class="next-disabled">next</a>
           <a class="last-disabled">last</a>
@@ -44,7 +44,7 @@
           <a class="first" href="<%= blog_post_url yield(:first) %>">first</a>
           <a class="prev" href="<%= blog_post_url yield(:prev) %>">prev</a>
         <% end %>
-        <a class="archives" href="/blog/archives">archives</a>
+        <a class="archives" href="<%= blog_archives_url %>">archives</a>
         <% if @disabled_next %>
           <a class="next-disabled">next</a>
           <a class="last-disabled">last</a>
