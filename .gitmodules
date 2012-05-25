@@ -22,3 +22,6 @@
 [submodule "cartoonist-twitter"]
 	path = cartoonist-twitter
 	url = git@github.com:mikestone/cartoonist-twitter.git
+[submodule "cartoonist-tags"]
+	path = cartoonist-tags
+	url = git@github.com:mikestone/cartoonist-tags.git
