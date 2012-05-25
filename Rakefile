@@ -73,6 +73,7 @@ CARTOONIST_GEMS = [CartoonistGem.new("cartoonist-core", "cartoonist"),
                    CartoonistGem.new("cartoonist-comics"),
                    CartoonistGem.new("cartoonist-default-theme"),
                    CartoonistGem.new("cartoonist-pages"),
+                   CartoonistGem.new("cartoonist-tags"),
                    CartoonistGem.new("cartoonist-twitter")]
 CARTOONIST_AND_GEMS = CARTOONIST_GEMS + [CartoonistGems.new, Cartoonist.new]
 
