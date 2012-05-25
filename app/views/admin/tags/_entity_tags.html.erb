@@ -1,0 +1,36 @@
+<% tags = EntityTag.tags_for entity %>
+<% existing_tags = Tag.existing %>
+<% unless tags.empty? %>
+  <h2><%= t "admin.tags.entity_tags.existing_tags" %></h2>
+
+  <ul>
+    <% tags.each do |tag| %>
+      <li>
+        <%= tag.label %>
+        <%= form_tag "/admin/tags/#{tag.id}", :method => :delete, :class => "inline" do %>
+          <input type="hidden" name="entity_id" value="<%= entity.id %>" />
+          <input type="hidden" name="entity_type" value="<%= entity.entity_type %>" />
+          <input type="submit" value="<%= t "admin.tags.entity_tags.delete_tag" %>" />
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+<%= form_tag "/admin/tags", :method => :post do %>
+  <input type="hidden" name="entity_id" value="<%= entity.id %>" />
+  <input type="hidden" name="entity_type" value="<%= entity.entity_type %>" />
+  <input type="text" name="label" />
+  <input type="submit" value="<%= t "admin.tags.entity_tags.add_tag" %>" />
+<% end %>
+<% unless existing_tags.empty? %>
+  <%= form_tag "/admin/tags", :method => :post do %>
+    <input type="hidden" name="entity_id" value="<%= entity.id %>" />
+    <input type="hidden" name="entity_type" value="<%= entity.entity_type %>" />
+    <select name="label">
+      <% existing_tags.each do |tag| %>
+        <option value="<%= tag.label %>"><%= tag.label %></option>
+      <% end %>
+    </select>
+    <input type="submit" value="<%= t "admin.tags.entity_tags.add_tag" %>" />
+  <% end %>
+<% end %>
