@@ -15,6 +15,14 @@ module Entity
     self.class.entity_description.call self
   end
 
+  def entity_relative_preview_url
+    if self.class.entity_preview_url
+      self.class.entity_preview_url.call self
+    else
+      entity_relative_url
+    end
+  end
+
   def entity_relative_url
     self.class.entity_url.call self if self.class.entity_url
   end
@@ -87,6 +95,14 @@ module Entity
         @entity_url = block
       else
         @entity_url
+      end
+    end
+
+    def entity_preview_url(&block)
+      if block
+        @entity_preview_url = block
+      else
+        @entity_preview_url
       end
     end
 
