@@ -1,4 +1,5 @@
 class Tweet < ActiveRecord::Base
+  include BelongsToEntity
   validate :doesnt_update_tweet_after_tweeted
   validate :entity_doesnt_change, :on => :update
   attr_accessible :entity_id, :entity_type, :tweet, :tweeted_at
@@ -19,14 +20,6 @@ class Tweet < ActiveRecord::Base
 
   def disabled?
     tweet_style == :disabled
-  end
-
-  def entity
-    @entity ||= Cartoonist::Entity[entity_type.to_sym].find(entity_id)
-  end
-
-  def description
-    "#{entity.entity_localized_label}: #{entity.entity_description}"
   end
 
   def formatted_tweeted_at(default_msg = "not yet tweeted")
@@ -113,16 +106,6 @@ class Tweet < ActiveRecord::Base
   def doesnt_update_tweet_after_tweeted
     if !tweeted_at_was.nil? && tweet_changed?
       errors.add :tweet, "can't change after the tweet has been sent"
-    end
-  end
-
-  def entity_doesnt_change
-    if entity_id_changed?
-      errors.add :entity_id, "can't change"
-    end
-
-    if entity_type_changed?
-      errors.add :entity_id, "can't change"
     end
   end
 
