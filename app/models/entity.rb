@@ -15,6 +15,14 @@ module Entity
     self.class.entity_description.call self
   end
 
+  def entity_relative_previewable_url(preview)
+    if preview
+      entity_relative_preview_url
+    else
+      entity_relative_url
+    end
+  end
+
   def entity_relative_preview_url
     if self.class.entity_preview_url
       self.class.entity_preview_url.call self

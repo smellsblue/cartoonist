@@ -11,10 +11,12 @@ module Postable
     self.class.postable_now
   end
 
-  def formatted_posted_at(default_msg = "not yet posted")
+  def formatted_posted_at(default_msg = "not yet posted", options = {})
     return default_msg unless posted_at
 
-    if postable_type == :date
+    if options[:format]
+      posted_at.to_time.localtime.strftime options[:format]
+    elsif postable_type == :date
       posted_at.strftime "%-m/%-d/%Y"
     else
       posted_at.localtime.strftime "%-m/%-d/%Y at %-l:%M %P"
