@@ -4,6 +4,10 @@ module CartoonistTags
       def edit_entity_before_partial
         "admin/tags/entity_tags"
       end
+
+      def show_entity_before_partial
+        "tags/entity_tags"
+      end
     end
   end
 

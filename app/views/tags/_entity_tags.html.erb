@@ -1,0 +1,12 @@
+<% tags = EntityTag.tags_for entity %>
+<% unless tags.empty? %>
+  <div class="tags">
+    <ul>
+      <% tags.each do |tag| %>
+        <li>
+          <a href="<%= tag.previewable_url preview? %>"><%= tag.label %></a>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

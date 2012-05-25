@@ -2,6 +2,14 @@ class Tag < ActiveRecord::Base
   has_many :entity_tags
   attr_accessible :label
 
+  def previewable_url(preview)
+    if preview
+      "/admin/tags/#{id}"
+    else
+      "/tags/#{id}"
+    end
+  end
+
   def shown_entity_tags(preview)
     @shown_entity_tags ||= entity_tags.all.select do |entity_tag|
       preview || !entity_tag.entity.kind_of?(Postable) || entity_tag.entity.posted?
