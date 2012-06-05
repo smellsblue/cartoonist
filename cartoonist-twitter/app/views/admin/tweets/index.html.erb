@@ -1,0 +1,21 @@
+<h2><%= t "admin.tweets.index.not_tweeted" %></h2>
+
+<ul>
+  <% @untweeted.each do |tweet| %>
+    <li>
+      <%= tweet.formatted_tweeted_at "" %>
+      <a href="/admin/tweets/<%= tweet.id %>/edit"><%= tweet.description %></a>
+    </li>
+  <% end %>
+</ul>
+
+<h2><%= t "admin.tweets.index.tweeted" %></h2>
+
+<ul>
+  <% @tweeted.each do |tweet| %>
+    <li>
+      <%= tweet.formatted_tweeted_at "" %>
+      <a href="/admin/tweets/<%= tweet.id %>/edit"><%= tweet.description %></a>
+    </li>
+  <% end %>
+</ul>

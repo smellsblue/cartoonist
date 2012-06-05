@@ -1,0 +1,43 @@
+en:
+  admin:
+    layout:
+      tab:
+        tweets: Tweets
+    tweets:
+      entity_tweet:
+        save: Save
+        tweet: "Tweet:"
+        tweet_now: Tweet Now
+      index:
+        not_tweeted: Not yet tweeted
+        tweeted: Tweeted
+      layout:
+        section: Tweets
+  cartoonist:
+    layout:
+      navigation:
+        follow_on_twitter: Follow us on Twitter
+        follow_on_twitter_title: Follow us on Twitter
+  settings:
+    show:
+      errors:
+        invalid_tweet_time: "Invalid tweet time '%{value}' should be formatted like: '1:22 pm' or '11:30 am'"
+      sections:
+        social_and_analytics:
+          twitter: Twitter
+      settings:
+        default_tweet: "%{entity} Default Tweet: "
+        tweet_style: "%{entity} Tweet Style: "
+        tweet_time: "%{entity} Tweet Time: "
+        tweet_time_info: "Time to tweet when style is \"Automatic at a specific time\" (format example: 3:30 pm)"
+        twitter_consumer_key: "Twitter Consumer Key: "
+        twitter_consumer_secret: "Twitter Consumer Secret: "
+        twitter_handle: "Twitter Handle: "
+        twitter_oauth_token: "Twitter Oauth Token: "
+        twitter_oauth_token_secret: "Twitter Oauth Token Secret: "
+  tweet:
+    style:
+      automatic: Automatic after posted
+      automatic_timed: Automatic at a specific time
+      disabled: Disabled
+      manual: Manual only
