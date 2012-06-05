@@ -1,8 +1,0 @@
-/.bundle
-/config/database.yml
-/db/*.sqlite3
-/log/*.log
-/public/assets
-/public/cache
-/ssl
-/tmp

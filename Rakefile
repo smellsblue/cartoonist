@@ -3,9 +3,9 @@ def system_exec(cmd)
 end
 
 class CartoonistGem
-  def initialize(dir, gemname = nil)
-    @dir = dir
-    @gemname = gemname || dir
+  def initialize(gemname)
+    @dir = gemname
+    @gemname = gemname
   end
 
   def build
@@ -16,11 +16,6 @@ class CartoonistGem
   def install
     puts "Installing #{@gemname}"
     system_exec "#{cd} && gem install --no-ri --no-rdoc #{gem}"
-  end
-
-  def tag
-    puts "Tagging #{@gemname}"
-    system_exec "#{cd} && git tag -a #{CartoonistGem.version} -m 'Version #{CartoonistGem.version}' && git push --tags"
   end
 
   def push
@@ -48,26 +43,7 @@ class CartoonistGem
   end
 end
 
-class Cartoonist
-  def tag
-    puts "Tagging cartoonist"
-    system_exec "#{cd} && git tag -a #{CartoonistGem.version} -m 'Version #{CartoonistGem.version}' && git push --tags"
-  end
-
-  private
-  def cd
-    "cd cartoonist"
-  end
-end
-
-class CartoonistGems
-  def tag
-    puts "Tagging cartoonist-gems"
-    system_exec "git tag -a #{CartoonistGem.version} -m 'Version #{CartoonistGem.version}' && git push --tags"
-  end
-end
-
-CARTOONIST_GEMS = [CartoonistGem.new("cartoonist-core", "cartoonist"),
+CARTOONIST_GEMS = [CartoonistGem.new("cartoonist"),
                    CartoonistGem.new("cartoonist-announcements"),
                    CartoonistGem.new("cartoonist-blog"),
                    CartoonistGem.new("cartoonist-comics"),
@@ -75,7 +51,6 @@ CARTOONIST_GEMS = [CartoonistGem.new("cartoonist-core", "cartoonist"),
                    CartoonistGem.new("cartoonist-pages"),
                    CartoonistGem.new("cartoonist-tags"),
                    CartoonistGem.new("cartoonist-twitter")]
-CARTOONIST_AND_GEMS = CARTOONIST_GEMS + [CartoonistGems.new, Cartoonist.new]
 
 task :default => :build
 
@@ -88,7 +63,8 @@ task :install => :build do
 end
 
 task :tag do
-  CARTOONIST_AND_GEMS.each &:tag
+  puts "Tagging cartoonist"
+  system_exec "git tag -a #{CartoonistGem.version} -m 'Version #{CartoonistGem.version}' && git push --tags"
 end
 
 task :push => :build do

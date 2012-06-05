@@ -1,1 +1,17 @@
 *~
+/cartoonist/cartoonist*.gem
+/cartoonist-announcements/cartoonist-announcements*.gem
+/cartoonist-blog/cartoonist-blog*.gem
+/cartoonist-comics/cartoonist-comics*.gem
+/cartoonist-default-theme/cartoonist-default-theme-*.gem
+/cartoonist-pages/cartoonist-pages*.gem
+/cartoonist-tags/cartoonist-tags*.gem
+/cartoonist-twitter/cartoonist-twitter*.gem
+/playground/.bundle
+/playground/config/database.yml
+/playground/db/*.sqlite3
+/playground/log/*.log
+/playground/public/assets
+/playground/public/cache
+/playground/ssl
+/playground/tmp
