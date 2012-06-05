@@ -1,0 +1,10 @@
+<% content_for :title, "Blog Archives for #{Setting[:site_name]}" %>
+
+<ul>
+  <% @posts.each do |post| %>
+    <li>
+      <%= post.formatted_posted_at "Not Posted", :format => "%m/%d/%Y" %>:
+      <a href="<%= post.entity_relative_previewable_url preview? %>"><%= post.title %></a>
+    </li>
+  <% end %>
+</ul>

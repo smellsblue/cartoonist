@@ -1,0 +1,34 @@
+en:
+  admin:
+    blog:
+      index:
+        not_posted: Not yet posted
+        posted: Posted
+        preview: preview
+      layout:
+        latest: View Latest
+        list: List
+        new: New Post
+        preview: Preview
+        section: Blog
+    layout:
+      tab:
+        blog: Blog
+  cartoonist:
+    entity:
+      blog: Blog Post
+    layout:
+      navigation:
+        blog: Blog
+  blog:
+    layout:
+      facebook: Facebook
+      facebook_text_message: "Check this out: %{title}"
+      facebook_title: Share this on Facebook
+      google_plus: Google Plus
+      google_plus_title: Post this to Google Plus
+      rss: RSS
+      rss_title: RSS Feed for the %{site_name} blog
+      twitter: Twitter
+      twitter_text_message: "Check this out: %{url}"
+      twitter_title: Tweet about this
