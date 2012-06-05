@@ -1,0 +1,7 @@
+en:
+  admin:
+    tags:
+      entity_tags:
+        add_tag: Add Tag
+        delete_tag: Delete
+        existing_tags: "Existing Tags:"
