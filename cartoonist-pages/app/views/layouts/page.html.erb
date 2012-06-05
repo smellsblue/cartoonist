@@ -1,0 +1,27 @@
+<% content_for :content_class, "page-content" %>
+
+<% content_for :content do %>
+  <% Cartoonist::Entity.hooks_with(:show_entity_before_partial).each do |hook| %>
+    <%= render :partial => hook.show_entity_before_partial, :locals => { :entity => @page } %>
+    <hr />
+  <% end %>
+
+  <div class="page">
+    <h1><%= content_for?(:page_title) ? yield(:page_title) : yield(:title) %></h1>
+
+    <%= yield %>
+  </div>
+
+  <% Cartoonist::Entity.hooks_with(:show_entity_after_partial).each do |hook| %>
+    <%= render :partial => hook.show_entity_after_partial, :locals => { :entity => @page } %>
+    <hr />
+  <% end %>
+<% end %>
+
+<% content_for :admin_content do %>
+  <% if preview? %>
+    <p><a href="/admin/main">admin</a></p>
+  <% end %>
+<% end %>
+
+<%= render :template => "layouts/cartoonist" %>

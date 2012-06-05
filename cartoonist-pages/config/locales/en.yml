@@ -1,0 +1,18 @@
+en:
+  admin:
+    layout:
+      tab:
+        pages: Pages
+    page:
+      index:
+        not_posted: Not yet posted
+        posted: Posted
+        preview: preview
+        show: show
+      layout:
+        list: List
+        new: New Page
+        section: Pages
+  cartoonist:
+    entity:
+      page: Page
