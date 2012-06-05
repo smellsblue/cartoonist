@@ -1,0 +1,48 @@
+<%= form_tag "/admin/comic", :method => :post, :multipart => true do %>
+  <table>
+    <tr><td colspan="2">Comic: <%= @next_number %></td></tr>
+    <tr><td colspan="2">Post Date: <%= @next_post_date.strftime "%a, %-m/%-d/%Y" %></td></tr>
+
+    <tr>
+      <td colspan="2">
+        Title:<br />
+        <input type="text" name="title" value="<%= SimpleTemplate[Setting[:default_title], :next_number => @next_number] %>" tabindex="1" />
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Description:<br />
+        <textarea name="description" rows="5" cols="50" autofocus="autofocus" tabindex="2"></textarea>
+      </td>
+      <td>
+        Scene Description:<br />
+        <textarea name="scene_description" rows="5" cols="50" tabindex="4"></textarea>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Title Text:<br />
+        <textarea name="title_text" rows="5" cols="50" tabindex="3"></textarea>
+      </td>
+      <td>
+        Dialogue:<br />
+        <textarea name="dialogue" rows="5" cols="50" tabindex="5"></textarea>
+      </td>
+    </tr>
+
+    <tr>
+      <td colspan="2">
+        Image:<br />
+        <input name="image" type="file" tabindex="7" />
+      </td>
+    </tr>
+
+    <tr>
+      <td colspan="2">
+        <input type="submit" value="Save" tabindex="8" />
+      </td>
+    </tr>
+  </table>
+<% end %>
