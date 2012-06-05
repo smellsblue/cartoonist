@@ -1,0 +1,23 @@
+<h2><%= t "admin.announcements.index.not_posted" %></h2>
+
+<ul>
+  <% @unposted.each do |announcement| %>
+    <li><%= announcement.title %></li>
+  <% end %>
+</ul>
+
+<h2><%= t "admin.announcements.index.active" %></h2>
+
+<ul>
+  <% @active.each do |announcement| %>
+    <li><%= announcement.title %></li>
+  <% end %>
+</ul>
+
+<h2><%= t "admin.announcements.index.expired" %></h2>
+
+<ul>
+  <% @expired.each do |announcement| %>
+    <li><%= announcement.title %></li>
+  <% end %>
+</ul>
