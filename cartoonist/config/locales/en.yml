@@ -1,0 +1,126 @@
+en:
+  accounts:
+    edit:
+      confirm: "Confirm:"
+      email: "Email:"
+      name: "Name:"
+      password: "Password:"
+      save: Save
+      subtitle: Edit Account
+    index:
+      delete: Delete
+      delete_button: delete
+      edit: Edit
+      edit_button: edit
+      email: Email
+      name: Name
+      new_user: New User
+    new:
+      confirm: "Confirm:"
+      email: "Email:"
+      name: "Name:"
+      password: "Password:"
+      save: Save
+      subtitle: New Account
+    show:
+      edit: edit
+      email: "Email:"
+      name: "Name:"
+  admin:
+    accounts:
+      layout:
+        my_account: My Account
+        section: Account
+        users: Users
+    general:
+      actions:
+        backup_tgz: Download Backup (tarball)
+        backup_zip: Download Backup (zip)
+        reload: Update and Reload
+      layout:
+        actions: Actions
+        cache: Cache
+        section: General
+        settings: Settings
+        static_cache: Static Cache
+    layout:
+      account: Account
+      tab:
+        general: General
+      logout: Logout
+      not_live_warning: development
+      production_warning: PRODUCTION
+      user_heading: "%{user}:"
+  cartoonist:
+    layout:
+      disqus:
+        noscript_pre_link: "Please enable JavaScript to view the "
+        noscript_link: Disqus comments.
+        noscript_post_link:
+      logo: Logo
+  cache:
+    index:
+      cached: cached
+      expire: Expire
+      expire_all: Expire all
+      expire_m: Expire m
+      expire_tmp: Expire tmp
+      expire_www: Expire www
+      m: m
+      m_tmp: m tmp
+      not_cached: not cached
+      page: Page
+      www: www
+      www_tmp: www tmp
+  settings:
+    initial_setup:
+      confirm_password: "Confirmation: "
+      default_email: you@youremail.com
+      default_name: Anonymous
+      domain: "Domain: "
+      email: "Email: "
+      name: "Name: "
+      password: "Password: "
+      passwords_dont_match: Your passwords must match.
+      save: Save
+      site_name: "Site Name: "
+      username: "Username: "
+    show:
+      save: Save
+      sections:
+        advanced:
+          general: General
+        general:
+          general: General
+        social_and_analytics:
+          disqus: Disqus
+          google_analytics: Google Analytics
+      settings:
+        domain: "Domain: "
+        site_name: "Site Name: "
+        site_heading: "Site Heading: "
+        site_update_description: "Site Update Description: "
+        root_path: "Root Path: "
+        theme: "Theme: "
+        schedule: "Schedule: "
+        copyright_starting_year: "Copyright Starting Year: "
+        copyright_owners: "Copyright Owners: "
+        default_title: "Default Title: "
+        google_analytics_enabled: "Google Analytics Enabled: "
+        google_analytics_account: "Google Analytics Account: "
+        disqus_enabled: "Disqus Enabled: "
+        disqus_shortname: "Disqus Shortname: "
+        disqus_comic_category: "Disqus Comic Category: "
+        disqus_blog_post_category: "Disqus Blog Post Category: "
+        disqus_page_category: "Disqus Page Category: "
+        secret_token: "Secret Token: "
+        devise_pepper: "Devise Pepper: "
+      tabs:
+        advanced: Advanced
+        general: General
+        social_and_analytics: Social & Analytics
+  static_cache:
+    index:
+      expire: Expire
+      expire_all: Expire all
+      page: Page

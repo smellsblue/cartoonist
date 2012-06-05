@@ -1,0 +1,35 @@
+<% if flash[:error] %>
+  <div class="error">
+    <%= flash[:error] %>
+  </div>
+<% end %>
+
+<%= form_tag "/admin/settings/save_initial_setup", :method => :post do %>
+  <p>
+    <%= t "settings.initial_setup.email" %><input type="text" name="admin_email" value="<%= t "settings.initial_setup.default_email" %>" autofocus="autofocus" />
+  </p>
+
+  <p>
+    <%= t "settings.initial_setup.name" %><input type="text" name="admin_name" value="<%= t "settings.initial_setup.default_name" %>" />
+  </p>
+
+  <p>
+    <%= t "settings.initial_setup.password" %><input type="password" name="admin_password" />
+  </p>
+
+  <p>
+    <%= t "settings.initial_setup.confirm_password" %><input type="password" name="admin_confirm_password" />
+  </p>
+
+  <p>
+    <%= t "settings.initial_setup.domain" %><input type="text" name="domain" />
+  </p>
+
+  <p>
+    <%= t "settings.initial_setup.site_name" %><input type="text" name="site_name" />
+  </p>
+
+  <p>
+    <input type="submit" value="<%= t "settings.initial_setup.save" %>" />
+  </p>
+<% end %>

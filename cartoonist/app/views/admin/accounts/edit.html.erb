@@ -1,0 +1,21 @@
+<h2><%= t "accounts.edit.subtitle" %></h2>
+
+<%= form_tag "/admin/accounts/#{@user.id}", :method => :put do %>
+  <p>
+    <%= t "accounts.edit.email" %> <input type="text" name="email" value="<%= @user.email %>" />
+  </p>
+
+  <p>
+    <%= t "accounts.edit.name" %> <input type="text" name="name" value="<%= @user.name %>" />
+  </p>
+
+  <p>
+    <%= t "accounts.edit.password" %> <input type="password" name="password" value="" />
+  </p>
+
+  <p>
+    <%= t "accounts.edit.confirm" %> <input type="password" name="confirm_password" value="" />
+  </p>
+
+  <input type="submit" value="<%= t "accounts.edit.save" %>" />
+<% end %>
