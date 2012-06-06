@@ -105,7 +105,6 @@ en:
         schedule: "Schedule: "
         copyright_starting_year: "Copyright Starting Year: "
         copyright_owners: "Copyright Owners: "
-        default_title: "Default Title: "
         google_analytics_enabled: "Google Analytics Enabled: "
         google_analytics_account: "Google Analytics Account: "
         disqus_enabled: "Disqus Enabled: "

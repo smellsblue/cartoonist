@@ -1,4 +1,8 @@
 en:
+  settings:
+    show:
+      settings:
+        default_comic_title: "Default Comic Title: "
   admin:
     comic:
       index:

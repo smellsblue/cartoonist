@@ -1,5 +1,9 @@
 module CartoonistComics
   class Engine < ::Rails::Engine
+    config.to_prepare do
+      Setting.define :default_comic_title, :order => 10
+    end
+
     Cartoonist::Entity.add :comic, "Comic"
     Cartoonist::Admin::Tab.add :comics, :url => "/admin/comic", :order => 0
     Cartoonist::RootPath.add :comics, "comic#index"

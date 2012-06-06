@@ -267,7 +267,6 @@ module Cartoonist
       Setting.define :schedule, :type => :array, :default => [:monday, :wednesday, :friday], :order => 7
       Setting.define :copyright_starting_year, :type => :int, :order => 8
       Setting.define :copyright_owners, :order => 9
-      Setting.define :default_title, :order => 10
 
       Setting::Tab.define :social_and_analytics, :order => 1 do
         Setting::Section.define :google_analytics, :order => 1 do

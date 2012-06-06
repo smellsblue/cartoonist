@@ -11,7 +11,21 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120401014029) do
+ActiveRecord::Schema.define(:version => 20120606023300) do
+
+  create_table "announcements", :force => true do |t|
+    t.datetime "posted_at"
+    t.datetime "expired_at"
+    t.string   "title"
+    t.text     "content",                       :null => false
+    t.string   "location"
+    t.boolean  "enabled",    :default => false, :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+  end
+
+  add_index "announcements", ["expired_at", "enabled"], :name => "index_announcements_on_expired_at_and_enabled"
+  add_index "announcements", ["posted_at", "expired_at", "enabled"], :name => "index_announcements_on_posted_at_and_expired_at_and_enabled"
 
   create_table "blog_posts", :force => true do |t|
     t.string   "title",                         :null => false
@@ -19,8 +33,6 @@ ActiveRecord::Schema.define(:version => 20120401014029) do
     t.string   "author",                        :null => false
     t.datetime "posted_at"
     t.text     "content",                       :null => false
-    t.string   "tweet",                         :null => false
-    t.datetime "tweeted_at"
     t.boolean  "locked",     :default => false, :null => false
     t.datetime "created_at",                    :null => false
     t.datetime "updated_at",                    :null => false
@@ -39,8 +51,6 @@ ActiveRecord::Schema.define(:version => 20120401014029) do
     t.text     "dialogue",                             :null => false
     t.text     "title_text",                           :null => false
     t.integer  "database_file_id",                     :null => false
-    t.string   "tweet",                                :null => false
-    t.datetime "tweeted_at"
     t.boolean  "locked",            :default => false, :null => false
     t.datetime "created_at",                           :null => false
     t.datetime "updated_at",                           :null => false
@@ -54,7 +64,18 @@ ActiveRecord::Schema.define(:version => 20120401014029) do
     t.binary   "content",    :null => false
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.string   "extension"
   end
+
+  create_table "entity_tags", :force => true do |t|
+    t.integer  "entity_id",   :null => false
+    t.string   "entity_type", :null => false
+    t.integer  "tag_id",      :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "entity_tags", ["entity_id", "entity_type", "tag_id"], :name => "index_entity_tags_on_entity_id_and_entity_type_and_tag_id", :unique => true
 
   create_table "pages", :force => true do |t|
     t.string   "title",                         :null => false
@@ -80,5 +101,44 @@ ActiveRecord::Schema.define(:version => 20120401014029) do
   end
 
   add_index "settings", ["label"], :name => "index_settings_on_label", :unique => true
+
+  create_table "tags", :force => true do |t|
+    t.string   "label",      :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "tags", ["label"], :name => "index_tags_on_label", :unique => true
+
+  create_table "tweets", :force => true do |t|
+    t.integer  "entity_id",   :null => false
+    t.string   "entity_type", :null => false
+    t.string   "tweet",       :null => false
+    t.datetime "tweeted_at"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "tweets", ["entity_id", "entity_type"], :name => "index_tweets_on_entity_id_and_entity_type", :unique => true
+  add_index "tweets", ["tweeted_at"], :name => "index_tweets_on_tweeted_at"
+
+  create_table "users", :force => true do |t|
+    t.string   "email",                  :default => "", :null => false
+    t.string   "encrypted_password",     :default => "", :null => false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          :default => 0
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.string   "name"
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
+  end
+
+  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+  add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
 end

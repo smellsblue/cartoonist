@@ -27,9 +27,11 @@ group :test do
   gem "turn", "0.8.2", :require => false
 end
 
-gem "cartoonist"
-gem "cartoonist-default-theme"
-gem "cartoonist-comics"
-gem "cartoonist-blog"
-gem "cartoonist-pages"
-gem "cartoonist-announcements"
+gem "cartoonist", :path => "../cartoonist"
+gem "cartoonist-default-theme", :path => "../cartoonist-default-theme"
+gem "cartoonist-comics", :path => "../cartoonist-comics"
+gem "cartoonist-blog", :path => "../cartoonist-blog"
+gem "cartoonist-pages", :path => "../cartoonist-pages"
+gem "cartoonist-announcements", :path => "../cartoonist-announcements"
+gem "cartoonist-tags", :path => "../cartoonist-tags"
+gem "cartoonist-twitter", :path => "../cartoonist-twitter"
