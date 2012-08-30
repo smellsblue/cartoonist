@@ -8,9 +8,28 @@ class CartoonistGem
     @gemname = gemname
   end
 
+  def check_dependencies
+    puts "Checking dependencies for #{@gemname}"
+    gemspec_file = File.join root_dir, gemspec
+    contents = File.read gemspec_file
+
+    contents.scan(/^.*dependency.*$/).each do |line|
+      next unless line =~ /dependency.*\"(.*?)\".*\"(.*?)\".*/
+      dep_gem = Regexp.last_match[1]
+      dep_version = Regexp.last_match[2]
+      dep_spec = Gem::Specification.find_by_name dep_gem, dep_version
+      fetched = Gem::SpecFetcher.fetcher.find_matching Gem::Dependency.new(dep_gem)
+      fetched_version = fetched.first.first[1]
+      puts "  Requirement: #{dep_gem}: #{dep_version}"
+      puts "    #{dep_spec.version} (latest: #{fetched_version})"
+    end
+  end
+
   def generate
     puts "Generating files for #{@gemname}"
-    path = File.join File.dirname(__FILE__), @dir, "lib/#{@dir}/version.rb"
+
+    # Generate version.rb
+    path = File.join root_dir, "lib/#{@dir}/version.rb"
     class_name = @gemname.gsub(/^\w|-\w/) { |x| x.sub("-", "").upcase }
     File.write path, %{module #{class_name}
   class Version
@@ -22,6 +41,19 @@ class CartoonistGem
   end
 end
 }
+    # Generate gemspec
+    path = File.join root_dir, gemspec
+    contents = File.read path
+
+    new_contents = contents.gsub /(dependency.*\")(.*?)(\".*\")(.*?)(\".*)/ do |match|
+      Regexp.last_match[1] +
+      Regexp.last_match[2] +
+      Regexp.last_match[3] +
+      CartoonistGem.dependencies[Regexp.last_match[2]] +
+      Regexp.last_match[5]
+    end
+
+    File.write path, new_contents
   end
 
   def build
@@ -43,11 +75,27 @@ end
     def version
       @@version ||= File.read(File.join(File.dirname(__FILE__), "CARTOONIST_VERSION")).strip
     end
+
+    def dependencies
+      {
+        "devise" => "~> 2.0.0",
+        "jquery-rails" => "~> 2.0.0",
+        "minitar" => "~> 0.5.0",
+        "railties" => "~> 3.2.0",
+        "redcarpet" => "~> 2.1.0",
+        "rubyzip" => "~> 0.9.0",
+        "twitter" => "~> 2.2.0"
+      }
+    end
   end
 
   private
+  def root_dir
+    File.join File.dirname(__FILE__), @dir
+  end
+
   def cd
-    "cd #{File.join File.dirname(__FILE__), @dir}"
+    "cd #{root_dir}"
   end
 
   def gemspec
@@ -69,6 +117,10 @@ CARTOONIST_GEMS = [CartoonistGem.new("cartoonist"),
                    CartoonistGem.new("cartoonist-twitter")]
 
 task :default => :build
+
+task :check_dependencies do
+  CARTOONIST_GEMS.each &:check_dependencies
+end
 
 task :generate do
   CARTOONIST_GEMS.each &:generate
