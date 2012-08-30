@@ -8,6 +8,22 @@ class CartoonistGem
     @gemname = gemname
   end
 
+  def generate
+    puts "Generating files for #{@gemname}"
+    path = File.join File.dirname(__FILE__), @dir, "lib/#{@dir}/version.rb"
+    class_name = @gemname.gsub(/^\w|-\w/) { |x| x.sub("-", "").upcase }
+    File.write path, %{module #{class_name}
+  class Version
+    class << self
+      def to_s
+        "#{CartoonistGem.version}"
+      end
+    end
+  end
+end
+}
+  end
+
   def build
     puts "Building #{@gemname}"
     system_exec "#{cd} && gem build #{gemspec}"
@@ -54,7 +70,11 @@ CARTOONIST_GEMS = [CartoonistGem.new("cartoonist"),
 
 task :default => :build
 
-task :build do
+task :generate do
+  CARTOONIST_GEMS.each &:generate
+end
+
+task :build => :generate do
   CARTOONIST_GEMS.each &:build
 end
 

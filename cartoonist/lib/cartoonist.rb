@@ -318,4 +318,5 @@ module Cartoonist
   end
 
   require "cartoonist/engine"
+  require "cartoonist/version"
 end
