@@ -113,6 +113,7 @@ CARTOONIST_GEMS = [CartoonistGem.new("cartoonist"),
                    CartoonistGem.new("cartoonist-comics"),
                    CartoonistGem.new("cartoonist-default-theme"),
                    CartoonistGem.new("cartoonist-pages"),
+                   CartoonistGem.new("cartoonist-suggestions"),
                    CartoonistGem.new("cartoonist-tags"),
                    CartoonistGem.new("cartoonist-twitter")]
 

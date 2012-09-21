@@ -1,0 +1,28 @@
+<% content_for :title, t("suggestions.new.title") %>
+
+<%= form_tag "/suggestions", :method => :post, :authenticity_token => false, :class => "suggestion-box" do %>
+  <p>
+    <label class="optional">
+      <span class="text"><%= t "suggestions.new.name" %></span>
+      <input type="text" name="name" />
+    </label>
+  </p>
+
+  <p>
+    <label class="optional">
+      <span class="text"><%= t "suggestions.new.email" %></span>
+      <input type="text" name="email" />
+    </label>
+  </p>
+
+  <p>
+    <label class="required">
+      <span class="text"><%= t "suggestions.new.suggestion" %></span>
+      <textarea name="content"></textarea>
+    </label>
+  </p>
+
+  <p>
+    <input type="submit" value="<%= t "suggestions.new.submit" %>" />
+  </p>
+<% end %>

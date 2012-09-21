@@ -1,0 +1,15 @@
+<% content_for :content_class, "suggestion-content" %>
+
+<% content_for :content do %>
+  <div class="suggestion-page">
+    <%= yield %>
+  </div>
+<% end %>
+
+<% content_for :admin_content do %>
+  <% if preview? %>
+    <p><a href="/admin/main">admin</a></p>
+  <% end %>
+<% end %>
+
+<%= render :template => "layouts/cartoonist" %>

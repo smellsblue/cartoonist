@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120606023300) do
+ActiveRecord::Schema.define(:version => 20120911075843) do
 
   create_table "announcements", :force => true do |t|
     t.datetime "posted_at"
@@ -101,6 +101,17 @@ ActiveRecord::Schema.define(:version => 20120606023300) do
   end
 
   add_index "settings", ["label"], :name => "index_settings_on_label", :unique => true
+
+  create_table "suggestions", :force => true do |t|
+    t.string   "name"
+    t.string   "email"
+    t.string   "ip"
+    t.text     "content",                       :null => false
+    t.text     "options"
+    t.boolean  "hidden",     :default => false, :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+  end
 
   create_table "tags", :force => true do |t|
     t.string   "label",      :null => false

@@ -4,6 +4,10 @@ class CartoonistController < ActionController::Base
   before_filter :check_mobile
 
   private
+  def handle_unverified_request
+    raise ActionController::InvalidAuthenticityToken.new
+  end
+
   def initial_setup_required?
     User.count == 0
   end

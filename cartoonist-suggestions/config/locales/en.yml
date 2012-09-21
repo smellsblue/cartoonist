@@ -1,0 +1,12 @@
+en:
+  cartoonist:
+    layout:
+      navigation:
+        suggest: Suggest
+  suggestions:
+    new:
+      email: Email
+      name: Name
+      submit: Submit
+      suggestion: Suggestion
+      title: Make a Suggestion
