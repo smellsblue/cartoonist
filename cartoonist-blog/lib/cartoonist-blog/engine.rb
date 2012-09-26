@@ -26,7 +26,7 @@ module CartoonistBlog
     end
 
     Cartoonist::Routes.add do
-      resources :blog do
+      resources :blog, :only => [:index, :show] do
         collection do
           get "archives"
           get "feed", :defaults => { :format => "rss" }
@@ -34,7 +34,7 @@ module CartoonistBlog
       end
 
       namespace :admin do
-        resources :blog do
+        resources :blog, :only => [:create, :edit, :index, :new, :update] do
           member do
             post "lock"
             get "preview"

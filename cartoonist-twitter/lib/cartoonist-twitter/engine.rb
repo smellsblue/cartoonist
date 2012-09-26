@@ -60,7 +60,7 @@ module CartoonistTwitter
 
     Cartoonist::Routes.add do
       namespace :admin do
-        resources :tweets
+        resources :tweets, :only => [:create, :edit, :index, :update]
       end
     end
   end

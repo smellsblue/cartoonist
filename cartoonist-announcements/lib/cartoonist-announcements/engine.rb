@@ -7,10 +7,10 @@ module CartoonistAnnouncements
       Announcement.order(:id)
     end
     Cartoonist::Routes.add do
-      resources :announcements
+      resources :announcements, :only => []
 
       namespace :admin do
-        resources :announcements
+        resources :announcements, :only => [:index]
       end
     end
   end

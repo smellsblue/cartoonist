@@ -326,7 +326,7 @@ module Cartoonist
       match "sitemap" => "site#sitemap", :defaults => { :format => "xml" }
       match "robots" => "site#robots", :defaults => { :format => "text" }
 
-      resource :admin, :controller => :admin do
+      resource :admin, :controller => :admin, :only => [:show] do
         collection do
           get "cron"
           get "backup"
@@ -338,9 +338,9 @@ module Cartoonist
       devise_for :users
 
       namespace :admin do
-        resources :accounts
+        resources :accounts, :only => [:create, :destroy, :edit, :index, :show, :update]
 
-        resources :cache, :constraints => { :id => /.*/ } do
+        resources :cache, :constraints => { :id => /.*/ }, :only => [:destroy, :index] do
           collection do
             post "expire_www"
             post "expire_m"
@@ -349,13 +349,13 @@ module Cartoonist
           end
         end
 
-        resources :static_cache, :constraints => { :id => /.*/ } do
+        resources :static_cache, :constraints => { :id => /.*/ }, :only => [:destroy, :index] do
           collection do
             post "expire_all"
           end
         end
 
-        resources :settings do
+        resources :settings, :only => [:index, :show, :update] do
           collection do
             get "initial_setup"
             post "save_initial_setup"

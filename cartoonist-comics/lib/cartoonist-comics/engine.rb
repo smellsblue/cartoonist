@@ -30,7 +30,7 @@ module CartoonistComics
     end
 
     Cartoonist::Routes.add do
-      resources :comic do
+      resources :comic, :only => [:index, :show] do
         collection do
           get "random"
           get "feed", :defaults => { :format => "rss" }
@@ -38,7 +38,7 @@ module CartoonistComics
       end
 
       namespace :admin do
-        resources :comic do
+        resources :comic, :only => [:create, :edit, :index, :new, :update] do
           member do
             post "lock"
             get "preview"

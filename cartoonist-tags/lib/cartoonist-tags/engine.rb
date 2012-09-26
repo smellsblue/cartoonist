@@ -24,9 +24,9 @@ module CartoonistTags
     end
 
     Cartoonist::Routes.add do
-      resources :tags
+      resources :tags, :only => [:show]
 
-      namespace :admin do
+      namespace :admin, :only => [:create, :destroy, :show] do
         resources :tags
       end
     end

@@ -20,7 +20,7 @@ module CartoonistPages
 
     Cartoonist::Routes.add do
       namespace :admin do
-        resources :page do
+        resources :page, :only => [:create, :edit, :index, :new, :update] do
           member do
             post "lock"
             post "post"

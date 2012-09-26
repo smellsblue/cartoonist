@@ -1,4 +1,8 @@
 en:
+  admin:
+    layout:
+      tab:
+        suggestions: Suggestions
   cartoonist:
     layout:
       navigation:

@@ -1,6 +1,7 @@
 module CartoonistSuggestions
   class Engine < ::Rails::Engine
     Cartoonist::Navigation::Link.add :url => "/suggestions/new", :class => "suggest", :label => "cartoonist.layout.navigation.suggest", :order => 3
+    Cartoonist::Admin::Tab.add :suggestions, :url => "/admin/suggestions"
     Cartoonist::Migration.add_for self
 
     Cartoonist::Backup.for :suggestions do
@@ -15,7 +16,7 @@ module CartoonistSuggestions
       resources :suggestions, :only => [:new, :create]
 
       namespace :admin do
-        resources :suggestions
+        resources :suggestions, :only => [:index, :show]
       end
     end
   end
