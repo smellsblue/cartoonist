@@ -1,7 +1,5 @@
-class Admin::PageController < CartoonistController
+class Admin::PageController < AdminCartoonistController
   before_filter :preview!, :only => [:preview]
-  before_filter :ensure_ssl!
-  before_filter :check_admin!
 
   def preview
     @page = Page.preview_from_path params[:id]

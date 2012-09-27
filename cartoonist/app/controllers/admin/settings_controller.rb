@@ -1,6 +1,5 @@
-class Admin::SettingsController < CartoonistController
-  before_filter :ensure_ssl!
-  before_filter :check_admin!, :except => [:initial_setup, :save_initial_setup]
+class Admin::SettingsController < AdminCartoonistController
+  skip_before_filter :check_admin!, :only => [:initial_setup, :save_initial_setup]
 
   def index
     redirect_to "/admin/settings/general"

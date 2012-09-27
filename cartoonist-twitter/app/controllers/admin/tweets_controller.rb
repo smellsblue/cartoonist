@@ -1,7 +1,4 @@
-class Admin::TweetsController < CartoonistController
-  before_filter :ensure_ssl!
-  before_filter :check_admin!
-
+class Admin::TweetsController < AdminCartoonistController
   def index
     @untweeted = Tweet.untweeted.created_chronological.not_disabled
     @tweeted = Tweet.tweeted.reverse_chronological

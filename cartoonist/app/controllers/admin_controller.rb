@@ -1,6 +1,6 @@
-class AdminController < CartoonistController
-  before_filter :ensure_ssl!, :except => [:cron]
-  before_filter :check_admin!, :except => [:cron]
+class AdminController < AdminCartoonistController
+  skip_before_filter :ensure_ssl!, :only => [:cron]
+  skip_before_filter :check_admin!, :only => [:cron]
 
   def show
     redirect_to "/admin/main"

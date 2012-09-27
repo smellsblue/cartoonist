@@ -1,8 +1,6 @@
-class Admin::BlogController < CartoonistController
+class Admin::BlogController < AdminCartoonistController
   helper :blog
   before_filter :preview!, :only => [:preview, :archives]
-  before_filter :ensure_ssl!
-  before_filter :check_admin!
 
   def archives
     @posts = BlogPost.archives true

@@ -1,8 +1,6 @@
-class Admin::ComicController < CartoonistController
+class Admin::ComicController < AdminCartoonistController
   helper :comic
   before_filter :preview!, :only => [:preview, :preview_random]
-  before_filter :ensure_ssl!
-  before_filter :check_admin!
 
   def index
     @unposted = Comic.unposted.numerical

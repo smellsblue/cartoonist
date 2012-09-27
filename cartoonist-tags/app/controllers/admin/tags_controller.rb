@@ -1,7 +1,5 @@
-class Admin::TagsController < CartoonistController
+class Admin::TagsController < AdminCartoonistController
   before_filter :preview!, :only => [:show]
-  before_filter :ensure_ssl!
-  before_filter :check_admin!
 
   def show
     @tag = Tag.find params[:id].to_i

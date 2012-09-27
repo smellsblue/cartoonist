@@ -1,6 +1,4 @@
-class Admin::CacheController < CartoonistController
-  before_filter :ensure_ssl!
-  before_filter :check_admin!
+class Admin::CacheController < AdminCartoonistController
   layout "general_admin"
 
   def index

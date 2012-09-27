@@ -1,7 +1,4 @@
-class Admin::AnnouncementsController < CartoonistController
-  before_filter :ensure_ssl!
-  before_filter :check_admin!
-
+class Admin::AnnouncementsController < AdminCartoonistController
   def index
     @unposted = Announcement.future.all
     @active = Announcement.active.all

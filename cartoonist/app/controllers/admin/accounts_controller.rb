@@ -1,7 +1,4 @@
-class Admin::AccountsController < CartoonistController
-  before_filter :ensure_ssl!
-  before_filter :check_admin!
-
+class Admin::AccountsController < AdminCartoonistController
   def index
     @users = User.order(:name).all
   end
