@@ -78,13 +78,13 @@ end
 
     def dependencies
       {
-        "devise" => "~> 2.0.0",
-        "jquery-rails" => "~> 2.0.0",
+        "devise" => "~> 2.1.0",
+        "jquery-rails" => "~> 2.1.0",
         "minitar" => "~> 0.5.0",
         "railties" => "~> 3.2.0",
         "redcarpet" => "~> 2.1.0",
         "rubyzip" => "~> 0.9.0",
-        "twitter" => "~> 2.2.0"
+        "twitter" => "~> 4.0.0"
       }
     end
   end
