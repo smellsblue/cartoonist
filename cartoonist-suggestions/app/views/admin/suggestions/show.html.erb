@@ -1,0 +1,21 @@
+<%= form_tag "/admin/suggestions/#{@suggestion.id}/toggle", :method => :post do %>
+  <% if @suggestion.shown? %>
+    <input type="submit" value="<%= t "admin.suggestions.show.hide" %>" />
+  <% else %>
+    <input type="submit" value="<%= t "admin.suggestions.show.show" %>" />
+  <% end %>
+<% end %>
+
+<p>
+  <%= t "admin.suggestions.show.name", :name => @suggestion.name %><br />
+  <%= t "admin.suggestions.show.email", :email => @suggestion.email %><br />
+  <%= t "admin.suggestions.show.ip", :ip => @suggestion.ip %>
+</p>
+
+<p>
+  <%= t "admin.suggestions.show.date", :date => @suggestion.formatted_created_at %>
+</p>
+
+<p>
+  <%= t "admin.suggestions.show.content", :content => @suggestion.content %>
+</p>

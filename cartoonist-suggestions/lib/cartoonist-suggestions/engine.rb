@@ -16,7 +16,15 @@ module CartoonistSuggestions
       resources :suggestions, :only => [:new, :create]
 
       namespace :admin do
-        resources :suggestions, :only => [:index, :show]
+        resources :suggestions, :only => [:index, :show] do
+          collection do
+            post :toggle
+          end
+
+          member do
+            post :toggle
+          end
+        end
       end
     end
   end

@@ -3,6 +3,21 @@ en:
     layout:
       tab:
         suggestions: Suggestions
+    suggestions:
+      index:
+        byline: from %{name}
+        show: (show)
+        shown: Shown
+      layout:
+        section: Suggestions
+      show:
+        content: "Suggestion: %{content}"
+        date: "Date: %{date}"
+        email: "Email: %{email}"
+        hide: hide
+        ip: "(ip: %{ip})"
+        name: "From: %{name}"
+        show: show
   cartoonist:
     layout:
       navigation:

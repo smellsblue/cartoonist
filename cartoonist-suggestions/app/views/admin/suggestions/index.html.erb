@@ -1,0 +1,12 @@
+<h2><%= t "admin.suggestions.index.shown" %></h2>
+
+<ul>
+  <% @suggestions.each do |suggestion| %>
+    <li>
+      <%= suggestion.formatted_created_at %>:
+      <%= truncate suggestion.content, :length => 256 %><br />
+      <%= t "admin.suggestions.index.byline", :name => truncate(suggestion.name, :length => 32) %>
+      <a href="/admin/suggestions/<%= suggestion.id %>"><%= t "admin.suggestions.index.show" %></a>
+    </li>
+  <% end %>
+</ul>
