@@ -99,6 +99,13 @@ class Tweet < ActiveRecord::Base
       logger.info "Fake Tweet: #{tweet}"
     end
 
+  rescue => e
+    logger.error "Error while sending tweet, will mark sent anyways (just in case):
+#{e.class} (#{e.message})
+    #{e.backtrace.join "\n    "}
+
+"
+  ensure
     self.tweeted_at = Time.now
     save!
   end
