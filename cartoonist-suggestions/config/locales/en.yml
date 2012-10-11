@@ -6,6 +6,7 @@ en:
     suggestions:
       index:
         byline: from %{name}
+        hide: hide
         show: (show)
         shown: Shown
       layout:
