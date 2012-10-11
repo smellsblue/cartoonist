@@ -8,6 +8,7 @@ end
 
 group :assets do
   gem "sass-rails"
+  gem "coffee-script"
   gem "uglifier"
   gem "therubyracer"
 end
@@ -21,6 +22,7 @@ group :production do
 end
 
 gem "jquery-rails"
+gem "jquery-ui-rails"
 
 group :test do
   gem "rspec-rails", :require => false

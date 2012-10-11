@@ -11,5 +11,7 @@ Gem::Specification.new do |s|
   s.files         = `git ls-files`.split("\n")
   s.require_paths = ["lib"]
   s.homepage      = "http://reasonnumber.com/cartoonist"
+  s.add_dependency "jquery-rails", "~> 2.1.3"
+  s.add_dependency "jquery-ui-rails", "~> 2.0.2"
   s.add_dependency "cartoonist", cartoonist_version
 end

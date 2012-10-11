@@ -3,9 +3,11 @@
   <head>
     <title><%= yield(:title) || Setting[:site_name] %></title>
     <%= stylesheet_link_tag "admin.css" %>
+    <%= stylesheet_link_tag controller_path if Rails.application.assets.find_asset("#{controller_path}.css").present? %>
     <%= csrf_meta_tags %>
     <link rel="icon" href="http://<%= Setting[:domain] %><%= asset_path Cartoonist::Theme.favicon %>" type="image/x-icon" />
     <link rel="shortcut icon" href="http://<%= Setting[:domain] %><%= asset_path Cartoonist::Theme.favicon %>" type="image/x-icon" />
+    <%= javascript_include_tag controller_path if Rails.application.assets.find_asset("#{controller_path}.js").present? %>
   </head>
   <body>
     <%= form_tag "/users/sign_out", :method => :delete do %>

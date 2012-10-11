@@ -1,5 +1,7 @@
 module CartoonistBlog
   class Engine < ::Rails::Engine
+    Cartoonist::Asset.add "admin/blog.css"
+    Cartoonist::Asset.add "admin/blog.js"
     Cartoonist::Entity.add :blog, "BlogPost"
     Cartoonist::Admin::Tab.add :blog, :url => "/admin/blog", :order => 1
     Cartoonist::RootPath.add :blog, "blog#index"

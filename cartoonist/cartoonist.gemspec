@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   s.homepage      = "http://reasonnumber.com/cartoonist"
   s.add_dependency "devise", "~> 2.1.0"
-  s.add_dependency "jquery-rails", "~> 2.1.0"
+  s.add_dependency "jquery-rails", "~> 2.1.3"
   s.add_dependency "railties", "~> 3.2.0"
   s.add_dependency "redcarpet", "~> 2.1.0"
   s.add_dependency "rubyzip", "~> 0.9.0"

@@ -79,7 +79,8 @@ end
     def dependencies
       {
         "devise" => "~> 2.1.0",
-        "jquery-rails" => "~> 2.1.0",
+        "jquery-rails" => "~> 2.1.3",
+        "jquery-ui-rails" => "~> 2.0.2",
         "minitar" => "~> 0.5.0",
         "railties" => "~> 3.2.0",
         "redcarpet" => "~> 2.1.0",
