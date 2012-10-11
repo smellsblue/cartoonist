@@ -10,10 +10,10 @@ Gem::Specification.new do |s|
   s.files         = `git ls-files`.split("\n")
   s.require_paths = ["lib"]
   s.homepage      = "http://reasonnumber.com/cartoonist"
-  s.add_dependency "devise", "~> 2.1.0"
+  s.add_dependency "devise", "~> 2.1.2"
   s.add_dependency "jquery-rails", "~> 2.1.3"
-  s.add_dependency "railties", "~> 3.2.0"
-  s.add_dependency "redcarpet", "~> 2.1.0"
-  s.add_dependency "rubyzip", "~> 0.9.0"
-  s.add_dependency "minitar", "~> 0.5.0"
+  s.add_dependency "railties", "~> 3.2.8"
+  s.add_dependency "redcarpet", "~> 2.1.1"
+  s.add_dependency "rubyzip", "~> 0.9.9"
+  s.add_dependency "minitar", "~> 0.5.3"
 end

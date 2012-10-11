@@ -2,12 +2,12 @@ PATH
   remote: ../cartoonist
   specs:
     cartoonist (0.0.13)
-      devise (~> 2.1.0)
+      devise (~> 2.1.2)
       jquery-rails (~> 2.1.3)
-      minitar (~> 0.5.0)
-      railties (~> 3.2.0)
-      redcarpet (~> 2.1.0)
-      rubyzip (~> 0.9.0)
+      minitar (~> 0.5.3)
+      railties (~> 3.2.8)
+      redcarpet (~> 2.1.1)
+      rubyzip (~> 0.9.9)
 
 PATH
   remote: ../cartoonist-announcements
@@ -59,7 +59,7 @@ PATH
   specs:
     cartoonist-twitter (0.0.13)
       cartoonist (= 0.0.13)
-      twitter (~> 4.0.0)
+      twitter (~> 4.1.0)
 
 GEM
   remote: http://rubygems.org/
@@ -195,12 +195,12 @@ GEM
       libv8 (~> 3.3.10)
     thor (0.16.0)
     tilt (1.3.3)
-    treetop (1.4.10)
+    treetop (1.4.11)
       polyglot
       polyglot (>= 0.3.1)
     turn (0.8.2)
       ansi (>= 1.2.2)
-    twitter (4.0.0)
+    twitter (4.1.0)
       faraday (~> 0.8)
       multi_json (~> 1.3)
       simple_oauth (~> 0.1.6)

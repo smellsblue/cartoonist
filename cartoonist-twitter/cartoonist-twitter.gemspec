@@ -12,5 +12,5 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   s.homepage      = "http://reasonnumber.com/cartoonist"
   s.add_dependency "cartoonist", cartoonist_version
-  s.add_dependency "twitter", "~> 4.0.0"
+  s.add_dependency "twitter", "~> 4.1.0"
 end
