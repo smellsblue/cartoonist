@@ -40,6 +40,7 @@ en:
       layout:
         actions: Actions
         cache: Cache
+        search: Search
         section: General
         settings: Settings
         static_cache: Static Cache
@@ -72,6 +73,9 @@ en:
       page: Page
       www: www
       www_tmp: www tmp
+  search:
+    index:
+      submit: Search
   settings:
     initial_setup:
       confirm_password: "Confirmation: "

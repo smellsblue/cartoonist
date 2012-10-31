@@ -35,6 +35,10 @@ class Page < ActiveRecord::Base
   end
 
   class << self
+    def search(query)
+      where "LOWER(title) LIKE :query OR LOWER(path) LIKE :query OR LOWER(content) LIKE :query", :query => "%#{query.downcase}%"
+    end
+
     def sitemap
       posted.in_sitemap
     end

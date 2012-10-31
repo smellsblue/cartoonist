@@ -1,0 +1,16 @@
+<form>
+  <input type="text" name="q" value="<%= params[:q] %>" />
+  <input type="submit" value="<%= t "search.index.submit" %>" />
+</form>
+
+<% if @search.query.present? %>
+  <h2>Search results for '<em><%= @search.query %></em>'</h2>
+
+  <ul>
+    <% @search.results.each do |result| %>
+      <li>
+        <a href="<%= result.url %>"><%= result.description %><a/>
+      </li>
+    <% end %>
+  </ul>
+<% end %>

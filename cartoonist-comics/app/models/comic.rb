@@ -81,6 +81,10 @@ class Comic < ActiveRecord::Base
 
     VALID_DAYS = [MONDAY, WEDNESDAY, FRIDAY]
 
+    def search(query)
+      where "LOWER(title) LIKE :query OR LOWER(description) LIKE :query OR LOWER(scene_description) LIKE :query OR LOWER(dialogue) LIKE :query OR LOWER(title_text) LIKE :query", :query => "%#{query.downcase}%"
+    end
+
     def create_comic(params)
       last = current_created
       create :number => next_number(last), :title => params[:title], :posted_at => next_post_date(last), :description => params[:description], :scene_description => params[:scene_description], :dialogue => params[:dialogue], :title_text => params[:title_text], :database_file => DatabaseFile.create_from_param(params[:image], :allowed_extensions => ["png"]), :locked => true

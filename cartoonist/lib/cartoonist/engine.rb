@@ -354,6 +354,8 @@ module Cartoonist
             post "save_initial_setup"
           end
         end
+
+        resources :search, :only => [:index]
       end
     end
   end

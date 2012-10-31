@@ -114,6 +114,10 @@ class BlogPost < ActiveRecord::Base
   end
 
   class << self
+    def search(query)
+      where "LOWER(title) LIKE :query OR LOWER(url_title) LIKE :query OR LOWER(content) LIKE :query OR LOWER(author) LIKE :query", :query => "%#{query.downcase}%"
+    end
+
     def create_post(current_user, params)
       url_title = url_titlize params[:title]
       create :title => params[:title], :url_title => url_title, :content => params[:content], :author => current_user.name, :locked => true
