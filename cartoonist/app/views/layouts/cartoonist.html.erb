@@ -61,9 +61,6 @@
       <% if @disqus_enabled %>
         <div class="comments-container">
           <div id="disqus_thread">
-            <% if @disqus_options[:count_link] %>
-              <a id="disqus_comments" href="#disqus_thread" data-disqus-identifier="/<%= @disqus_options[:path] %>"></a>
-            <% end %>
           </div>
           <noscript>
             <%= t "cartoonist.layout.disqus.noscript_pre_link" %><a href="http://disqus.com/?ref_noscript"><%= t "cartoonist.layout.disqus.noscript_link" %></a><%= t "cartoonist.layout.disqus.noscript_post_link" %>
@@ -102,29 +99,11 @@
         var disqus_category_id = "<%= j @disqus_options[:category].to_s %>";
         var disqus_identifier = "/<%= j @disqus_options[:path] %>";
         var disqus_url = "http://<%= j Setting[:domain] %>/<%= j @disqus_options[:path] %>";
-        <% if @disqus_options[:count_link] %>
-          (function () {
-            var s = document.createElement('script'); s.async = true;
-            s.type = 'text/javascript';
-            s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
-            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(s);
-          }());
-
-          var comments = document.getElementById("disqus_comments");
-          comments.onclick = function() {
-            document.getElementById("disqus_thread").removeChild(comments);
-            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-            dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-            return false;
-          };
-        <% else %>
-          (function() {
-            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-            dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-          })();
-        <% end %>
+        (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
       </script>
     <% end %>
     <% if Cartoonist::Asset.included_js? %>
