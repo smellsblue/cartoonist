@@ -263,6 +263,20 @@ module Cartoonist
     end
   end
 
+  class Searchable
+    @@all = []
+
+    class << self
+      def all
+        @@all.map &:constantize
+      end
+
+      def add(model_name)
+        @@all << model_name
+      end
+    end
+  end
+
   class Sitemap
     @@all = []
 

@@ -43,6 +43,10 @@ module Entity
     self.class.entity_edit_url.call self if self.class.entity_edit_url
   end
 
+  def search_url
+    entity_relative_preview_url
+  end
+
   def self.included(base)
     base.extend ClassMethods
 

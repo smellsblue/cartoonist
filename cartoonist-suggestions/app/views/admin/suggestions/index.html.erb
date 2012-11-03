@@ -7,7 +7,7 @@
         <label>
           <input type="checkbox" name="ids[]" value="<%= suggestion.id %>" />
           <%= suggestion.formatted_created_at %>:
-          <%= truncate suggestion.content, :length => 256 %><br />
+          <%= suggestion.truncated_content %><br />
           <%= t "admin.suggestions.index.byline", :name => truncate(suggestion.name, :length => 32) %>
         </label>
         <a href="/admin/suggestions/<%= suggestion.id %>"><%= t "admin.suggestions.index.show" %></a>

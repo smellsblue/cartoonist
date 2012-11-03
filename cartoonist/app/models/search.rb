@@ -7,12 +7,23 @@ class Search
 
   def results
     return [] if @query.blank?
-    @results ||= Cartoonist::Entity.all.map do |entity|
+    @results ||= entity_results + searchable_results
+  end
+
+  private
+  def entity_results
+    Cartoonist::Entity.all.map do |entity|
       if entity.respond_to? :search
-        entity.search(@query).map { |x| Search::Result.new x }
+        entity.search(@query).map { |x| Search::EntityResult.new x }
       else
         []
       end
+    end.flatten
+  end
+
+  def searchable_results
+    Cartoonist::Searchable.all.map do |searchable|
+      searchable.search(@query).map { |x| Search::SearchableResult.new x }
     end.flatten
   end
 
@@ -22,7 +33,7 @@ class Search
     end
   end
 
-  class Result
+  class EntityResult
     include BelongsToEntity
 
     def initialize(entity)
@@ -30,7 +41,23 @@ class Search
     end
 
     def url
-      entity.edit_url
+      entity.search_url
+    end
+  end
+
+  class SearchableResult
+    attr_reader :searchable
+
+    def initialize(searchable)
+      @searchable = searchable
+    end
+
+    def description
+      searchable.description
+    end
+
+    def url
+      searchable.search_url
     end
   end
 end

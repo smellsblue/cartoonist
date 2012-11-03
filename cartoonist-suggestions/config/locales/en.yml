@@ -23,6 +23,7 @@ en:
     layout:
       navigation:
         suggest: Suggest
+  suggestion: Suggestion
   suggestions:
     new:
       email: Email

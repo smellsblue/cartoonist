@@ -82,7 +82,7 @@ class Comic < ActiveRecord::Base
     VALID_DAYS = [MONDAY, WEDNESDAY, FRIDAY]
 
     def search(query)
-      where "LOWER(title) LIKE :query OR LOWER(description) LIKE :query OR LOWER(scene_description) LIKE :query OR LOWER(dialogue) LIKE :query OR LOWER(title_text) LIKE :query", :query => "%#{query.downcase}%"
+      reverse_numerical.where "LOWER(title) LIKE :query OR LOWER(description) LIKE :query OR LOWER(scene_description) LIKE :query OR LOWER(dialogue) LIKE :query OR LOWER(title_text) LIKE :query", :query => "%#{query.downcase}%"
     end
 
     def create_comic(params)

@@ -3,6 +3,7 @@ module CartoonistSuggestions
     Cartoonist::Navigation::Link.add :url => "/suggestions/new", :class => "suggest", :label => "cartoonist.layout.navigation.suggest", :order => 3
     Cartoonist::Admin::Tab.add :suggestions, :url => "/admin/suggestions"
     Cartoonist::Migration.add_for self
+    Cartoonist::Searchable.add "Suggestion"
 
     Cartoonist::Backup.for :suggestions do
       Suggestion.order(:id)
