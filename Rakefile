@@ -83,9 +83,9 @@ end
         "jquery-ui-rails" => "~> 2.0.2",
         "minitar" => "~> 0.5.3",
         "railties" => "~> 3.2.8",
-        "redcarpet" => "~> 2.1.1",
+        "redcarpet" => "~> 2.2.2",
         "rubyzip" => "~> 0.9.9",
-        "twitter" => "~> 4.1.0"
+        "twitter" => "~> 4.2.0"
       }
     end
   end
