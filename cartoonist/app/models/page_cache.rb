@@ -33,19 +33,9 @@ class PageCache
     @www_tmp_exists = File.exists? File.join(CACHE_PATH, "#{name}.www.tmp.html")
   end
 
-  def m?
-    return @m_exists unless @m_exists.nil?
-    @m_exists = File.exists? File.join(CACHE_PATH, "#{name}.m.html")
-  end
-
-  def m_tmp?
-    return @m_tmp_exists unless @m_tmp_exists.nil?
-    @m_tmp_exists = File.exists? File.join(CACHE_PATH, "#{name}.m.tmp.html")
-  end
-
   def expire!
     PageCache.cache_files(:with_gz => true).select do |file|
-      extracted_name = file.sub /\.(?:www|m)(?:\.tmp)?\.html(?:.gz)?$/, ""
+      extracted_name = file.sub /\.(?:www)(?:\.tmp)?\.html(?:.gz)?$/, ""
       extracted_name == name
     end.each do |file|
       File.delete File.join(CACHE_PATH, file)
@@ -77,18 +67,13 @@ class PageCache
 
     def cache_names
       cache_files.map do |file|
-        file.sub /\.(?:www|m)(?:\.tmp)?\.html$/, ""
+        file.sub /\.(?:www)(?:\.tmp)?\.html$/, ""
       end.sort.uniq
     end
 
     def expire_www!
       File.delete *Dir.glob(File.join(CACHE_PATH, "**/*.www.html*"), File::FNM_DOTMATCH)
       File.delete *Dir.glob(File.join(CACHE_PATH, "**/*.www.tmp.html*"), File::FNM_DOTMATCH)
-    end
-
-    def expire_m!
-      File.delete *Dir.glob(File.join(CACHE_PATH, "**/*.m.html*"), File::FNM_DOTMATCH)
-      File.delete *Dir.glob(File.join(CACHE_PATH, "**/*.m.tmp.html*"), File::FNM_DOTMATCH)
     end
 
     def expire_tmp!

@@ -64,11 +64,8 @@ en:
       cached: cached
       expire: Expire
       expire_all: Expire all
-      expire_m: Expire m
       expire_tmp: Expire tmp
       expire_www: Expire www
-      m: m
-      m_tmp: m tmp
       not_cached: not cached
       page: Page
       www: www

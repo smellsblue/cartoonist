@@ -336,7 +336,6 @@ module Cartoonist
         resources :cache, :constraints => { :id => /.*/ }, :only => [:destroy, :index] do
           collection do
             post "expire_www"
-            post "expire_m"
             post "expire_tmp"
             post "expire_all"
           end

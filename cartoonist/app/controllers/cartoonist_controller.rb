@@ -12,12 +12,12 @@ class CartoonistController < ActionController::Base
     @mobile = (request.subdomain == "m") || params[:mobile]
   end
 
+  def mobile?
+    @mobile
+  end
+
   def cache_type
-    if @mobile
-      "m"
-    else
-      "www"
-    end
+    "www"
   end
 
   def cache_page_as(path)

@@ -55,10 +55,12 @@ class ComicController < CartoonistController
 
   private
   def feed_contents
-    result = comic_cache.read "feed"
+    key = "feed"
+    key = "#{key}-mobile" if mobile?
+    result = comic_cache.read key
     return result if result
     result = ComicFeed.new Comic.feed
-    comic_cache.write "feed", result
+    comic_cache.write key, result
     result
   end
 

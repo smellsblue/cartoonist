@@ -21,8 +21,6 @@
   <%= @comic.formatted_description %>
 </div>
 
-<% if mobile? %>
-  <p class="title-text">
-    <%= @comic.title_text %>
-  </p>
-<% end %>
+<p class="title-text mobile-only">
+  <%= @comic.title_text %>
+</p>

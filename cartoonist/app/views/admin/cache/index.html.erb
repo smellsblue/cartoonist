@@ -3,10 +3,6 @@
     <input type="submit" value="<%= t "cache.index.expire_www" %>" />
   <% end %>
 
-  <%= form_tag "/admin/cache/expire_m", :method => :post, :class => "inline" do %>
-    <input type="submit" value="<%= t "cache.index.expire_m" %>" />
-  <% end %>
-
   <%= form_tag "/admin/cache/expire_tmp", :method => :post, :class => "inline" do %>
     <input type="submit" value="<%= t "cache.index.expire_tmp" %>" />
   <% end %>
@@ -22,9 +18,7 @@
       <tr>
         <th><%= t "cache.index.page" %></th>
         <th><%= t "cache.index.www" %></th>
-        <th><%= t "cache.index.m" %></th>
         <th><%= t "cache.index.www_tmp" %></th>
-        <th><%= t "cache.index.m_tmp" %></th>
         <th></th>
       </tr>
     </thead>
@@ -37,16 +31,8 @@
             <%= td_cache_text cache.www? %>
           </td>
 
-          <td class="<%= td_cache_class cache.m? %>">
-            <%= td_cache_text cache.m? %>
-          </td>
-
           <td class="<%= td_cache_class cache.www_tmp? %>">
             <%= td_cache_text cache.www_tmp? %>
-          </td>
-
-          <td class="<%= td_cache_class cache.m_tmp? %>">
-            <%= td_cache_text cache.m_tmp? %>
           </td>
 
           <td>

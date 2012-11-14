@@ -44,14 +44,6 @@ module CartoonistHelper
     @mobile
   end
 
-  def html_class
-    if mobile?
-      "m"
-    else
-      "www"
-    end
-  end
-
   def enable_disqus!(options)
     @disqus_enabled = true
     @disqus_options = options

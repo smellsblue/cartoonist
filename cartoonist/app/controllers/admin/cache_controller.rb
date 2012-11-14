@@ -15,11 +15,6 @@ class Admin::CacheController < AdminCartoonistController
     redirect_to "/admin/cache"
   end
 
-  def expire_m
-    PageCache.expire_m!
-    redirect_to "/admin/cache"
-  end
-
   def expire_tmp
     PageCache.expire_tmp!
     redirect_to "/admin/cache"
