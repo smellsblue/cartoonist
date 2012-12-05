@@ -1,11 +1,17 @@
 class User < ActiveRecord::Base
-  devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable
+  devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable, :omniauthable
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :name
 
   def zip_title
     name
+  end
+
+  def save_auth!(auth)
+    self.provider = auth.provider
+    self.uid = auth.uid
+    save!
   end
 
   class << self
@@ -29,6 +35,10 @@ class User < ActiveRecord::Base
 
       user.save!
       user
+    end
+
+    def from_auth(auth)
+      where(:provider => auth.provider, :uid => auth.uid).first
     end
   end
 end

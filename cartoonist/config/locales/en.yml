@@ -23,9 +23,15 @@ en:
       save: Save
       subtitle: New Account
     show:
+      associate: Associate with %{provider}
+      associated:
+        prefix: This user associated with
+        suffix: ""
       edit: edit
       email: "Email:"
       name: "Name:"
+      reassociate: Change %{provider} association
+      reassociation_warning: (Only a GMail account not yet associated will work)
   admin:
     accounts:
       layout:

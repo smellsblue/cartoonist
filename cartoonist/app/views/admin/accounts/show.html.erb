@@ -1,3 +1,30 @@
+<% if @user == current_user %>
+  <% if current_user.provider %>
+    <p>
+      <%= t "accounts.show.associated.prefix" %>
+      <strong><%= current_user.provider %></strong>
+      <%= t "accounts.show.associated.suffix" %>
+    </p>
+
+    <p>
+      <a href="/users/auth/google">
+        <%= t "accounts.show.reassociate", :provider => "GMail" %>
+      </a>
+
+      <br />
+      <small>
+        <%= t "accounts.show.reassociation_warning", :provider => "GMail" %>
+      </small>
+    </p>
+  <% else %>
+    <p>
+      <a href="/users/auth/google">
+        <%= t "accounts.show.associate", :provider => "GMail" %>
+      </a>
+    </p>
+  <% end %>
+<% end %>
+
 <p>
   <a href="/admin/accounts/<%= @user.id %>/edit"><%= t "accounts.show.edit" %></a>
 </p>

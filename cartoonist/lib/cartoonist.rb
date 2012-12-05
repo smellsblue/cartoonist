@@ -1,4 +1,6 @@
 require "devise"
+require "omniauth-openid"
+require "openid/store/filesystem"
 require "jquery-rails"
 require "redcarpet"
 require "zlib"

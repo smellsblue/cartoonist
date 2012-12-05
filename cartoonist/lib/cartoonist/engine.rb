@@ -217,6 +217,8 @@ module Cartoonist
       #   manager.intercept_401 = false
       #   manager.default_strategies(:scope => :user).unshift :some_external_strategy
       # end
+
+      devise_config.omniauth :openid, :name => "google", :identifier => "https://www.google.com/accounts/o8/id", :store => OpenID::Store::Filesystem.new("/tmp")
     end
 
     config.before_initialize do
@@ -328,7 +330,7 @@ module Cartoonist
         end
       end
 
-      devise_for :users
+      devise_for :users, :controllers => { :omniauth_callbacks => "admin/omniauth_callbacks" }
 
       namespace :admin do
         resources :accounts, :only => [:create, :destroy, :edit, :index, :show, :update]
