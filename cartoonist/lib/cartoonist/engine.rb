@@ -233,6 +233,9 @@ module Cartoonist
       else
         Rails.application.config.exceptions_app = ActionDispatch::PublicExceptions.new(File.join File.dirname(__FILE__), "../../public/errors")
       end
+
+      # Public expire headers causes our action to not be called until cache expires
+      Rails.application.config.action_dispatch.rack_cache = nil
     end
 
     config.to_prepare do
