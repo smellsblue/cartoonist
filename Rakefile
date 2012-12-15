@@ -86,7 +86,7 @@ end
         "railties" => "~> 3.2.9",
         "redcarpet" => "~> 2.2.2",
         "rubyzip" => "~> 0.9.9",
-        "twitter" => "~> 4.4.0"
+        "twitter" => "~> 4.4.1"
       }
     end
   end
