@@ -1,5 +1,13 @@
 module CartoonistSuggestions
   class Engine < ::Rails::Engine
+    config.to_prepare do
+      Setting::Tab.define :suggestions, :order => 3 do
+        Setting::Section.define :page, :order => 1 do
+          Setting.define :suggestion_prefix, :type => :text
+        end
+      end
+    end
+
     Cartoonist::Navigation::Link.add :url => "/suggestions/new", :class => "suggest", :label => "cartoonist.layout.navigation.suggest", :order => 3
     Cartoonist::Admin::Tab.add :suggestions, :url => "/admin/suggestions"
     Cartoonist::Migration.add_for self

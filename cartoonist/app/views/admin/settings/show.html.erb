@@ -19,7 +19,7 @@
 
       <% @tab[section].settings.each do |setting| %>
         <%# Other setting types to come later %>
-        <% next unless Setting::Meta[setting].select_from || [:string, :boolean, :int].include?(Setting::Meta[setting].type) %>
+        <% next unless Setting::Meta[setting].select_from || [:text, :string, :boolean, :int].include?(Setting::Meta[setting].type) %>
         <p class="setting">
           <input type="hidden" name="included_settings[]" value="<%= setting %>" />
           <label>
@@ -30,6 +30,9 @@
                   <option value="<%= setting_select_value option %>" <%= selected setting_select_value(option), Setting[setting] %>><%= setting_select_label option %></option>
                 <% end %>
               <select name="<%= setting %>" value="<%= Setting[setting] %>">
+            <% elsif Setting::Meta[setting].type == :text %>
+              <br />
+              <textarea name="<%= setting %>" cols="75" rows="15"><%= Setting[setting] %></textarea>
             <% elsif Setting::Meta[setting].type == :string %>
               <input type="text" name="<%= setting %>" value="<%= Setting[setting] %>" size="60" />
             <% elsif [:int, :float].include?(Setting::Meta[setting].type) %>

@@ -65,7 +65,7 @@ class Setting < ActiveRecord::Base
       @onchange = options[:onchange]
       @validation = options[:validation]
       @select_from = options[:select_from]
-      raise "Invalid setting type #{@type}" unless [:string, :symbol, :boolean, :int, :float, :array, :hash].include? @type
+      raise "Invalid setting type #{@type}" unless [:text, :string, :symbol, :boolean, :int, :float, :array, :hash].include? @type
 
       # Auto create general tab and section if it isn't created
       if @tab == :general && !Setting::Tab[@tab]
@@ -79,6 +79,8 @@ class Setting < ActiveRecord::Base
       if options.include? :default
         @default = options[:default]
       elsif @type == :string
+        @default = ""
+      elsif @type == :text
         @default = ""
       elsif @type == :symbol
         @default = :""
@@ -117,6 +119,8 @@ class Setting < ActiveRecord::Base
 
       case type
       when :string
+        value
+      when :text
         value
       when :symbol
         value.to_sym

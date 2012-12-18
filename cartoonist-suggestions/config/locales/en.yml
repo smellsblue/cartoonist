@@ -23,6 +23,15 @@ en:
     layout:
       navigation:
         suggest: Suggest
+  settings:
+    show:
+      sections:
+        suggestions:
+          page: Page Details
+      settings:
+        suggestion_prefix: "Suggestion prefix (markdown):"
+      tabs:
+        suggestions: Suggestions
   suggestion: Suggestion
   suggestions:
     new:
