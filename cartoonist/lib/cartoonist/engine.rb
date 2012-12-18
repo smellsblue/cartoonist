@@ -336,7 +336,7 @@ module Cartoonist
       devise_for :users, :controllers => { :omniauth_callbacks => "admin/omniauth_callbacks" }
 
       namespace :admin do
-        resources :accounts, :only => [:create, :destroy, :edit, :index, :show, :update]
+        resources :accounts
 
         resources :cache, :constraints => { :id => /.*/ }, :only => [:destroy, :index] do
           collection do
