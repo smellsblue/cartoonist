@@ -14,7 +14,32 @@ class Announcement < ActiveRecord::Base
     end
   end
 
+  def lock!
+    self.locked = true
+    save!
+  end
+
+  def unlock!
+    self.locked = false
+    save!
+  end
+
   class << self
+    def create_announcement(params)
+      create :title => params[:title], :content => params[:content], :location => params[:location]
+    end
+
+    def update_announcement(params)
+      announcement = find params[:id].to_i
+      raise "Cannot update locked announcement!" if announcement.locked
+      announcement.title = params[:title]
+      announcement.location = params[:location]
+      announcement.content = params[:content]
+      announcement.locked = true
+      announcement.save!
+      announcement
+    end
+
     def disabled
       where :enabled => false
     end

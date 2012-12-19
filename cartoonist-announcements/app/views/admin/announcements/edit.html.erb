@@ -1,0 +1,35 @@
+<p>
+  <%= form_tag "/admin/announcements/#{@announcement.id}/#{lock_toggle_target}", :method => :post do %>
+    <input type="submit" value="<%= lock_toggle_target %>" />
+  <% end %>
+</p>
+
+<%= form_tag "/admin/announcements/#{@announcement.id}", :method => :put do %>
+  <p>
+    <label>
+      <%= t "admin.announcements.edit.title_label" %>
+      <input type="text" name="title" value="<%= @announcement.title %>" <%= lock_disabled %> />
+    </label>
+  </p>
+
+  <p>
+    <label>
+      <%= t "admin.announcements.edit.location" %>
+      <select name="location" <%= lock_disabled %>>
+        <option value="session" <%= selected @announcement.location, "session" %>><%= t "admin.announcements.edit.location_option.session" %></option>
+        <option value="top" <%= selected @announcement.location, "top" %>><%= t "admin.announcements.edit.location_option.top" %></option>
+      </select>
+    </label>
+  </p>
+
+  <p>
+    <label>
+      <%= t "admin.announcements.edit.content" %><br />
+      <textarea name="content" rows="15" cols="100" <%= lock_disabled %>><%= @announcement.content %></textarea>
+    </label>
+  </p>
+
+  <p>
+    <input type="submit" value="<%= t "admin.announcements.edit.save" %>" <%= lock_disabled %> />
+  </p>
+<% end %>

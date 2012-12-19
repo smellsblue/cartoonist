@@ -3,6 +3,9 @@ class Admin::AccountsController < AdminCartoonistController
     @users = User.order(:name).all
   end
 
+  def new
+  end
+
   def create
     user = User.create_user params
     redirect_to "/admin/accounts"

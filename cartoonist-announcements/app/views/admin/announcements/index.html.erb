@@ -2,7 +2,9 @@
 
 <ul>
   <% @unposted.each do |announcement| %>
-    <li><%= announcement.title %></li>
+    <li>
+      <a href="/admin/announcements/<%= announcement.id %>/edit"><%= announcement.title %></a>
+    </li>
   <% end %>
 </ul>
 
@@ -10,7 +12,9 @@
 
 <ul>
   <% @active.each do |announcement| %>
-    <li><%= announcement.title %></li>
+    <li>
+      <a href="/admin/announcements/<%= announcement.id %>/edit"><%= announcement.title %></a>
+    </li>
   <% end %>
 </ul>
 
@@ -18,6 +22,8 @@
 
 <ul>
   <% @expired.each do |announcement| %>
-    <li><%= announcement.title %></li>
+    <li>
+      <a href="/admin/announcements/<%= announcement.id %>/edit"><%= announcement.title %></a>
+    </li>
   <% end %>
 </ul>

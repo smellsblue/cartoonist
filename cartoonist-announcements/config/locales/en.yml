@@ -1,6 +1,14 @@
 en:
   admin:
     announcements:
+      edit:
+        content: "Content:"
+        location: "Location:"
+        location_option:
+          session: Session
+          top: Top
+        save: Save
+        title_label: "Title:"
       index:
         active: Currently active
         expired: Expired
@@ -10,6 +18,15 @@ en:
         new: New Announcement
         preview: Preview
         section: Announcements
+      new:
+        content: "Content:"
+        location: "Location:"
+        location_option:
+          session: Session
+          top: Top
+        save: Save
+        title: New Announcement
+        title_label: "Title:"
     layout:
       tab:
         announcements: Announcements

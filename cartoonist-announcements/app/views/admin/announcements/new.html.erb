@@ -1,0 +1,31 @@
+<% content_for :title, t("admin.announcements.new.title") %>
+
+<%= form_tag "/admin/announcements", :method => :post do %>
+  <p>
+    <label>
+      <%= t "admin.announcements.new.title_label" %>
+      <input type="text" name="title" />
+    </label>
+  </p>
+
+  <p>
+    <label>
+      <%= t "admin.announcements.new.location" %>
+      <select name="location">
+        <option value="session"><%= t "admin.announcements.new.location_option.session" %></option>
+        <option value="top"><%= t "admin.announcements.new.location_option.top" %></option>
+      </select>
+    </label>
+  </p>
+
+  <p>
+    <label>
+      <%= t "admin.announcements.new.content" %><br />
+      <textarea name="content" rows="15" cols="100"></textarea>
+    </label>
+  </p>
+
+  <p>
+    <input type="submit" value="<%= t "admin.announcements.new.save" %>" />
+  </p>
+<% end %>
