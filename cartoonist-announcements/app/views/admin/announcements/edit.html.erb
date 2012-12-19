@@ -6,6 +6,10 @@
 
 <%= form_tag "/admin/announcements/#{@announcement.id}", :method => :put do %>
   <p>
+    <%= render :partial => "shared/post_date_time", :locals => { :postable => @announcement, :fields_disabled => @announcement.locked, :post_disabled => (@announcement.locked || @announcement.posted?) } %>
+  </p>
+
+  <p>
     <label>
       <%= t "admin.announcements.edit.title_label" %>
       <input type="text" name="title" value="<%= @announcement.title %>" <%= lock_disabled %> />

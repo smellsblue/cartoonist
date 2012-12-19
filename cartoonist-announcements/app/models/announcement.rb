@@ -1,4 +1,5 @@
 class Announcement < ActiveRecord::Base
+  include Postable
   attr_accessible :posted_at, :expired_at, :title, :content, :location, :enabled
   validate :posted_at_must_be_before_expired_at, :posted_at_must_exist_if_expired_at_exists
 
@@ -26,7 +27,7 @@ class Announcement < ActiveRecord::Base
 
   class << self
     def create_announcement(params)
-      create :title => params[:title], :content => params[:content], :location => params[:location]
+      create :title => params[:title], :content => params[:content], :location => params[:location], :locked => true
     end
 
     def update_announcement(params)
@@ -35,6 +36,7 @@ class Announcement < ActiveRecord::Base
       announcement.title = params[:title]
       announcement.location = params[:location]
       announcement.content = params[:content]
+      announcement.post_from params
       announcement.locked = true
       announcement.save!
       announcement

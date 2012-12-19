@@ -23,6 +23,23 @@ module Postable
     end
   end
 
+  def post_from(params)
+    if params[:post_now].present? && !posted?
+      self.posted_at = Time.now
+    elsif params[:post_in_hour].present? && !posted?
+      self.posted_at = 1.hour.from_now
+    elsif params[:posted].present? && params[:posted_at_date].present?
+      time = "#{params[:posted_at_date]} #{params[:posted_at_hour]}:#{params[:posted_at_minute]} #{params[:posted_at_meridiem]}"
+      time = DateTime.parse time
+      time = Time.local time.year, time.month, time.day, time.hour, time.min
+      self.posted_at = time
+    elsif params[:posted].present?
+      self.posted_at = 1.hour.from_now
+    else
+      self.posted_at = nil
+    end
+  end
+
   def self.included(base)
     base.extend ClassMethods
   end

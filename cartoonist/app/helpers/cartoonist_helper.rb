@@ -11,6 +11,12 @@ module CartoonistHelper
     end
   end
 
+  def format_time(time, fmt)
+    if time
+      time.localtime.strftime fmt
+    end
+  end
+
   def markdown(text)
     Markdown.render text
   end

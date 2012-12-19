@@ -132,22 +132,7 @@ class BlogPost < ActiveRecord::Base
       post.author = params[:author]
       post.content = params[:content]
       post.locked = true
-
-      if params[:post_now].present? && !post.posted?
-        post.posted_at = Time.now
-      elsif params[:post_in_hour].present? && !post.posted?
-        post.posted_at = 1.hour.from_now
-      elsif params[:posted] && params[:posted_at_date].present?
-        time = "#{params[:posted_at_date]} #{params[:posted_at_hour]}:#{params[:posted_at_minute]} #{params[:posted_at_meridiem]}"
-        time = DateTime.parse time
-        time = Time.local time.year, time.month, time.day, time.hour, time.min
-        post.posted_at = time
-      elsif params[:posted]
-        post.posted_at = 1.hour.from_now
-      else
-        post.posted_at = nil
-      end
-
+      post.post_from params
       post.save!
       post
     end

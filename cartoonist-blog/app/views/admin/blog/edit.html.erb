@@ -15,24 +15,7 @@
 
 <%= form_tag "/admin/blog/#{@post.id}", :method => :put do %>
   <p>
-    <label><input type="checkbox" name="posted" value="true" <%= checked="checked".html_safe if @post.posted_at %> <%= lock_disabled %> />Posted at</label>
-    <input type="text" name="posted_at_date" value="<%= format_posted_at "%Y-%m-%d" %>" <%= lock_disabled %> />
-    <select name="posted_at_hour" <%= lock_disabled %>>
-      <% 1.upto 12 do |h| %>
-        <option value="<%= h %>" <%= selected h, format_posted_at("%-l").to_i %>><%= h %></option>
-      <% end %>
-    </select>
-    <select name="posted_at_minute" <%= lock_disabled %>>
-      <% 0.upto 60 do |m| %>
-        <option value="<%= m %>" <%= selected m, format_posted_at("%-M").to_i %>><%= m %></option>
-      <% end %>
-    </select>
-    <select name="posted_at_meridiem" <%= lock_disabled %>>
-      <option value="am" <%= selected "am", format_posted_at("%P") %>>am</option>
-      <option value="pm" <%= selected "pm", format_posted_at("%P") %>>pm</option>
-    </select>
-    <input type="submit" name="post_now" value="Post Now" <%= post_lock_disabled %> />
-    <input type="submit" name="post_in_hour" value="Post in an Hour" <%= post_lock_disabled %> />
+    <%= render :partial => "shared/post_date_time", :locals => { :postable => @post, :fields_disabled => @post.locked, :post_disabled => (@post.locked || @post.posted?) } %>
   </p>
 
   <p>
