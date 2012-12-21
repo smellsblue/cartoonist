@@ -1,29 +1,5 @@
-<% time = postable.posted_at if postable && postable.respond_to?(:posted_at) %>
-<% disabled_attr = 'disabled="disabled"'.html_safe if fields_disabled %>
-<% post_disabled_attr = 'disabled="disabled"'.html_safe if post_disabled %>
-
-<label>
-  <input type="checkbox" name="posted" value="true" <%= checked !!time %> <%= disabled_attr %> />Posted at
-</label>
-
-<input type="text" name="posted_at_date" value="<%= format_time time, "%Y-%m-%d" %>" <%= disabled_attr %> />
-
-<select name="posted_at_hour" <%= disabled_attr %>>
-  <% 1.upto 12 do |h| %>
-    <option value="<%= h %>" <%= selected h, format_time(time, "%-l").to_i %>><%= h %></option>
-  <% end %>
-</select>
-
-<select name="posted_at_minute" <%= disabled_attr %>>
-  <% 0.upto 60 do |m| %>
-    <option value="<%= m %>" <%= selected m, format_time(time, "%-M").to_i %>><%= m %></option>
-  <% end %>
-</select>
-
-<select name="posted_at_meridiem" <%= disabled_attr %>>
-  <option value="am" <%= selected "am", format_time(time, "%P") %>>am</option>
-  <option value="pm" <%= selected "pm", format_time(time, "%P") %>>pm</option>
-</select>
-
-<input type="submit" name="post_now" value="Post Now" <%= post_disabled_attr %> />
-<input type="submit" name="post_in_hour" value="Post in an Hour" <%= post_disabled_attr %> />
+<%= render :partial => "shared/date_time_entry", :locals => { :time => (postable.posted_at if postable),
+                                                              :disabled => (postable && postable.locked),
+                                                              :submit_disabled => (postable && (postable.locked || postable.posted?)),
+                                                              :name => "posted",
+                                                              :verb => "post" } %>

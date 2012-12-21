@@ -15,7 +15,7 @@
 
 <%= form_tag "/admin/blog/#{@post.id}", :method => :put do %>
   <p>
-    <%= render :partial => "shared/post_date_time", :locals => { :postable => @post, :fields_disabled => @post.locked, :post_disabled => (@post.locked || @post.posted?) } %>
+    <%= render :partial => "shared/post_date_time", :locals => { :postable => @post } %>
   </p>
 
   <p>

@@ -25,6 +25,10 @@ class Announcement < ActiveRecord::Base
     save!
   end
 
+  def expired?
+    expired_at && (expired_at < DateTime.now)
+  end
+
   class << self
     def create_announcement(params)
       create :title => params[:title], :content => params[:content], :location => params[:location], :locked => true

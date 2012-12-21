@@ -6,7 +6,11 @@
 
 <%= form_tag "/admin/announcements/#{@announcement.id}", :method => :put do %>
   <p>
-    <%= render :partial => "shared/post_date_time", :locals => { :postable => @announcement, :fields_disabled => @announcement.locked, :post_disabled => (@announcement.locked || @announcement.posted?) } %>
+    <%= render :partial => "shared/post_date_time", :locals => { :postable => @announcement } %>
+  </p>
+
+  <p>
+    <%= render :partial => "shared/expire_date_time", :locals => { :expirable => @announcement } %>
   </p>
 
   <p>

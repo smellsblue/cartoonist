@@ -1,0 +1,30 @@
+<% name_prefix = name.downcase %>
+<% verb_prefix = verb.downcase %>
+<% disabled_attr = 'disabled="disabled"'.html_safe if disabled %>
+<% submit_disabled_attr = 'disabled="disabled"'.html_safe if submit_disabled %>
+
+<label>
+  <input type="checkbox" name="<%= name_prefix %>" value="true" <%= checked !!time %> <%= disabled_attr %> /><%= name.capitalize %> at
+</label>
+
+<input type="text" name="<%= name_prefix %>_at_date" value="<%= format_time time, "%Y-%m-%d" %>" <%= disabled_attr %> />
+
+<select name="<%= name_prefix %>_at_hour" <%= disabled_attr %>>
+  <% 1.upto 12 do |h| %>
+    <option value="<%= h %>" <%= selected h, format_time(time, "%-l").to_i %>><%= h %></option>
+  <% end %>
+</select>
+
+<select name="<%= name_prefix %>_at_minute" <%= disabled_attr %>>
+  <% 0.upto 60 do |m| %>
+    <option value="<%= m %>" <%= selected m, format_time(time, "%-M").to_i %>><%= m %></option>
+  <% end %>
+</select>
+
+<select name="<%= name_prefix %>_at_meridiem" <%= disabled_attr %>>
+  <option value="am" <%= selected "am", format_time(time, "%P") %>>am</option>
+  <option value="pm" <%= selected "pm", format_time(time, "%P") %>>pm</option>
+</select>
+
+<input type="submit" name="<%= verb_prefix %>_now" value="<%= verb.capitalize %> Now" <%= submit_disabled_attr %> />
+<input type="submit" name="<%= verb_prefix %>_in_hour" value="<%= verb.capitalize %> in an Hour" <%= submit_disabled_attr %> />
