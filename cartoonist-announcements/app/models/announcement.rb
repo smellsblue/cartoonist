@@ -1,5 +1,7 @@
+# TODO: Make this searchable
 class Announcement < ActiveRecord::Base
   include Postable
+  include Expirable
   attr_accessible :posted_at, :expired_at, :title, :content, :location, :enabled
   validate :posted_at_must_be_before_expired_at, :posted_at_must_exist_if_expired_at_exists
 
@@ -25,10 +27,6 @@ class Announcement < ActiveRecord::Base
     save!
   end
 
-  def expired?
-    expired_at && (expired_at < DateTime.now)
-  end
-
   class << self
     def create_announcement(params)
       create :title => params[:title], :content => params[:content], :location => params[:location], :locked => true
@@ -41,6 +39,7 @@ class Announcement < ActiveRecord::Base
       announcement.location = params[:location]
       announcement.content = params[:content]
       announcement.post_from params
+      announcement.expire_from params
       announcement.locked = true
       announcement.save!
       announcement
@@ -55,15 +54,12 @@ class Announcement < ActiveRecord::Base
     end
 
     def active
+      posted.unexpired
       where "posted_at < ? AND (expired_at IS NULL OR expired_at > ?)", DateTime.now, DateTime.now
     end
 
-    def expired
-      where "expired_at < ?", DateTime.now
-    end
-
     def future
-      where "posted_at IS NULL OR posted_at > ?", DateTime.now
+      unposted
     end
   end
 end

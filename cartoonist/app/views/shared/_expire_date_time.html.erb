@@ -1,5 +1,14 @@
+<%
+
+  if expirable && expirable.kind_of?(Postable)
+    posted = expirable.posted?
+  else
+    posted = true
+  end
+
+%>
 <%= render :partial => "shared/date_time_entry", :locals => { :time => (expirable.expired_at if expirable),
                                                               :disabled => (expirable && expirable.locked),
-                                                              :submit_disabled => (expirable && (expirable.locked || expirable.expired?)),
+                                                              :submit_disabled => (expirable && (expirable.locked || expirable.expired? || !posted)),
                                                               :name => "expired",
                                                               :verb => "expire" } %>
