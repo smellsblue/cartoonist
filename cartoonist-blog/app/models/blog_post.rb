@@ -1,6 +1,7 @@
 class BlogPost < ActiveRecord::Base
   include Postable
   include Entity
+  include Lockable
   entity_type :blog
   entity_global_url "/blog"
   entity_url &:url
@@ -26,16 +27,6 @@ class BlogPost < ActiveRecord::Base
 
   def edit_url
     "/admin/blog/#{id}/edit"
-  end
-
-  def lock!
-    self.locked = true
-    save!
-  end
-
-  def unlock!
-    self.locked = false
-    save!
   end
 
   def first_post
@@ -125,7 +116,7 @@ class BlogPost < ActiveRecord::Base
 
     def update_post(params)
       post = find params[:id].to_i
-      raise "Cannot update locked post!" if post.locked
+      post.ensure_unlocked!
       original_url_title = post.url_title
       post.title = params[:title]
       post.url_title = url_titlize params[:title]

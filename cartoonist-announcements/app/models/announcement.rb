@@ -2,6 +2,7 @@
 class Announcement < ActiveRecord::Base
   include Postable
   include Expirable
+  include Lockable
   attr_accessible :posted_at, :expired_at, :title, :content, :location, :enabled
   validate :posted_at_must_be_before_expired_at, :posted_at_must_exist_if_expired_at_exists
 
@@ -17,16 +18,6 @@ class Announcement < ActiveRecord::Base
     end
   end
 
-  def lock!
-    self.locked = true
-    save!
-  end
-
-  def unlock!
-    self.locked = false
-    save!
-  end
-
   class << self
     def create_announcement(params)
       create :title => params[:title], :content => params[:content], :location => params[:location], :locked => true
@@ -34,7 +25,7 @@ class Announcement < ActiveRecord::Base
 
     def update_announcement(params)
       announcement = find params[:id].to_i
-      raise "Cannot update locked announcement!" if announcement.locked
+      announcement.ensure_unlocked!
       announcement.title = params[:title]
       announcement.location = params[:location]
       announcement.content = params[:content]

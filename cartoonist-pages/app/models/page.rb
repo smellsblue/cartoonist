@@ -1,6 +1,7 @@
 class Page < ActiveRecord::Base
   include Postable
   include Entity
+  include Lockable
   entity_type :page
   entity_url &:url
   entity_preview_url &:preview_url
@@ -35,6 +36,34 @@ class Page < ActiveRecord::Base
   end
 
   class << self
+    def create_page(params)
+      path = params[:path].downcase
+      raise "Invalid path" unless path =~ /^[-_a-z0-9]+$/
+      Page.create :title => params[:title], :path => path, :content => params[:content], :locked => true
+    end
+
+    def update_page(params)
+      path = params[:path].downcase
+      raise "Invalid path" unless path =~ /^[-_a-z0-9]+$/
+      page = Page.find params[:id].to_i
+      page.ensure_unlocked!
+      page.title = params[:title]
+      page.path = path
+      page.content = params[:content]
+      page.locked = true
+      page.comments = !!params[:comments]
+      page.in_sitemap = !!params[:in_sitemap]
+
+      if params[:posted]
+        page.posted_at = Date.today
+      else
+        page.posted_at = nil
+      end
+
+      page.save!
+      page
+    end
+
     def search(query)
       ordered.where "LOWER(title) LIKE :query OR LOWER(path) LIKE :query OR LOWER(content) LIKE :query", :query => "%#{query.downcase}%"
     end

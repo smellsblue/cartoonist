@@ -8,8 +8,8 @@
 </p>
 
 <p>
-  <%= form_tag "/admin/page/#{@page.id}/#{lock_toggle_target}", :method => :post do %>
-    <input type="submit" value="<%= lock_toggle_target %>" />
+  <%= form_tag "/admin/page/#{@page.id}/#{@page.toggle_lock_target}", :method => :post do %>
+    <input type="submit" value="<%= @page.toggle_lock_target %>" />
   <% end %>
 </p>
 

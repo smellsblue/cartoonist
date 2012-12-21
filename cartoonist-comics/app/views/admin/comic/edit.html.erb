@@ -4,8 +4,8 @@
 <% end %>
 
 <p>
-  <%= form_tag "/admin/comic/#{@comic.number}/#{lock_toggle_target}", :method => :post do %>
-    <input type="submit" value="<%= lock_toggle_target %>" />
+  <%= form_tag "/admin/comic/#{@comic.number}/#{@comic.toggle_lock_target}", :method => :post do %>
+    <input type="submit" value="<%= @comic.toggle_lock_target %>" />
   <% end %>
 </p>
 

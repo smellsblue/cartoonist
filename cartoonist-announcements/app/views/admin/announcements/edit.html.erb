@@ -1,6 +1,6 @@
 <p>
-  <%= form_tag "/admin/announcements/#{@announcement.id}/#{lock_toggle_target}", :method => :post do %>
-    <input type="submit" value="<%= lock_toggle_target %>" />
+  <%= form_tag "/admin/announcements/#{@announcement.id}/#{@announcement.toggle_lock_target}", :method => :post do %>
+    <input type="submit" value="<%= @announcement.toggle_lock_target %>" />
   <% end %>
 </p>
 

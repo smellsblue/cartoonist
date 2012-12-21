@@ -1,5 +1,5 @@
 <%= render :partial => "shared/date_time_entry", :locals => { :time => (postable.posted_at if postable),
-                                                              :disabled => (postable && postable.locked),
-                                                              :submit_disabled => (postable && (postable.locked || postable.posted?)),
+                                                              :disabled => (postable && postable.locked?),
+                                                              :submit_disabled => (postable && (postable.locked? || postable.posted?)),
                                                               :name => "posted",
                                                               :verb => "post" } %>

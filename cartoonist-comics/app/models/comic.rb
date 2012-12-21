@@ -1,6 +1,7 @@
 class Comic < ActiveRecord::Base
   include Postable
   include Entity
+  include Lockable
   entity_type :comic
   entity_global_url "/comic"
   entity_url &:url
@@ -24,16 +25,6 @@ class Comic < ActiveRecord::Base
 
   def formatted_description
     Markdown.render description
-  end
-
-  def lock!
-    self.locked = true
-    save!
-  end
-
-  def unlock!
-    self.locked = false
-    save!
   end
 
   def real?
@@ -92,7 +83,7 @@ class Comic < ActiveRecord::Base
 
     def update_comic(params)
       comic = from_number params[:id].to_i
-      raise "Cannot update locked comic!" if comic.locked
+      comic.ensure_unlocked!
       comic.title = params[:title]
       comic.description = params[:description]
       comic.scene_description = params[:scene_description]
