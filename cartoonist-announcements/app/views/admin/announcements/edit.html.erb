@@ -6,11 +6,11 @@
 
 <%= form_tag "/admin/announcements/#{@announcement.id}", :method => :put do %>
   <p>
-    <%= render :partial => "shared/post_date_time", :locals => { :postable => @announcement } %>
+    <%= partial "shared/post_date_time", :postable => @announcement %>
   </p>
 
   <p>
-    <%= render :partial => "shared/expire_date_time", :locals => { :expirable => @announcement } %>
+    <%= partial "shared/expire_date_time", :expirable => @announcement %>
   </p>
 
   <p>

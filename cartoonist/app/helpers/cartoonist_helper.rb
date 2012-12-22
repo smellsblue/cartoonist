@@ -1,4 +1,13 @@
 module CartoonistHelper
+  def partial(name, locals = {}, &block)
+    if block
+      raise "Cannot have a 'body' local when a block is given!" if locals.include?(:body)
+      locals[:body] = capture &block
+    end
+
+    render :partial => name, :locals => locals
+  end
+
   def selected(a, b = true)
     if a == b
       'selected="selected"'.html_safe

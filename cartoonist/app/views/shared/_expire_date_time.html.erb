@@ -6,9 +6,12 @@
     posted = true
   end
 
+  submit_disabled_attr = expirable && (expirable.locked? || expirable.expired? || !posted)
+
 %>
-<%= render :partial => "shared/date_time_entry", :locals => { :time => (expirable.expired_at if expirable),
-                                                              :disabled => (expirable && expirable.locked?),
-                                                              :submit_disabled => (expirable && (expirable.locked? || expirable.expired? || !posted)),
-                                                              :name => "expired",
-                                                              :verb => "expire" } %>
+<%= partial "shared/date_time_entry", :time => (expirable.expired_at if expirable),
+                                      :disabled => (expirable && expirable.locked?),
+                                      :name => "expired" do %>
+  <input type="submit" name="expire_now" value="Expire Now" <%= submit_disabled_attr %> />
+  <input type="submit" name="expire_in_hour" value="Expire in an Hour" <%= submit_disabled_attr %> />
+<% end %>

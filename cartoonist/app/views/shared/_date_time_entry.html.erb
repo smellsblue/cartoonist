@@ -1,7 +1,6 @@
+<% body = "" if body.nil? %>
 <% name_prefix = name.downcase %>
-<% verb_prefix = verb.downcase %>
 <% disabled_attr = 'disabled="disabled"'.html_safe if disabled %>
-<% submit_disabled_attr = 'disabled="disabled"'.html_safe if submit_disabled %>
 
 <label>
   <input type="checkbox" name="<%= name_prefix %>" value="true" <%= checked !!time %> <%= disabled_attr %> /><%= name.capitalize %> at
@@ -26,5 +25,4 @@
   <option value="pm" <%= selected "pm", format_time(time, "%P") %>>pm</option>
 </select>
 
-<input type="submit" name="<%= verb_prefix %>_now" value="<%= verb.capitalize %> Now" <%= submit_disabled_attr %> />
-<input type="submit" name="<%= verb_prefix %>_in_hour" value="<%= verb.capitalize %> in an Hour" <%= submit_disabled_attr %> />
+<%= body %>

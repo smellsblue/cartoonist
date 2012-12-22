@@ -2,4 +2,4 @@
   <%= @tweet.description %>
 </p>
 
-<%= render :partial => "admin/tweets/entity_tweet", :locals => { :entity => @tweet.entity, :destination => :tweet } %>
+<%= partial "admin/tweets/entity_tweet", :entity => @tweet.entity, :destination => :tweet %>

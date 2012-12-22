@@ -1,5 +1,7 @@
-<%= render :partial => "shared/date_time_entry", :locals => { :time => (postable.posted_at if postable),
-                                                              :disabled => (postable && postable.locked?),
-                                                              :submit_disabled => (postable && (postable.locked? || postable.posted?)),
-                                                              :name => "posted",
-                                                              :verb => "post" } %>
+<% submit_disabled_attr = 'disabled="disabled"'.html_safe if postable && (postable.locked? || postable.posted?) %>
+<%= partial "shared/date_time_entry", :time => (postable.posted_at if postable),
+                                      :disabled => (postable && postable.locked?),
+                                      :name => "posted" do %>
+  <input type="submit" name="post_now" value="Post Now" <%= submit_disabled_attr %> />
+  <input type="submit" name="post_in_hour" value="Post in an Hour" <%= submit_disabled_attr %> />
+<% end %>

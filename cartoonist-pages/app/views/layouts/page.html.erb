@@ -2,7 +2,7 @@
 
 <% content_for :content do %>
   <% Cartoonist::Entity.hooks_with(:show_entity_before_partial).each do |hook| %>
-    <%= render :partial => hook.show_entity_before_partial, :locals => { :entity => @page } %>
+    <%= partial hook.show_entity_before_partial, :entity => @page %>
     <hr />
   <% end %>
 
@@ -13,7 +13,7 @@
   </div>
 
   <% Cartoonist::Entity.hooks_with(:show_entity_after_partial).each do |hook| %>
-    <%= render :partial => hook.show_entity_after_partial, :locals => { :entity => @page } %>
+    <%= partial hook.show_entity_after_partial, :entity => @page %>
     <hr />
   <% end %>
 <% end %>

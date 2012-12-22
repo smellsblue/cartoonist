@@ -1,5 +1,5 @@
 <% Cartoonist::Entity.hooks_with(:edit_entity_before_partial).each do |hook| %>
-  <%= render :partial => hook.edit_entity_before_partial, :locals => { :entity => @post } %>
+  <%= partial hook.edit_entity_before_partial, :entity => @post %>
   <hr />
 <% end %>
 
@@ -15,7 +15,7 @@
 
 <%= form_tag "/admin/blog/#{@post.id}", :method => :put do %>
   <p>
-    <%= render :partial => "shared/post_date_time", :locals => { :postable => @post } %>
+    <%= partial "shared/post_date_time", :postable => @post %>
   </p>
 
   <p>
@@ -55,5 +55,5 @@
 
 <% Cartoonist::Entity.hooks_with(:edit_entity_after_partial).each do |hook| %>
   <hr />
-  <%= render :partial => hook.edit_entity_after_partial, :locals => { :entity => @post } %>
+  <%= partial hook.edit_entity_after_partial, :entity => @post %>
 <% end %>
