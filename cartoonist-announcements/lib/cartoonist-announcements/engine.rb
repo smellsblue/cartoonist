@@ -9,7 +9,7 @@ module CartoonistAnnouncements
     end
 
     Cartoonist::Routes.add do
-      resources :announcements, :only => []
+      resources :announcements, :only => [:index]
 
       namespace :admin do
         resources :announcements, :only => [:new, :create, :edit, :update, :index] do
