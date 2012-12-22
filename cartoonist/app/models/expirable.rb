@@ -8,6 +8,10 @@ module Expirable
       self.expired_at = Time.now
     elsif params[:expire_in_hour].present? && !expired?
       self.expired_at = 1.hour.from_now
+    elsif params[:expire_day_after].present? && !expired?
+      self.expired_at = posted_at + 1.day
+    elsif params[:expire_3_days_after].present? && !expired?
+      self.expired_at = posted_at + 3.days
     elsif params[:expired].present? && params[:expired_at_date].present?
       time = "#{params[:expired_at_date]} #{params[:expired_at_hour]}:#{params[:expired_at_minute]} #{params[:expired_at_meridiem]}"
       time = DateTime.parse time

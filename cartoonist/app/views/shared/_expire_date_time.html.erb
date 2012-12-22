@@ -6,12 +6,18 @@
     posted = true
   end
 
-  submit_disabled_attr = expirable && (expirable.locked? || expirable.expired? || !posted)
+  submit_disabled_attr = 'disabled="disabled"'.html_safe if expirable && (expirable.locked? || expirable.expired? || !posted)
 
 %>
 <%= partial "shared/date_time_entry", :time => (expirable.expired_at if expirable),
                                       :disabled => (expirable && expirable.locked?),
                                       :name => "expired" do %>
   <input type="submit" name="expire_now" value="Expire Now" <%= submit_disabled_attr %> />
-  <input type="submit" name="expire_in_hour" value="Expire in an Hour" <%= submit_disabled_attr %> />
+
+  <% if expirable && expirable.kind_of?(Postable) %>
+    <input type="submit" name="expire_day_after" value="Expire Day After" <%= submit_disabled_attr %> />
+    <input type="submit" name="expire_3_days_after" value="Expire 3 Days After" <%= submit_disabled_attr %> />
+  <% else %>
+    <input type="submit" name="expire_in_hour" value="Expire in an Hour" <%= submit_disabled_attr %> />
+  <% end %>
 <% end %>
