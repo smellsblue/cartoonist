@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121219051501) do
+ActiveRecord::Schema.define(:version => 20121227022810) do
 
   create_table "announcements", :force => true do |t|
     t.datetime "posted_at"
@@ -19,14 +19,13 @@ ActiveRecord::Schema.define(:version => 20121219051501) do
     t.string   "title"
     t.text     "content",                       :null => false
     t.string   "location"
-    t.boolean  "enabled",    :default => false, :null => false
     t.datetime "created_at",                    :null => false
     t.datetime "updated_at",                    :null => false
     t.boolean  "locked",     :default => false, :null => false
   end
 
-  add_index "announcements", ["expired_at", "enabled"], :name => "index_announcements_on_expired_at_and_enabled"
-  add_index "announcements", ["posted_at", "expired_at", "enabled"], :name => "index_announcements_on_posted_at_and_expired_at_and_enabled"
+  add_index "announcements", ["expired_at"], :name => "index_announcements_on_expired_at"
+  add_index "announcements", ["posted_at", "expired_at"], :name => "index_announcements_on_posted_at_and_expired_at"
 
   create_table "blog_posts", :force => true do |t|
     t.string   "title",                         :null => false

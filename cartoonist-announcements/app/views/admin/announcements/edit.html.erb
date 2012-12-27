@@ -6,13 +6,6 @@
 
 <%= form_tag "/admin/announcements/#{@announcement.id}", :method => :put do %>
   <p>
-    <label>
-      <%= t "admin.announcements.edit.enabled" %>
-      <input type="checkbox" name="enabled" value="true" <%= checked @announcement.enabled? %> <%= lock_disabled %> />
-    </label>
-  </p>
-
-  <p>
     <%= partial "shared/post_date_time", :postable => @announcement %>
   </p>
 

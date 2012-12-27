@@ -3,12 +3,8 @@ class Announcement < ActiveRecord::Base
   include Postable
   include Expirable
   include Lockable
-  attr_accessible :posted_at, :expired_at, :title, :content, :location, :enabled
+  attr_accessible :posted_at, :expired_at, :title, :content, :location
   validate :posted_at_must_be_before_expired_at, :posted_at_must_exist_if_expired_at_exists
-
-  def enabled?
-    enabled
-  end
 
   def posted_at_must_be_before_expired_at
     if posted_at && expired_at && posted_at > expired_at
@@ -39,7 +35,6 @@ class Announcement < ActiveRecord::Base
     def update_announcement(params)
       announcement = find params[:id].to_i
       announcement.ensure_unlocked!
-      announcement.enabled = params[:enabled].present?
       announcement.title = params[:title]
       announcement.location = params[:location]
       announcement.content = params[:content]
@@ -51,24 +46,15 @@ class Announcement < ActiveRecord::Base
     end
 
     def actives_as_hash
-      enabled.active.creation_order.map &:as_hash
+      active.creation_order.map &:as_hash
     end
 
     def creation_order
       order :id
     end
 
-    def disabled
-      where :enabled => false
-    end
-
-    def enabled
-      where :enabled => true
-    end
-
     def active
       posted.unexpired
-      where "posted_at < ? AND (expired_at IS NULL OR expired_at > ?)", DateTime.now, DateTime.now
     end
 
     def future

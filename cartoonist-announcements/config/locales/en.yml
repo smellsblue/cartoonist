@@ -3,7 +3,6 @@ en:
     announcements:
       edit:
         content: "Content:"
-        enabled: "Enabled:"
         location: "Location:"
         location_option:
           session: Session
