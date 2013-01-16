@@ -1,6 +1,8 @@
 module CartoonistAnnouncements
   class Engine < ::Rails::Engine
     Cartoonist::Admin::Tab.add :announcements, :url => "/admin/announcements"
+    Cartoonist::Asset.add "admin/announcements.css"
+    Cartoonist::Asset.add "admin/announcements.js"
     Cartoonist::Asset.include_js "cartoonist-announcements.js"
     Cartoonist::Migration.add_for self
 
