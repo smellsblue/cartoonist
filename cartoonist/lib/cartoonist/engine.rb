@@ -293,6 +293,7 @@ module Cartoonist
     Mime::Type.register "image/x-icon", :ico
     Mime::Type.register "application/octet-stream", :tgz
     Cartoonist::Admin::Tab.add :general, :url => "/admin", :order => 3
+    Cartoonist::Asset.add "admin/search.js"
     Cartoonist::Migration.add_for self
 
     Cartoonist::Backup.for :files do
