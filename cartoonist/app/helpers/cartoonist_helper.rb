@@ -55,10 +55,6 @@ module CartoonistHelper
     @rss_title
   end
 
-  def mobile?
-    @mobile
-  end
-
   def enable_disqus!(options)
     @disqus_enabled = true
     @disqus_options = options

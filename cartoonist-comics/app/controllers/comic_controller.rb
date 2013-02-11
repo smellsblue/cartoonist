@@ -43,25 +43,26 @@ class ComicController < CartoonistController
   end
 
   def feed
+    respond_to_feed "feed"
+  end
+
+  def mfeed
+    respond_to_feed "mfeed"
+  end
+
+  private
+  def respond_to_feed(name)
     respond_to do |format|
       format.html { redirect_to "/comic" }
 
       format.rss do
-        @feed = feed_contents
-        render :content_type => "application/xml", :layout => "cartoonist"
+        @feed = ComicFeed.new Comic.feed
+
+        cache_page_as "comic/#{name}.#{cache_type}.tmp.rss" do
+          render :content_type => "application/xml", :layout => "cartoonist"
+        end
       end
     end
-  end
-
-  private
-  def feed_contents
-    key = "feed"
-    key = "#{key}-mobile" if mobile?
-    result = comic_cache.read key
-    return result if result
-    result = ComicFeed.new Comic.feed
-    comic_cache.write key, result
-    result
   end
 
   def max_comic

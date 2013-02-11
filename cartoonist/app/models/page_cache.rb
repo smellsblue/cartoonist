@@ -2,7 +2,7 @@ class PageCache
   attr_reader :name
 
   CACHE_PATH = File.join Rails.root, "public/cache"
-  EXTENSIONS = ["html", "json"]
+  EXTENSIONS = ["html", "json", "rss"]
 
   def initialize(name)
     @name = name

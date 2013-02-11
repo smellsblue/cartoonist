@@ -34,6 +34,7 @@ module CartoonistComics
         collection do
           get "random"
           get "feed", :defaults => { :format => "rss" }
+          get "mfeed", :defaults => { :format => "rss" }
         end
       end
 

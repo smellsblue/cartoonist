@@ -1,19 +1,10 @@
 class CartoonistController < ActionController::Base
   helper :cartoonist
   protect_from_forgery
-  before_filter :check_mobile
 
   private
   def handle_unverified_request
     raise ActionController::InvalidAuthenticityToken.new
-  end
-
-  def check_mobile
-    @mobile = (request.subdomain == "m") || params[:mobile]
-  end
-
-  def mobile?
-    @mobile
   end
 
   def cache_type

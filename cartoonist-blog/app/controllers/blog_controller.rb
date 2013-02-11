@@ -36,25 +36,16 @@ class BlogController < CartoonistController
       format.html { redirect_to "/blog/feed" }
 
       format.rss do
-        @feed = feed_content
-        render :content_type => "application/xml", :layout => "cartoonist"
+        @feed = BlogFeed.new BlogPost.feed
+
+        cache_page_as "blog/feed.#{cache_type}.tmp.rss" do
+          render :content_type => "application/xml", :layout => "cartoonist"
+        end
       end
     end
   end
 
   private
-  def feed_content
-    result = blog_cache.read "blog-feed"
-    return result if result
-    result = BlogFeed.new BlogPost.feed
-    blog_cache.write "blog-feed", result
-    result
-  end
-
-  def blog_cache
-    @@blog_cache ||= ActiveSupport::Cache::MemoryStore.new(:expires_in => 2.hours)
-  end
-
   def show_page_cache_path
     if @disabled_next
       "blog/#{@post.url_title}.#{cache_type}.tmp.html"

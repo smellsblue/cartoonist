@@ -1,4 +1,4 @@
-<% content_for :rss_title, "#{Setting[:site_name]} Comic" %>
+<% content_for :rss_title, "#{Setting[:site_name]} Comic (Mobile Edition)" %>
 <% content_for :pub_date, @feed.pub_date %>
 
 <% @feed.items.each do |item| %>
@@ -11,6 +11,9 @@
           <img src="#{h item.img_url}" title="#{h item.title_text}" />
         </p>
         #{item.description}
+        <p style="background: #eff8bd; width: 85%; margin: 20px auto 0 auto; border: 1px solid #d5eab7; padding: 4px 10px; display: block;">
+          #{h item.title_text}
+        </p>
       } %>
     </description>
     <link>http://<%= Setting[:domain] %>/comic/<%= item.number %></link>
