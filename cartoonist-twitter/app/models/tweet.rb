@@ -5,13 +5,19 @@ class Tweet < ActiveRecord::Base
   attr_accessible :entity_id, :entity_type, :tweet, :tweeted_at
 
   def allow_tweet_now?
+    allow_save? && !disabled? && entity_posted?
+  end
+
+  def allow_resend_tweet?
+    tweeted? && !disabled? && entity_posted?
+  end
+
+  def entity_posted?
     if entity.kind_of? Postable
       posted = entity.posted?
     else
       posted = true
     end
-
-    allow_save? && !disabled? && posted
   end
 
   def allow_save?
@@ -30,6 +36,13 @@ class Tweet < ActiveRecord::Base
   def manual_tweet!
     raise "Tweeting is not allowed!" unless allow_tweet_now?
     return if tweeted?
+    return if disabled?
+    send_tweet!
+  end
+
+  def resend_tweet!
+    raise "Tweeting is not allowed!" unless allow_resend_tweet?
+    return unless tweeted?
     return if disabled?
     send_tweet!
   end
@@ -119,6 +132,7 @@ class Tweet < ActiveRecord::Base
   class << self
     def update_tweet(params)
       tweet = find params[:id].to_i
+      return tweet if params[:resend_tweet].present?
       raise "Saving is not allowed!" unless tweet.allow_save?
       tweet.tweet = params[:tweet]
       tweet.save!

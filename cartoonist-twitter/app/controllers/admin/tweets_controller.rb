@@ -22,7 +22,11 @@ class Admin::TweetsController < AdminCartoonistController
 
   private
   def send_tweet_if_requested
-    @tweet.manual_tweet! if params[:tweet_now].present?
+    if params[:tweet_now].present?
+      @tweet.manual_tweet!
+    elsif params[:resend_tweet].present?
+      @tweet.resend_tweet!
+    end
   end
 
   def tweet_or_entity_redirect

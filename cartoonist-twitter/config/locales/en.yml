@@ -8,6 +8,7 @@ en:
         save: Save
         tweet: "Tweet:"
         tweet_now: Tweet Now
+        resend_tweet: Resend Tweet
       index:
         not_tweeted: Not yet tweeted
         tweeted: Tweeted

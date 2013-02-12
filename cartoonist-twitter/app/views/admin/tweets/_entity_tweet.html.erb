@@ -18,5 +18,11 @@
     <p>
       <input type="submit" name="tweet_now" value="<%= t "admin.tweets.entity_tweet.tweet_now" %>" <%= 'disabled="disabled"'.html_safe unless tweet.allow_tweet_now? %> />
     </p>
+
+    <% if tweet.allow_resend_tweet? %>
+      <p>
+        <input type="submit" name="resend_tweet" value="<%= t "admin.tweets.entity_tweet.resend_tweet" %>" />
+      </p>
+    <% end %>
   <% end %>
 <% end %>
