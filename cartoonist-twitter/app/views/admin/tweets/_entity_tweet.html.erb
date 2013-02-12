@@ -21,7 +21,7 @@
 
     <% if tweet.allow_resend_tweet? %>
       <p>
-        <input type="submit" name="resend_tweet" value="<%= t "admin.tweets.entity_tweet.resend_tweet" %>" />
+        <input type="submit" name="resend_tweet" value="<%= t "admin.tweets.entity_tweet.resend_tweet" %>" onclick="return confirm('Are you sure?')" />
       </p>
     <% end %>
   <% end %>
