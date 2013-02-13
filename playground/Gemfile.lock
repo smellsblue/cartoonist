@@ -1,7 +1,7 @@
 PATH
   remote: ../cartoonist
   specs:
-    cartoonist (0.0.16)
+    cartoonist (0.1.0)
       devise (~> 2.1.2)
       jquery-rails (~> 2.1.4)
       minitar (~> 0.5.4)
@@ -13,53 +13,53 @@ PATH
 PATH
   remote: ../cartoonist-announcements
   specs:
-    cartoonist-announcements (0.0.16)
-      cartoonist (= 0.0.16)
+    cartoonist-announcements (0.1.0)
+      cartoonist (= 0.1.0)
 
 PATH
   remote: ../cartoonist-blog
   specs:
-    cartoonist-blog (0.0.16)
-      cartoonist (= 0.0.16)
+    cartoonist-blog (0.1.0)
+      cartoonist (= 0.1.0)
       jquery-rails (~> 2.1.4)
       jquery-ui-rails (~> 2.0.2)
 
 PATH
   remote: ../cartoonist-comics
   specs:
-    cartoonist-comics (0.0.16)
-      cartoonist (= 0.0.16)
+    cartoonist-comics (0.1.0)
+      cartoonist (= 0.1.0)
 
 PATH
   remote: ../cartoonist-default-theme
   specs:
-    cartoonist-default-theme (0.0.16)
-      cartoonist (= 0.0.16)
+    cartoonist-default-theme (0.1.0)
+      cartoonist (= 0.1.0)
 
 PATH
   remote: ../cartoonist-pages
   specs:
-    cartoonist-pages (0.0.16)
-      cartoonist (= 0.0.16)
+    cartoonist-pages (0.1.0)
+      cartoonist (= 0.1.0)
       jquery-rails (~> 2.1.4)
 
 PATH
   remote: ../cartoonist-suggestions
   specs:
-    cartoonist-suggestions (0.0.16)
-      cartoonist (= 0.0.16)
+    cartoonist-suggestions (0.1.0)
+      cartoonist (= 0.1.0)
 
 PATH
   remote: ../cartoonist-tags
   specs:
-    cartoonist-tags (0.0.16)
-      cartoonist (= 0.0.16)
+    cartoonist-tags (0.1.0)
+      cartoonist (= 0.1.0)
 
 PATH
   remote: ../cartoonist-twitter
   specs:
-    cartoonist-twitter (0.0.16)
-      cartoonist (= 0.0.16)
+    cartoonist-twitter (0.1.0)
+      cartoonist (= 0.1.0)
       twitter (~> 4.4.1)
 
 GEM
