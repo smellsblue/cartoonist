@@ -61,7 +61,7 @@ Nginxtra::Config::Extension.partial "nginx.conf", "cartoonist" do |args, block|
       end
 
       ["/cache/static$uri", "$uri", "$uri.html"].each do |condition|
-        config_block "if (-f #{root_path}/public#{condition})" do
+        _if "-f #{root_path}/public#{condition}" do
           rewrite "^(.*)$", "/_long_expiration_/#{cartoonist_type}$1", "last"
         end
       end
@@ -79,11 +79,11 @@ Nginxtra::Config::Extension.partial "nginx.conf", "cartoonist" do |args, block|
           try_files "/cache$1.#{cartoonist_type}.#{extension}", "@passenger"
         end
 
-        config_block "if (-f #{root_path}/public/cache$uri.#{cartoonist_type}.tmp.#{extension})" do
+        _if "-f #{root_path}/public/cache$uri.#{cartoonist_type}.tmp.#{extension}" do
           rewrite "^(.*)$", "/_short_#{extension}_expiration_/#{cartoonist_type}$1", "last"
         end
 
-        config_block "if (-f #{root_path}/public/cache$uri.#{cartoonist_type}.#{extension})" do
+        _if "-f #{root_path}/public/cache$uri.#{cartoonist_type}.#{extension}" do
           rewrite "^(.*)$", "/_long_#{extension}_expiration_/#{cartoonist_type}$1", "last"
         end
       end
