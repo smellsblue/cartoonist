@@ -1,5 +1,6 @@
 class Site < ActiveRecord::Base
   attr_accessible :name, :description
+  has_many :domains
 
   class << self
     def initial

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130214061140) do
+ActiveRecord::Schema.define(:version => 20130214074624) do
 
   create_table "announcements", :force => true do |t|
     t.datetime "posted_at"
@@ -70,6 +70,18 @@ ActiveRecord::Schema.define(:version => 20130214061140) do
     t.string   "extension"
     t.integer  "site_id",    :default => 1, :null => false
   end
+
+  create_table "domains", :force => true do |t|
+    t.integer  "site_id",                         :null => false
+    t.string   "name"
+    t.text     "description"
+    t.boolean  "enabled",       :default => true, :null => false
+    t.boolean  "admin_enabled", :default => true, :null => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+  end
+
+  add_index "domains", ["name"], :name => "index_domains_on_name", :unique => true
 
   create_table "entity_tags", :force => true do |t|
     t.integer  "entity_id",                  :null => false
