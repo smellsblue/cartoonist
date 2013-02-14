@@ -1,5 +1,5 @@
 class CreateSites < ActiveRecord::Migration
-  def up
+  def change
     create_table :sites do |t|
       t.string :name, :null => false
       t.text :description
@@ -9,9 +9,5 @@ class CreateSites < ActiveRecord::Migration
 
     add_index :sites, [:name], :unique => true
     Site.create! :name => "default", :description => "The initial site."
-  end
-
-  def down
-    drop_table :sites
   end
 end
