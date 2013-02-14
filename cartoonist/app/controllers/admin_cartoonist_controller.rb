@@ -3,6 +3,10 @@ class AdminCartoonistController < CartoonistController
   before_filter :check_admin!
 
   private
+  def verify_domain_enabled!
+    raise ActionController::RoutingError.new("Site Disabled") if @domain.admin_disabled?
+  end
+
   def ensure_ssl!
     return unless Rails.env.production?
     redirect_to "https://#{request.host_with_port}#{request.fullpath}" unless request.ssl?

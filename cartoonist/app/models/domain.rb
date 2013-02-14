@@ -3,6 +3,22 @@ class Domain < ActiveRecord::Base
   belongs_to :site
   before_save :ensure_lower_case_name!
 
+  def enabled?
+    enabled
+  end
+
+  def disabled?
+    !enabled?
+  end
+
+  def admin_enabled?
+    admin_enabled
+  end
+
+  def admin_disabled?
+    !admin_enabled?
+  end
+
   private
   def ensure_lower_case_name!
     self.name = self.name.strip.downcase if self.name

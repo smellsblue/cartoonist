@@ -12,9 +12,11 @@ class CartoonistController < ActionController::Base
   end
 
   def verify_site_enabled!
+    raise ActionController::RoutingError.new("Site Disabled") if @site.disabled?
   end
 
   def verify_domain_enabled!
+    raise ActionController::RoutingError.new("Site Disabled") if @domain.disabled?
   end
 
   def handle_unverified_request
