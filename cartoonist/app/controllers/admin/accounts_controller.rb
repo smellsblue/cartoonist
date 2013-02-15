@@ -7,7 +7,7 @@ class Admin::AccountsController < AdminCartoonistController
   end
 
   def create
-    user = User.create_user params
+    User.create_user params
     redirect_to "/admin/accounts"
   end
 

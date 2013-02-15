@@ -19,6 +19,10 @@ class Domain < ActiveRecord::Base
     !admin_enabled?
   end
 
+  def catch_all?
+    name.blank?
+  end
+
   private
   def ensure_lower_case_name!
     self.name = self.name.strip.downcase if self.name

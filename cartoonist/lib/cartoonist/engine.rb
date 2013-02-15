@@ -293,6 +293,7 @@ module Cartoonist
     Mime::Type.register "image/x-icon", :ico
     Mime::Type.register "application/octet-stream", :tgz
     Cartoonist::Admin::Tab.add :general, :url => "/admin", :order => 3
+    Cartoonist::Admin::Tab.add :sites, :url => "/admin/sites", :order => 4
     Cartoonist::Asset.add "admin/search.js"
     Cartoonist::Migration.add_for self
 
@@ -337,7 +338,9 @@ module Cartoonist
       devise_for :users, :controllers => { :omniauth_callbacks => "admin/omniauth_callbacks" }
 
       namespace :admin do
-        resources :accounts
+        # For some reason, "new" is being treated as "show" so
+        # restrict id to digits
+        resources :accounts, :constraints => { :id => /\d*/ }
 
         resources :cache, :constraints => { :id => /.*/ }, :only => [:destroy, :index] do
           collection do
@@ -346,6 +349,8 @@ module Cartoonist
             post "expire_all"
           end
         end
+
+        resources :sites
 
         resources :static_cache, :constraints => { :id => /.*/ }, :only => [:destroy, :index] do
           collection do

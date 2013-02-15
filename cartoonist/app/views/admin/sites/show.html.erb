@@ -1,0 +1,40 @@
+<p>
+  <a href="/admin/sites/<%= @site.id %>/edit"><%= t "sites.show.edit" %></a>
+</p>
+
+<p>
+  <%= t "sites.show.name" %> <%= @site.name %>
+</p>
+
+<p>
+  <%= t "sites.show.description" %> <%= @site.description %>
+</p>
+
+<p>
+  <%= t "sites.show.domains" %>
+  <br />
+
+  <table>
+    <thead>
+      <tr>
+        <th><%= t "sites.show.domain.name" %></th>
+        <th><%= t "sites.show.domain.description" %></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @site.domains.each do |domain| %>
+        <tr>
+          <td>
+            <% if domain.catch_all? %>
+              <em><%= t "sites.show.domain.catch_all" %></em>
+            <% else %>
+              <%= domain.name %>
+            <% end %>
+          </td>
+          <td><%= domain.description %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</p>

@@ -18,5 +18,12 @@ class Site < ActiveRecord::Base
     def from_name(name)
       where(:name => name).first
     end
+
+    def create_site(params)
+    end
+
+    def update_site(params)
+      site = find params[:id].to_i
+    end
   end
 end

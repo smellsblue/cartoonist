@@ -54,10 +54,16 @@ en:
       account: Account
       tab:
         general: General
+        sites: Sites
       logout: Logout
       not_live_warning: development
       production_warning: PRODUCTION
       user_heading: "%{user}:"
+    sites:
+      layout:
+        this_site: This Site
+        section: Sites
+        sites: Sites
   cartoonist:
     layout:
       disqus:
@@ -125,6 +131,32 @@ en:
         advanced: Advanced
         general: General
         social_and_analytics: Social & Analytics
+  sites:
+    edit:
+      description: "Description: "
+      domain:
+        admin_enabled: admin enabled
+        description: Description
+        enabled: enabled
+        name: Name
+      domains: Domains
+      enabled: "Enabled: "
+      name: "Name: "
+      save: Save
+      subtitle: Edit Site
+    index:
+      description: Description
+      name: Name
+      new_site: New Site
+    show:
+      description: "Description: "
+      domain:
+        catch_all: all unmatched domains
+        description: Description
+        name: Name
+      domains: Domains
+      edit: edit
+      name: "Name: "
   static_cache:
     index:
       expire: Expire

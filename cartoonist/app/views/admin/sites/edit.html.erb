@@ -1,0 +1,67 @@
+<h2><%= t "sites.edit.subtitle" %></h2>
+
+<%= form_tag "/admin/sites/#{@site.id}", :method => :put do %>
+  <p>
+    <%= t "sites.edit.name" %> <input type="text" name="name" value="<%= @site.name %>" />
+  </p>
+
+  <p>
+    <%= t "sites.edit.description" %> <input type="text" name="description" value="<%= @site.description %>" size="75" />
+  </p>
+
+  <p>
+    <label>
+      <%= t "sites.edit.enabled" %>
+      <input type="checkbox" name="enabled" value="true" <%= checked @site.enabled? %> />
+    </label>
+  </p>
+
+  <p>
+    <%= t "sites.edit.domains" %>
+    <br />
+
+    <table>
+      <thead>
+        <tr>
+          <th>
+            <%= t "sites.edit.domain.name" %><br />
+            <small><em>Leave blank to match unmatched domains</em></small>
+          </th>
+          <th><%= t "sites.edit.domain.description" %></th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @site.domains.each do |domain| %>
+          <tr>
+            <td>
+              <input type="text" name="domains[<%= domain.id %>][name]" value="<%= domain.name %>" />
+            </td>
+
+            <td>
+              <input type="text" name="domains[<%= domain.id %>][description]" value="<%= domain.description %>" size="75" />
+            </td>
+
+            <td>
+              <label>
+                <input type="checkbox" name="domains[<%= domain.id %>][enabled]" value="true" <%= checked domain.enabled? %> />
+                <%= t "sites.edit.domain.enabled" %>
+              </label>
+            </td>
+
+            <td>
+              <label>
+                <input type="checkbox" name="domains[<%= domain.id %>][admin_enabled]" value="true" <%= checked domain.admin_enabled? %> />
+                <%= t "sites.edit.domain.admin_enabled" %>
+              </label>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </p>
+
+  <input type="submit" value="<%= t "sites.edit.save" %>" />
+<% end %>

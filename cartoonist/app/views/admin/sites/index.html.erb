@@ -1,0 +1,19 @@
+<a href="/admin/sites/new"><%= t "sites.index.new_site" %></a>
+
+<table>
+  <thead>
+    <tr>
+      <th><%= t "sites.index.name" %></th>
+      <th><%= t "sites.index.description" %></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sites.each do |site| %>
+      <tr>
+        <td><a href="/admin/sites/<%= site.id %>"><%= site.name %></td>
+        <td><%= site.description %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

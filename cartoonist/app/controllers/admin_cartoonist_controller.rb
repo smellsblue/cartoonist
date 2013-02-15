@@ -4,7 +4,7 @@ class AdminCartoonistController < CartoonistController
 
   private
   def verify_domain_enabled!
-    raise ActionController::RoutingError.new("Site Disabled") if @domain.admin_disabled?
+    raise ActionController::RoutingError.new("Site Disabled") if @this_domain.admin_disabled?
   end
 
   def ensure_ssl!

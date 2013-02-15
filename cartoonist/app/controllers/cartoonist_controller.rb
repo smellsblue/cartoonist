@@ -7,16 +7,16 @@ class CartoonistController < ActionController::Base
 
   private
   def load_site_and_domain
-    @domain = Domain.from_name request.domain(100)
-    @site = @domain.site
+    @this_domain = Domain.from_name request.domain(100)
+    @this_site = @this_domain.site
   end
 
   def verify_site_enabled!
-    raise ActionController::RoutingError.new("Site Disabled") if @site.disabled?
+    raise ActionController::RoutingError.new("Site Disabled") if @this_site.disabled?
   end
 
   def verify_domain_enabled!
-    raise ActionController::RoutingError.new("Site Disabled") if @domain.disabled?
+    raise ActionController::RoutingError.new("Site Disabled") if @this_domain.disabled?
   end
 
   def handle_unverified_request

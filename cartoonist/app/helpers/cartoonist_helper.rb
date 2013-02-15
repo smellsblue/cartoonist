@@ -30,6 +30,14 @@ module CartoonistHelper
     Markdown.render text
   end
 
+  def this_site
+    @this_site
+  end
+
+  def this_domain
+    @this_domain
+  end
+
   def licensed!
     @licensed = true
   end
