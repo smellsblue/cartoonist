@@ -138,6 +138,7 @@ en:
         admin_enabled: admin enabled
         description: Description
         enabled: enabled
+        leave_name_blank_help: Leave blank to match unmatched domains
         name: Name
       domains: Domains
       enabled: "Enabled: "
@@ -148,6 +149,18 @@ en:
       description: Description
       name: Name
       new_site: New Site
+    new:
+      description: "Description: "
+      domain:
+        admin_enabled: "Domain Admin Enabled: "
+        description: "Domain Description: "
+        enabled: "Domain Enabled: "
+        leave_name_blank_help: Leave blank to match unmatched domains
+        name: "Domain Name: "
+      enabled: "Enabled: "
+      name: "Name: "
+      save: Save
+      subtitle: New Site
     show:
       description: "Description: "
       domain:
