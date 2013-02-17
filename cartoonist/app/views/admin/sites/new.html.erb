@@ -18,26 +18,26 @@
 
   <p>
     <%= t "sites.new.domain.name" %>
-    <input type="text" name="domain_name" value="" />
+    <input type="text" name="domains[new][name]" value="" />
     <small><em><%= t "sites.new.domain.leave_name_blank_help" %></em></small>
   </p>
 
   <p>
     <%= t "sites.new.domain.description" %>
-    <input type="text" name="domain_description" value="" />
+    <input type="text" name="domains[new][description]" value="" />
   </p>
 
   <p>
     <label>
       <%= t "sites.new.domain.enabled" %>
-      <input type="checkbox" name="domain_enabled" value="true" checked="checked" />
+      <input type="checkbox" name="domains[new][enabled]" value="true" checked="checked" />
     </label>
   </p>
 
   <p>
     <label>
       <%= t "sites.new.domain.admin_enabled" %>
-      <input type="checkbox" name="domain_admin_enabled" value="true" checked="checked" />
+      <input type="checkbox" name="domains[new][admin_enabled]" value="true" checked="checked" />
     </label>
   </p>
 

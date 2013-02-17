@@ -2,7 +2,7 @@ class Domain < ActiveRecord::Base
   attr_accessible :site_id, :site, :name, :description
   belongs_to :site
   before_save :ensure_lower_case_name!
-  before_save :ensure_blank_name_saves_as_nil!
+  before_save :ensure_blank_name_saves_as_empty_string!
 
   def enabled?
     enabled
@@ -29,15 +29,15 @@ class Domain < ActiveRecord::Base
     self.name = self.name.strip.downcase if self.name
   end
 
-  def ensure_blank_name_saves_as_nil!
-    self.name = nil if self.name.blank?
+  def ensure_blank_name_saves_as_empty_string!
+    self.name = "" if self.name.blank?
   end
 
   class << self
     def from_name(name)
       name = name.strip.downcase if name
       result = where(:name => name).first
-      result = where(:name => nil).first if name && !result
+      result = where(:name => "").first if name && !result
       result
     end
 

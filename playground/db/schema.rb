@@ -73,7 +73,7 @@ ActiveRecord::Schema.define(:version => 20130214074624) do
 
   create_table "domains", :force => true do |t|
     t.integer  "site_id",                         :null => false
-    t.string   "name"
+    t.string   "name",                            :null => false
     t.text     "description"
     t.boolean  "enabled",       :default => true, :null => false
     t.boolean  "admin_enabled", :default => true, :null => false

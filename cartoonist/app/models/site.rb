@@ -20,6 +20,19 @@ class Site < ActiveRecord::Base
     end
 
     def create_site(params)
+      site = nil
+
+      transaction do
+        site = create! do |s|
+          s.name = params[:name]
+          s.description = params[:description]
+          s.enabled = params[:enabled] == "true"
+        end
+
+        Domain.update_for site, params
+      end
+
+      site
     end
 
     def update_site(params)
