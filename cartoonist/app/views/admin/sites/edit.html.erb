@@ -59,6 +59,30 @@
             </td>
           </tr>
         <% end %>
+
+        <tr>
+          <td>
+            <input type="text" name="domains[new][name]" value="" />
+          </td>
+
+          <td>
+            <input type="text" name="domains[new][description]" value="" size="75" />
+          </td>
+
+          <td>
+            <label>
+              <input type="checkbox" name="domains[new][enabled]" value="true" checked="checked" />
+              <%= t "sites.edit.domain.enabled" %>
+            </label>
+          </td>
+
+          <td>
+            <label>
+              <input type="checkbox" name="domains[new][admin_enabled]" value="true" checked="checked" />
+              <%= t "sites.edit.domain.admin_enabled" %>
+            </label>
+          </td>
+        </tr>
       </tbody>
     </table>
   </p>

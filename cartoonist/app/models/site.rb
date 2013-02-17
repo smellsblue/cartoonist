@@ -24,6 +24,16 @@ class Site < ActiveRecord::Base
 
     def update_site(params)
       site = find params[:id].to_i
+
+      transaction do
+        site.name = params[:name]
+        site.description = params[:description]
+        site.enabled = params[:enabled] == "true"
+        site.save!
+        Domain.update_for site, params
+      end
+
+      site
     end
   end
 end
