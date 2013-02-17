@@ -152,6 +152,7 @@ en:
       description: "Description: "
       domain:
         catch_all: all unmatched domains
+        delete_button: delete
         description: Description
         name: Name
       domains: Domains

@@ -341,6 +341,7 @@ module Cartoonist
         # For some reason, "new" is being treated as "show" so
         # restrict id to digits
         resources :accounts, :constraints => { :id => /\d*/ }
+        resources :domains, :only => [:destroy]
 
         resources :cache, :constraints => { :id => /.*/ }, :only => [:destroy, :index] do
           collection do
@@ -350,7 +351,7 @@ module Cartoonist
           end
         end
 
-        resources :sites
+        resources :sites, :only => [:index, :new, :create, :show, :edit, :update]
 
         resources :static_cache, :constraints => { :id => /.*/ }, :only => [:destroy, :index] do
           collection do

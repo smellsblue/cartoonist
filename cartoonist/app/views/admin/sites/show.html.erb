@@ -19,6 +19,7 @@
       <tr>
         <th><%= t "sites.show.domain.name" %></th>
         <th><%= t "sites.show.domain.description" %></th>
+        <th></th>
       </tr>
     </thead>
 
@@ -33,6 +34,11 @@
             <% end %>
           </td>
           <td><%= domain.description %></td>
+          <td>
+            <%= form_tag "/admin/domains/#{domain.id}", :method => :delete do %>
+              <input type="submit" value="<%= t "sites.show.domain.delete_button" %>" />
+            <% end %>
+          </td>
         </tr>
       <% end %>
     </tbody>
