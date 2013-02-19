@@ -1,6 +1,8 @@
 require "spec_helper"
 
 describe Setting do
+  let(:site) { create :site }
+
   before do
     Setting::Meta.class_variable_set :@@settings, {}
     Setting::Meta.class_variable_set :@@by_tab_section_and_label, {}
@@ -13,70 +15,70 @@ describe Setting do
   end
 
   it "fails on missing meta" do
-    lambda { Setting[:missing_setting] }.should raise_error
+    lambda { Setting[:missing_setting, site.id] }.should raise_error
     lambda { Setting::Meta[:missing_setting] }.should raise_error
   end
 
   it "supports string types" do
     Setting.define :test_setting, :type => :string
     Setting::Meta[:test_setting].type.should == :string
-    Setting[:test_setting] = "This is a test"
-    Setting[:test_setting].should == "This is a test"
+    Setting[:test_setting, site.id] = "This is a test"
+    Setting[:test_setting, site.id].should == "This is a test"
   end
 
   it "supports symbol types" do
     Setting.define :test_setting, :type => :symbol
     Setting::Meta[:test_setting].type.should == :symbol
-    Setting[:test_setting] = :test_value
-    Setting[:test_setting].should == :test_value
-    Setting[:test_setting] = "This is a test"
-    Setting[:test_setting].should == "This is a test".to_sym
+    Setting[:test_setting, site.id] = :test_value
+    Setting[:test_setting, site.id].should == :test_value
+    Setting[:test_setting, site.id] = "This is a test"
+    Setting[:test_setting, site.id].should == "This is a test".to_sym
   end
 
   it "supports int types" do
     Setting.define :test_setting, :type => :int
     Setting::Meta[:test_setting].type.should == :int
-    Setting[:test_setting] = 5
-    Setting[:test_setting].should == 5
+    Setting[:test_setting, site.id] = 5
+    Setting[:test_setting, site.id].should == 5
   end
 
   it "supports boolean types" do
     Setting.define :test_setting, :type => :boolean
     Setting::Meta[:test_setting].type.should == :boolean
-    Setting[:test_setting] = 1
-    Setting[:test_setting].should == true
-    Setting[:test_setting] = nil
-    Setting[:test_setting].should == false
-    Setting[:test_setting] = false
-    Setting[:test_setting].should == false
+    Setting[:test_setting, site.id] = 1
+    Setting[:test_setting, site.id].should == true
+    Setting[:test_setting, site.id] = nil
+    Setting[:test_setting, site.id].should == false
+    Setting[:test_setting, site.id] = false
+    Setting[:test_setting, site.id].should == false
   end
 
   it "supports float types" do
     Setting.define :test_setting, :type => :float
     Setting::Meta[:test_setting].type.should == :float
-    Setting[:test_setting] = 4.2
-    Setting[:test_setting].should == 4.2
+    Setting[:test_setting, site.id] = 4.2
+    Setting[:test_setting, site.id].should == 4.2
   end
 
   it "supports array types" do
     Setting.define :test_setting, :type => :array
     Setting::Meta[:test_setting].type.should == :array
-    Setting[:test_setting] = ["testing", 1, 2, 3]
-    Setting[:test_setting].should == ["testing", 1, 2, 3]
+    Setting[:test_setting, site.id] = ["testing", 1, 2, 3]
+    Setting[:test_setting, site.id].should == ["testing", 1, 2, 3]
   end
 
   it "supports hash types" do
     Setting.define :test_setting, :type => :hash
     Setting::Meta[:test_setting].type.should == :hash
-    Setting[:test_setting] = { :a => "123", "b" => 321 }
-    Setting[:test_setting].should == { :a => "123", "b" => 321 }
+    Setting[:test_setting, site.id] = { :a => "123", "b" => 321 }
+    Setting[:test_setting, site.id].should == { :a => "123", "b" => 321 }
   end
 
   it "defaults to string types" do
     Setting.define :test_setting
     Setting::Meta[:test_setting].type.should == :string
-    Setting[:test_setting] = "This is a test"
-    Setting[:test_setting].should == "This is a test"
+    Setting[:test_setting, site.id] = "This is a test"
+    Setting[:test_setting, site.id].should == "This is a test"
   end
 
   it "has default values for all types" do
@@ -87,13 +89,13 @@ describe Setting do
     Setting.define :test_setting_float, :type => :float
     Setting.define :test_setting_array, :type => :array
     Setting.define :test_setting_hash, :type => :hash
-    Setting[:test_setting_string].should == ""
-    Setting[:test_setting_symbol].should == :""
-    Setting[:test_setting_boolean].should == false
-    Setting[:test_setting_int].should == 0
-    Setting[:test_setting_float].should == 0.0
-    Setting[:test_setting_array].should == []
-    Setting[:test_setting_hash].should == {}
+    Setting[:test_setting_string, site.id].should == ""
+    Setting[:test_setting_symbol, site.id].should == :""
+    Setting[:test_setting_boolean, site.id].should == false
+    Setting[:test_setting_int, site.id].should == 0
+    Setting[:test_setting_float, site.id].should == 0.0
+    Setting[:test_setting_array, site.id].should == []
+    Setting[:test_setting_hash, site.id].should == {}
   end
 
   it "disallows multiple setting values of the same label" do
@@ -103,17 +105,17 @@ describe Setting do
 
   it "supports explicit default values" do
     Setting.define :test_setting, :default => "This is the default"
-    Setting[:test_setting].should == "This is the default"
+    Setting[:test_setting, site.id].should == "This is the default"
   end
 
   it "supports onchange lambdas" do
     call_count = 0
     Setting.define :test_setting, :onchange => lambda { call_count += 1 }
-    Setting[:test_setting] = "abc 123"
+    Setting[:test_setting, site.id] = "abc 123"
     call_count.should == 1
-    Setting[:test_setting] = "xyz 123"
+    Setting[:test_setting, site.id] = "xyz 123"
     call_count.should == 2
-    Setting[:test_setting] = "xyz 123"
+    Setting[:test_setting, site.id] = "xyz 123"
     call_count.should == 2
   end
 
@@ -211,9 +213,9 @@ describe Setting do
 
   it "allows specifying custom validation" do
     Setting.define :test_setting, :validation => lambda { |value| raise "Invalid!" unless value == "valid" }
-    lambda { Setting[:test_setting] = "invalid" }.should raise_error
-    Setting[:test_setting].should == ""
-    lambda { Setting[:test_setting] = "valid" }.should_not raise_error
-    Setting[:test_setting].should == "valid"
+    lambda { Setting[:test_setting, site.id] = "invalid" }.should raise_error
+    Setting[:test_setting, site.id].should == ""
+    lambda { Setting[:test_setting, site.id] = "valid" }.should_not raise_error
+    Setting[:test_setting, site.id].should == "valid"
   end
 end

@@ -35,7 +35,7 @@ class Setting < ActiveRecord::Base
       # TODO: This should be removed at some point when site based settings is finished
       site_id = Site.initial.id unless site_id
       meta.validation.call value if meta.validation
-      old_value = self[label]
+      old_value = self[label, site_id]
       record = where(:label => label.to_s, :site_id => site_id).first
       record = Setting.new :label => label.to_s, :site_id => site_id unless record
       record.value = meta.convert_to_save value
