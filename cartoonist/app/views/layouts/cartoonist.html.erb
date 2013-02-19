@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= yield(:title) || Setting[:site_name] %></title>
+    <title><%= yield(:title) || this_site.settings[:site_name] %></title>
     <%= stylesheet_link_tag Cartoonist::Theme.css %>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
@@ -9,15 +9,15 @@
     <% if @output_csrf_meta_tags %>
       <%= csrf_meta_tags %>
     <% end %>
-    <link rel="icon" href="http://<%= Setting[:domain] %><%= asset_path Cartoonist::Theme.favicon %>" type="image/x-icon" />
-    <link rel="shortcut icon" href="http://<%= Setting[:domain] %><%= asset_path Cartoonist::Theme.favicon %>" type="image/x-icon" />
+    <link rel="icon" href="http://<%= this_site.settings[:domain] %><%= asset_path Cartoonist::Theme.favicon %>" type="image/x-icon" />
+    <link rel="shortcut icon" href="http://<%= this_site.settings[:domain] %><%= asset_path Cartoonist::Theme.favicon %>" type="image/x-icon" />
     <% if rss? %>
       <link href="<%= rss_path %>" rel="alternate" title="<%= rss_title %>" type="application/rss+xml" />
     <% end %>
     <% if !preview? && Rails.env.production? %>
       <script type="text/javascript">
         var _gaq = _gaq || [];
-        _gaq.push(['_setAccount', '<%= j Setting[:google_analytics_account] %>']);
+        _gaq.push(['_setAccount', '<%= j this_site.settings[:google_analytics_account] %>']);
         _gaq.push(['_trackPageview']);
 
         (function() {
@@ -35,9 +35,9 @@
       <div class="header">
         <div class="main-header">
           <div class="logo"><%= t "cartoonist.layout.logo" %></div>
-          <h1 class="site-name"><%= Setting[:site_name] %></h1>
-          <h2 class="heading"><%= Setting[:site_heading] %></h2>
-          <h2 class="site-updates"><%= Setting[:site_update_description] %></h2>
+          <h1 class="site-name"><%= this_site.settings[:site_name] %></h1>
+          <h2 class="heading"><%= this_site.settings[:site_heading] %></h2>
+          <h2 class="site-updates"><%= this_site.settings[:site_update_description] %></h2>
 
           <div class="small-buttons">
             <%= yield :small_buttons %>
@@ -97,11 +97,11 @@
     </div>
     <% if @disqus_enabled && Rails.env.production? %>
       <script type="text/javascript">
-        var disqus_shortname = "<%= j Setting[:disqus_shortname] %>";
+        var disqus_shortname = "<%= j this_site.settings[:disqus_shortname] %>";
         var disqus_title = "<%= j @disqus_options[:title] %>";
         var disqus_category_id = "<%= j @disqus_options[:category].to_s %>";
         var disqus_identifier = "/<%= j @disqus_options[:path] %>";
-        var disqus_url = "http://<%= j Setting[:domain] %>/<%= j @disqus_options[:path] %>";
+        var disqus_url = "http://<%= j this_site.settings[:domain] %>/<%= j @disqus_options[:path] %>";
         (function() {
           var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
           dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';

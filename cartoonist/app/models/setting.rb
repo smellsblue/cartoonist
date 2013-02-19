@@ -1,18 +1,20 @@
 class Setting < ActiveRecord::Base
-  attr_accessible :label, :value, :locked
+  attr_accessible :label, :value, :locked, :site_id
 
   def zip_title
     label
   end
 
   class << self
-    def [](label)
+    def [](label, site_id = nil)
       raise "Invalid label" unless label.present?
       meta = Setting::Meta[label.to_sym]
       raise "Missing setting definition for '#{label}'" unless meta
+      # TODO: This should be removed at some point when site based settings is finished
+      site_id = Site.initial.id unless site_id
 
       begin
-        record = where(:label => label.to_s).first
+        record = where(:label => label.to_s, :site_id => site_id).first
       rescue => e
         raise unless e.to_s =~ /Could not find table/
       end
@@ -26,14 +28,16 @@ class Setting < ActiveRecord::Base
       end
     end
 
-    def []=(label, value)
+    def []=(label, site_id, value)
       raise "Invalid label" unless label.present?
       meta = Setting::Meta[label.to_sym]
       raise "Missing setting definition for '#{label}'" unless meta
+      # TODO: This should be removed at some point when site based settings is finished
+      site_id = Site.initial.id unless site_id
       meta.validation.call value if meta.validation
       old_value = self[label]
-      record = where(:label => label.to_s).first
-      record = Setting.new :label => label.to_s unless record
+      record = where(:label => label.to_s, :site_id => site_id).first
+      record = Setting.new :label => label.to_s, :site_id => site_id unless record
       record.value = meta.convert_to_save value
       record.save!
       meta.onchange.call if meta.onchange && old_value != value

@@ -1,7 +1,7 @@
 <% content_for :title, @page.title %>
 
 <% if @page.has_comments? %>
-  <% enable_disqus! :path => "#{@page.path}", :title => "#{@page.title}", :category => Setting[:disqus_page_category] %>
+  <% enable_disqus! :path => "#{@page.path}", :title => "#{@page.title}", :category => this_site.settings[:disqus_page_category] %>
 <% end %>
 
 <%= markdown @page.content %>

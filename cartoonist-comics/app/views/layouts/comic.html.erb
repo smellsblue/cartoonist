@@ -1,11 +1,11 @@
 <% content_for :content_class, "comic-content" %>
 <% licensed! %>
-<% rss! "/comic/feed", t("comic.layout.rss_title", :site_name => Setting[:site_name]) %>
+<% rss! "/comic/feed", t("comic.layout.rss_title", :site_name => this_site.settings[:site_name]) %>
 
 <% content_for :small_buttons do %>
   <% if @comic.real? %>
     <a class="facebook" href="https://www.facebook.com/sharer.php?u=<%= u @comic.entity_absolute_url %>&t=<%= u t("comic.layout.facebook_text_message", :title => @comic.title) %>" title="<%= t "comic.layout.facebook_title" %>"><%= t "comic.layout.facebook" %></a>
-    <a class="twitter" href="https://twitter.com/intent/tweet?source=<%= u Setting[:domain] %>&text=<%= u t("comic.layout.twitter_text_message", :title => @comic.title, :url => @comic.entity_absolute_url) %>" title="<%= t "comic.layout.twitter_title" %>"><%= t "comic.layout.twitter" %></a>
+    <a class="twitter" href="https://twitter.com/intent/tweet?source=<%= u this_site.settings[:domain] %>&text=<%= u t("comic.layout.twitter_text_message", :title => @comic.title, :url => @comic.entity_absolute_url) %>" title="<%= t "comic.layout.twitter_title" %>"><%= t "comic.layout.twitter" %></a>
     <a class="google-plus" href="https://plus.google.com/share?url=<%= u @comic.entity_absolute_url %>" title="<%= t "comic.layout.google_plus_title" %>"><%= t "comic.layout.google_plus" %></a>
     <a class="rss" href="<%= rss_path %>" title="<%= rss_title %>"><%= t "comic.layout.rss" %></a>
   <% end %>

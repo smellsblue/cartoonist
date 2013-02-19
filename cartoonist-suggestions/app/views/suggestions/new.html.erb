@@ -1,6 +1,6 @@
 <% content_for :title, t("suggestions.new.title") %>
 
-<%= markdown Setting[:suggestion_prefix] %>
+<%= markdown this_site.settings[:suggestion_prefix] %>
 
 <%= form_tag "/suggestions", :method => :post, :authenticity_token => false, :class => "suggestion-box" do %>
   <p>

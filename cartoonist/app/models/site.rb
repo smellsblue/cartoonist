@@ -2,6 +2,10 @@ class Site < ActiveRecord::Base
   attr_accessible :name, :description
   has_many :domains
 
+  def settings
+    @settings ||= Site::Settings.new(id)
+  end
+
   def enabled?
     enabled
   end
@@ -47,6 +51,22 @@ class Site < ActiveRecord::Base
       end
 
       site
+    end
+  end
+
+  class Settings
+    attr_reader :site_id
+
+    def initialize(site_id)
+      @site_id = site_id
+    end
+
+    def [](label)
+      Setting[label, site_id]
+    end
+
+    def []=(label, value)
+      Setting[label, site_id] = value
     end
   end
 end

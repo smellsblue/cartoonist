@@ -10,6 +10,7 @@ class Comic < ActiveRecord::Base
   entity_description &:title
   attr_accessible :number, :posted_at, :title, :description, :scene_description, :dialogue, :title_text, :database_file_id, :database_file, :locked
   belongs_to :database_file
+  belongs_to :site
 
   def preview_url
     "/admin/comic/#{number}/preview"
@@ -62,7 +63,7 @@ class Comic < ActiveRecord::Base
   end
 
   def absolute_img_url
-    "http://#{Setting[:domain]}#{img_url}"
+    "http://#{site.settings[:domain]}#{img_url}"
   end
 
   class << self

@@ -10,6 +10,7 @@ class BlogPost < ActiveRecord::Base
   entity_description &:title
   attr_accessor :for_preview
   attr_accessible :title, :url_title, :author, :posted_at, :content, :locked
+  belongs_to :site
 
   def to_backup_entries
     post = Backup::Entry.new id, url_title, "markdown", content

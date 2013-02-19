@@ -1,7 +1,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <% @entries.each do |entry| %>
     <url>
-      <loc>http://<%= Setting[:domain] %><%= entry.path %></loc>
+      <loc>http://<%= this_site.settings[:domain] %><%= entry.path %></loc>
       <lastmod><%= entry.formatted_lastmod %></lastmod>
       <changefreq><%= entry.changefreq %></changefreq>
       <% if entry.priority %>

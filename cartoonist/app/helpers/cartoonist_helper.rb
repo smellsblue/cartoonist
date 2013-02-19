@@ -78,8 +78,8 @@ module CartoonistHelper
 
   def copyright_message
     year = Date.today.strftime "%Y"
-    copyright_years = Setting[:copyright_starting_year].to_s
+    copyright_years = this_site.settings[:copyright_starting_year].to_s
     copyright_years = "#{copyright_years}-#{year}" if year != copyright_years
-    "&copy; #{h copyright_years} #{h Setting[:copyright_owners]}".html_safe
+    "&copy; #{h copyright_years} #{h this_site.settings[:copyright_owners]}".html_safe
   end
 end

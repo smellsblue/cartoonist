@@ -3,6 +3,7 @@ class Tweet < ActiveRecord::Base
   validate :doesnt_update_tweet_after_tweeted
   validate :entity_doesnt_change, :on => :update
   attr_accessible :entity_id, :entity_type, :tweet, :tweeted_at
+  belongs_to :site
 
   def allow_tweet_now?
     allow_save? && !disabled? && entity_posted?
@@ -55,11 +56,11 @@ class Tweet < ActiveRecord::Base
   end
 
   def tweet_style
-    Setting[:"#{entity.entity_type}_tweet_style"]
+    site.settings[:"#{entity.entity_type}_tweet_style"]
   end
 
   def tweet_time
-    Setting[:"#{entity.entity_type}_tweet_time"]
+    site.settings[:"#{entity.entity_type}_tweet_time"]
   end
 
   def form_path
@@ -160,7 +161,7 @@ class Tweet < ActiveRecord::Base
     end
 
     def options_for(entity)
-      { :entity_id => entity.id, :entity_type => entity.entity_type, :tweet => SimpleTemplate[Setting[:"#{entity.entity_type}_default_tweet"], :self => entity] }
+      { :entity_id => entity.id, :entity_type => entity.entity_type, :tweet => SimpleTemplate[entity.site.settings[:"#{entity.entity_type}_default_tweet"], :self => entity] }
     end
 
     def find_for(entity)
@@ -196,7 +197,7 @@ class Tweet < ActiveRecord::Base
       result = all
 
       types = result.map(&:entity_type).uniq.select do |t|
-        Setting[:"#{t}_tweet_style"] != :disabled
+        t.site.settings[:"#{t}_tweet_style"] != :disabled
       end
 
       result.select { |x| types.include? x.entity_type }

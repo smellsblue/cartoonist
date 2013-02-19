@@ -1,4 +1,4 @@
-<% content_for :rss_title, "#{Setting[:site_name]} Comic" %>
+<% content_for :rss_title, "#{this_site.settings[:site_name]} Comic" %>
 <% content_for :pub_date, @feed.pub_date %>
 
 <% @feed.items.each do |item| %>
@@ -13,8 +13,8 @@
         #{item.description}
       } %>
     </description>
-    <link>http://<%= Setting[:domain] %>/comic/<%= item.number %></link>
-    <guid>http://<%= Setting[:domain] %>/comic/<%= item.number %></guid>
+    <link>http://<%= this_site.settings[:domain] %>/comic/<%= item.number %></link>
+    <guid>http://<%= this_site.settings[:domain] %>/comic/<%= item.number %></guid>
     <pubDate><%= item.pub_date %></pubDate>
   </item>
 <% end %>

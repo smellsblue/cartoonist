@@ -36,7 +36,7 @@ module Entity
   end
 
   def entity_absolute_url
-    "http://#{Setting[:domain]}#{entity_relative_url}" if entity_relative_url
+    "http://#{site.settings[:domain]}#{entity_relative_url}" if entity_relative_url
   end
 
   def entity_edit_url

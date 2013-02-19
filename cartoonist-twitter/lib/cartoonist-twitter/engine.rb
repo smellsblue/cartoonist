@@ -2,7 +2,7 @@ module CartoonistTwitter
   class EntityHooks
     class << self
       def after_entity_save(entity)
-        return if Setting[:"#{entity.entity_type}_tweet_style"] == :disabled
+        return if entity.site.settings[:"#{entity.entity_type}_tweet_style"] == :disabled
         result = Tweet.find_for entity
         Tweet.create_for entity unless result
       end

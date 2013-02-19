@@ -3,8 +3,8 @@
   <head>
     <title>Sign In</title>
     <%= csrf_meta_tags %>
-    <link rel="icon" href="http://<%= Setting[:domain] %><%= asset_path Cartoonist::Theme.favicon %>" type="image/x-icon" />
-    <link rel="shortcut icon" href="http://<%= Setting[:domain] %><%= asset_path Cartoonist::Theme.favicon %>" type="image/x-icon" />
+    <link rel="icon" href="http://<%= this_site.settings[:domain] %><%= asset_path Cartoonist::Theme.favicon %>" type="image/x-icon" />
+    <link rel="shortcut icon" href="http://<%= this_site.settings[:domain] %><%= asset_path Cartoonist::Theme.favicon %>" type="image/x-icon" />
   </head>
   <body>
     <% if flash[:notice] %>

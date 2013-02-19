@@ -8,6 +8,7 @@ class Page < ActiveRecord::Base
   entity_edit_url &:edit_url
   entity_description &:title
   attr_accessible :title, :path, :posted_at, :content, :locked, :comments, :in_sitemap
+  belongs_to :site
 
   def to_backup_entries
     page = Backup::Entry.new id, path, "markdown", content

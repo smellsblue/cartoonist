@@ -22,7 +22,7 @@ class Admin::BlogController < AdminCartoonistController
       end
     else
       @post = BlogPost.preview_current
-      @title = "Blog for #{Setting[:site_name]}"
+      @title = "Blog for #{@this_site.settings[:site_name]}"
       @disabled_next = true
     end
 

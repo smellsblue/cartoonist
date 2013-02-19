@@ -13,7 +13,7 @@ class Admin::SettingsController < AdminCartoonistController
   def update
     params[:included_settings].each do |setting|
       begin
-        Setting[setting] = params[setting]
+        @this_site.settings[setting] = params[setting]
       rescue Setting::InvalidError => e
         flash[:update_errors] ||= []
         flash[:update_errors] << e.message
@@ -36,11 +36,11 @@ class Admin::SettingsController < AdminCartoonistController
       return redirect_to "/admin/settings/initial_setup"
     end
 
-    Setting[:copyright_starting_year] = Date.today.strftime("%Y").to_i
-    Setting[:domain] = params[:domain]
-    Setting[:site_name] = params[:site_name]
-    Setting[:secret_token] = SecureRandom.hex 30
-    Setting[:devise_pepper] = SecureRandom.hex 64
+    @this_site.settings[:copyright_starting_year] = Date.today.strftime("%Y").to_i
+    @this_site.settings[:domain] = params[:domain]
+    @this_site.settings[:site_name] = params[:site_name]
+    @this_site.settings[:secret_token] = SecureRandom.hex 30
+    @this_site.settings[:devise_pepper] = SecureRandom.hex 64
     # This MUST go AFTER we set the pepper
     User.create! :email => params[:admin_email], :password => params[:admin_password], :password_confirmation => params[:admin_confirm_password], :name => params[:admin_name]
     redirect_to "/admin"
