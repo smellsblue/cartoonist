@@ -9,7 +9,7 @@ class BlogPost < ActiveRecord::Base
   entity_edit_url &:edit_url
   entity_description &:title
   attr_accessor :for_preview
-  attr_accessible :title, :url_title, :author, :posted_at, :content, :locked
+  attr_accessible :title, :url_title, :author, :posted_at, :content, :locked, :site, :site_id
   belongs_to :site
 
   def to_backup_entries

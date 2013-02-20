@@ -2,7 +2,7 @@ class Tweet < ActiveRecord::Base
   include BelongsToEntity
   validate :doesnt_update_tweet_after_tweeted
   validate :entity_doesnt_change, :on => :update
-  attr_accessible :entity_id, :entity_type, :tweet, :tweeted_at
+  attr_accessible :entity_id, :entity_type, :tweet, :tweeted_at, :site, :site_id
   belongs_to :site
 
   def allow_tweet_now?
@@ -157,16 +157,16 @@ class Tweet < ActiveRecord::Base
     end
 
     def create_for(entity)
-      create options_for(entity)
+      create! options_for(entity)
     end
 
     def options_for(entity)
-      { :entity_id => entity.id, :entity_type => entity.entity_type, :tweet => SimpleTemplate[entity.site.settings[:"#{entity.entity_type}_default_tweet"], :self => entity] }
+      { :entity_id => entity.id, :entity_type => entity.entity_type, :tweet => SimpleTemplate[entity.site.settings[:"#{entity.entity_type}_default_tweet"], :self => entity], :site_id => entity.site_id }
     end
 
     def find_for(entity)
       raise "Can only find tweets for entities!" unless entity.kind_of? Entity
-      where({ :entity_id => entity.id, :entity_type => entity.entity_type }).first
+      where({ :entity_id => entity.id, :entity_type => entity.entity_type, :site_id => entity.site_id }).first
     end
 
     def tweeted

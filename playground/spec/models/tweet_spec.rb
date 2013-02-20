@@ -1,10 +1,12 @@
 require "spec_helper"
 
 describe Tweet do
+  let(:site) { create :site }
+
   it "adds a tweet when saving an entity with tweets posting instantly" do
-    Setting.stub(:[]).with(:blog_tweet_style).and_return(:automatic)
-    Setting.stub(:[]).with(:blog_default_tweet).and_return("New blog post posted!")
-    post = BlogPost.create :title => "Example Post", :url_title => "example-post", :content => "This is the content.", :author => "John Doe", :tweet => "REMOVE THIS EVENTUALLY"
+    Setting.stub(:[]).with(:blog_tweet_style, site.id).and_return(:automatic)
+    Setting.stub(:[]).with(:blog_default_tweet, site.id).and_return("New blog post posted!")
+    post = BlogPost.create! :title => "Example Post", :url_title => "example-post", :content => "This is the content.", :author => "John Doe", :site => site
     tweet = Tweet.find_for(post)
     tweet.should be
     tweet.entity_id.should == post.id
@@ -13,9 +15,9 @@ describe Tweet do
   end
 
   it "adds a tweet when saving an entity with tweets posting on a schedule" do
-    Setting.stub(:[]).with(:blog_tweet_style).and_return(:automatic_timed)
-    Setting.stub(:[]).with(:blog_default_tweet).and_return("New blog post posted!")
-    post = BlogPost.create :title => "Example Post", :url_title => "example-post", :content => "This is the content.", :author => "John Doe", :tweet => "REMOVE THIS EVENTUALLY"
+    Setting.stub(:[]).with(:blog_tweet_style, site.id).and_return(:automatic_timed)
+    Setting.stub(:[]).with(:blog_default_tweet, site.id).and_return("New blog post posted!")
+    post = BlogPost.create :title => "Example Post", :url_title => "example-post", :content => "This is the content.", :author => "John Doe", :site => site
     tweet = Tweet.find_for(post)
     tweet.should be
     tweet.entity_id.should == post.id
@@ -24,9 +26,9 @@ describe Tweet do
   end
 
   it "adds a tweet when saving an entity with tweets posting manually" do
-    Setting.stub(:[]).with(:blog_tweet_style).and_return(:manual)
-    Setting.stub(:[]).with(:blog_default_tweet).and_return("New blog post posted!")
-    post = BlogPost.create :title => "Example Post", :url_title => "example-post", :content => "This is the content.", :author => "John Doe", :tweet => "REMOVE THIS EVENTUALLY"
+    Setting.stub(:[]).with(:blog_tweet_style, site.id).and_return(:manual)
+    Setting.stub(:[]).with(:blog_default_tweet, site.id).and_return("New blog post posted!")
+    post = BlogPost.create :title => "Example Post", :url_title => "example-post", :content => "This is the content.", :author => "John Doe", :site => site
     tweet = Tweet.find_for(post)
     tweet.should be
     tweet.entity_id.should == post.id
@@ -35,17 +37,17 @@ describe Tweet do
   end
 
   it "doesn't add a tweet when saving an entity with tweets disabled" do
-    Setting.stub(:[]).with(:blog_tweet_style).and_return(:disabled)
-    Setting.stub(:[]).with(:blog_default_tweet).and_return("New blog post posted!")
-    post = BlogPost.create :title => "Example Post", :url_title => "example-post", :content => "This is the content.", :author => "John Doe", :tweet => "REMOVE THIS EVENTUALLY"
+    Setting.stub(:[]).with(:blog_tweet_style, site.id).and_return(:disabled)
+    Setting.stub(:[]).with(:blog_default_tweet, site.id).and_return("New blog post posted!")
+    post = BlogPost.create :title => "Example Post", :url_title => "example-post", :content => "This is the content.", :author => "John Doe", :site => site
     Tweet.find_for(post).should_not be
   end
 
   it "allows urls in the default tweet" do
-    Setting.stub(:[]).with(:domain).and_return("example.com")
-    Setting.stub(:[]).with(:blog_tweet_style).and_return(:automatic)
-    Setting.stub(:[]).with(:blog_default_tweet).and_return("New blog post at {{entity_absolute_url}}")
-    post = BlogPost.create :title => "Example Post", :url_title => "example-post", :content => "This is the content.", :author => "John Doe", :tweet => "REMOVE THIS EVENTUALLY"
+    Setting.stub(:[]).with(:domain, site.id).and_return("example.com")
+    Setting.stub(:[]).with(:blog_tweet_style, site.id).and_return(:automatic)
+    Setting.stub(:[]).with(:blog_default_tweet, site.id).and_return("New blog post at {{entity_absolute_url}}")
+    post = BlogPost.create :title => "Example Post", :url_title => "example-post", :content => "This is the content.", :author => "John Doe", :site => site
     Tweet.find_for(post).tweet.should == "New blog post at http://example.com/blog/example-post"
   end
 
