@@ -6,6 +6,7 @@ Gem::Specification.new do |s|
   s.date          = Time.now.strftime "%Y-%m-%d"
   s.summary       = "Cartoonist Tags"
   s.description   = "Plugin for tagging cartoonist entities."
+  s.license       = "MIT"
   s.authors       = ["Mike Virata-Stone"]
   s.email         = "reasonnumber@gmail.com"
   s.files         = `git ls-files`.split("\n")
