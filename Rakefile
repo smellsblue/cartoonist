@@ -18,8 +18,8 @@ class CartoonistGem
       dep_gem = Regexp.last_match[1]
       dep_version = Regexp.last_match[2]
       dep_spec = Gem::Specification.find_by_name dep_gem, dep_version
-      fetched = Gem::SpecFetcher.fetcher.find_matching Gem::Dependency.new(dep_gem)
-      fetched_version = fetched.first.first[1]
+      fetched = Gem::SpecFetcher.fetcher.search_for_dependency Gem::Dependency.new(dep_gem)
+      fetched_version = fetched.first.first.first.version
       puts "  Requirement: #{dep_gem}: #{dep_version}"
       puts "    #{dep_spec.version} (latest: #{fetched_version})"
     end
@@ -78,15 +78,15 @@ end
 
     def dependencies
       {
-        "devise" => "~> 2.1.2",
-        "jquery-rails" => "~> 2.1.4",
-        "jquery-ui-rails" => "~> 2.0.2",
-        "minitar" => "~> 0.5.4",
-        "omniauth-openid" => "~> 1.0.1",
-        "railties" => "~> 3.2.9",
-        "redcarpet" => "~> 2.2.2",
-        "rubyzip" => "~> 0.9.9",
-        "twitter" => "~> 4.4.1"
+        "devise" => "~> 2.2",
+        "jquery-rails" => "~> 3.0",
+        "jquery-ui-rails" => "~> 4.0",
+        "minitar" => "~> 0.5",
+        "omniauth-openid" => "~> 1.0",
+        "railties" => "~> 3.2",
+        "redcarpet" => "~> 2.3",
+        "rubyzip" => "~> 0.9",
+        "twitter" => "~> 4.7"
       }
     end
   end

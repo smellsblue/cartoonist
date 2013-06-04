@@ -310,11 +310,7 @@ module Cartoonist
     end
 
     Cartoonist::Cron.add do
-      Dir.glob(File.join(Rails.root, "public/cache/**/*.tmp.html*"), File::FNM_DOTMATCH).each do |file|
-        if 2.hours.ago > File.mtime(file)
-          File.delete file
-        end
-      end
+      PageCache.cleanup_tmp!
     end
 
     Cartoonist::Routes.add_begin do

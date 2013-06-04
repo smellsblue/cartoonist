@@ -6,11 +6,12 @@ Gem::Specification.new do |s|
   s.date          = Time.now.strftime "%Y-%m-%d"
   s.summary       = "Cartoonist Twitter"
   s.description   = "Plugin to allow tweeting of cartoonist entities."
+  s.license       = "MIT"
   s.authors       = ["Mike Virata-Stone"]
   s.email         = "reasonnumber@gmail.com"
   s.files         = `git ls-files`.split("\n")
   s.require_paths = ["lib"]
   s.homepage      = "http://reasonnumber.com/cartoonist"
   s.add_dependency "cartoonist", cartoonist_version
-  s.add_dependency "twitter", "~> 4.4.1"
+  s.add_dependency "twitter", "~> 4.7"
 end

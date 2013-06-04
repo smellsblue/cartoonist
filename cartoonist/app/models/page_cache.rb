@@ -48,6 +48,23 @@ class PageCache
   end
 
   class << self
+    def cleanup_tmp!
+      globs = []
+
+      EXTENSIONS.each do |extension|
+        globs << File.join(CACHE_PATH, "**/*.tmp.#{extension}")
+        globs << File.join(CACHE_PATH, "**/*.tmp.#{extension}.gz")
+      end
+
+      globs.each do |glob|
+        Dir.glob(glob, File::FNM_DOTMATCH).each do |file|
+          if 2.hours.ago > File.mtime(file)
+            File.delete file
+          end
+        end
+      end
+    end
+
     def find(name)
       name = "" if name == "INDEX"
       actual = cache_names.select { |x| x == name }.first
