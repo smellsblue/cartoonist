@@ -78,15 +78,15 @@ end
 
     def dependencies
       {
-        "devise" => "~> 2.2",
+        "devise" => "~> 3.0",
         "jquery-rails" => "~> 3.0",
         "jquery-ui-rails" => "~> 4.0",
         "minitar" => "~> 0.5",
         "omniauth-openid" => "~> 1.0",
-        "railties" => "~> 3.2",
-        "redcarpet" => "~> 2.3",
+        "railties" => "~> 4.0",
+        "redcarpet" => "~> 3.0",
         "rubyzip" => "~> 0.9",
-        "twitter" => "~> 4.7"
+        "twitter" => "~> 4.8"
       }
     end
   end

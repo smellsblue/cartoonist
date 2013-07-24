@@ -8,7 +8,6 @@ class Comic < ActiveRecord::Base
   entity_preview_url &:preview_url
   entity_edit_url &:edit_url
   entity_description &:title
-  attr_accessible :number, :posted_at, :title, :description, :scene_description, :dialogue, :title_text, :database_file_id, :database_file, :locked
   belongs_to :database_file
 
   def preview_url
@@ -136,7 +135,7 @@ class Comic < ActiveRecord::Base
     end
 
     def sitemap
-      posted.reverse_numerical.all
+      posted.reverse_numerical.to_a
     end
 
     def current_created

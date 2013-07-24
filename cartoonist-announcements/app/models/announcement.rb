@@ -3,7 +3,6 @@ class Announcement < ActiveRecord::Base
   include Postable
   include Expirable
   include Lockable
-  attr_accessible :posted_at, :expired_at, :title, :content, :location
   validate :posted_at_must_be_before_expired_at, :posted_at_must_exist_if_expired_at_exists
 
   def posted_at_must_be_before_expired_at

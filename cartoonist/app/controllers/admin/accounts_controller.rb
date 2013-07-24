@@ -1,6 +1,6 @@
 class Admin::AccountsController < AdminCartoonistController
   def index
-    @users = User.order(:name).all
+    @users = User.order(:name).to_a
   end
 
   def new

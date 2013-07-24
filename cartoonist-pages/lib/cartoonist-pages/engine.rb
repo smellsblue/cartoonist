@@ -16,7 +16,7 @@ module CartoonistPages
     end
 
     Cartoonist::Routes.add_end do
-      match ":id", :controller => "page", :action => "show"
+      get ":id", :controller => "page", :action => "show"
     end
 
     Cartoonist::Routes.add do

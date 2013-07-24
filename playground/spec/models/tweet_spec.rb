@@ -4,7 +4,7 @@ describe Tweet do
   it "adds a tweet when saving an entity with tweets posting instantly" do
     Setting.stub(:[]).with(:blog_tweet_style).and_return(:automatic)
     Setting.stub(:[]).with(:blog_default_tweet).and_return("New blog post posted!")
-    post = BlogPost.create :title => "Example Post", :url_title => "example-post", :content => "This is the content.", :author => "John Doe", :tweet => "REMOVE THIS EVENTUALLY"
+    post = BlogPost.create :title => "Example Post", :url_title => "example-post", :content => "This is the content.", :author => "John Doe"
     tweet = Tweet.find_for(post)
     tweet.should be
     tweet.entity_id.should == post.id
@@ -15,7 +15,7 @@ describe Tweet do
   it "adds a tweet when saving an entity with tweets posting on a schedule" do
     Setting.stub(:[]).with(:blog_tweet_style).and_return(:automatic_timed)
     Setting.stub(:[]).with(:blog_default_tweet).and_return("New blog post posted!")
-    post = BlogPost.create :title => "Example Post", :url_title => "example-post", :content => "This is the content.", :author => "John Doe", :tweet => "REMOVE THIS EVENTUALLY"
+    post = BlogPost.create :title => "Example Post", :url_title => "example-post", :content => "This is the content.", :author => "John Doe"
     tweet = Tweet.find_for(post)
     tweet.should be
     tweet.entity_id.should == post.id
@@ -26,7 +26,7 @@ describe Tweet do
   it "adds a tweet when saving an entity with tweets posting manually" do
     Setting.stub(:[]).with(:blog_tweet_style).and_return(:manual)
     Setting.stub(:[]).with(:blog_default_tweet).and_return("New blog post posted!")
-    post = BlogPost.create :title => "Example Post", :url_title => "example-post", :content => "This is the content.", :author => "John Doe", :tweet => "REMOVE THIS EVENTUALLY"
+    post = BlogPost.create :title => "Example Post", :url_title => "example-post", :content => "This is the content.", :author => "John Doe"
     tweet = Tweet.find_for(post)
     tweet.should be
     tweet.entity_id.should == post.id
@@ -37,7 +37,7 @@ describe Tweet do
   it "doesn't add a tweet when saving an entity with tweets disabled" do
     Setting.stub(:[]).with(:blog_tweet_style).and_return(:disabled)
     Setting.stub(:[]).with(:blog_default_tweet).and_return("New blog post posted!")
-    post = BlogPost.create :title => "Example Post", :url_title => "example-post", :content => "This is the content.", :author => "John Doe", :tweet => "REMOVE THIS EVENTUALLY"
+    post = BlogPost.create :title => "Example Post", :url_title => "example-post", :content => "This is the content.", :author => "John Doe"
     Tweet.find_for(post).should_not be
   end
 
@@ -45,7 +45,7 @@ describe Tweet do
     Setting.stub(:[]).with(:domain).and_return("example.com")
     Setting.stub(:[]).with(:blog_tweet_style).and_return(:automatic)
     Setting.stub(:[]).with(:blog_default_tweet).and_return("New blog post at {{entity_absolute_url}}")
-    post = BlogPost.create :title => "Example Post", :url_title => "example-post", :content => "This is the content.", :author => "John Doe", :tweet => "REMOVE THIS EVENTUALLY"
+    post = BlogPost.create :title => "Example Post", :url_title => "example-post", :content => "This is the content.", :author => "John Doe"
     Tweet.find_for(post).tweet.should == "New blog post at http://example.com/blog/example-post"
   end
 

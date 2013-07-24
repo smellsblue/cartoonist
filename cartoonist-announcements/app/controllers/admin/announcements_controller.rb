@@ -17,9 +17,9 @@ class Admin::AnnouncementsController < AdminCartoonistController
   end
 
   def index
-    @unposted = Announcement.future.all
-    @active = Announcement.active.all
-    @expired = Announcement.expired.all
+    @unposted = Announcement.future.to_a
+    @active = Announcement.active.to_a
+    @expired = Announcement.expired.to_a
   end
 
   def lock
