@@ -78,6 +78,7 @@ end
 
     def dependencies
       {
+        "actionpack-page_caching" => "~> 1.0",
         "devise" => "~> 3.0",
         "jquery-rails" => "~> 3.0",
         "jquery-ui-rails" => "~> 4.0",

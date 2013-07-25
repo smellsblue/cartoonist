@@ -1,3 +1,5 @@
+require "actionpack/page_caching"
+
 module Cartoonist
   class Engine < ::Rails::Engine
     # Use this hook to configure devise mailer, warden hooks and so forth.
@@ -225,6 +227,7 @@ module Cartoonist
       # Add in various configuration from plugins
       Rails.application.config.assets.precompile += ["admin.css", "cartoonist.js"]
       Rails.application.config.assets.precompile += Cartoonist::Asset.all
+      Rails.application.config.action_controller.page_cache_directory = File.join Rails.root, "public"
 
       Cartoonist::Migration.all.flatten.each do |path|
         Rails.application.config.paths["db/migrate"] << path

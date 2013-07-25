@@ -11,6 +11,7 @@ Gem::Specification.new do |s|
   s.files         = `git ls-files`.split("\n")
   s.require_paths = ["lib"]
   s.homepage      = "http://reasonnumber.com/cartoonist"
+  s.add_dependency "actionpack-page_caching", "~> 1.0"
   s.add_dependency "devise", "~> 3.0"
   s.add_dependency "jquery-rails", "~> 3.0"
   s.add_dependency "omniauth-openid", "~> 1.0"
