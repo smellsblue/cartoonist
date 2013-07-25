@@ -40,6 +40,7 @@ class Admin::SettingsController < AdminCartoonistController
     @this_site.settings[:domain] = params[:domain]
     @this_site.settings[:site_name] = params[:site_name]
     @this_site.settings[:secret_token] = SecureRandom.hex 30
+    @this_site.settings[:secret_key_base] = SecureRandom.hex 64
     @this_site.settings[:devise_pepper] = SecureRandom.hex 64
     # This MUST go AFTER we set the pepper
     User.create! :email => params[:admin_email], :password => params[:admin_password], :password_confirmation => params[:admin_confirm_password], :name => params[:admin_name]

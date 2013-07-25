@@ -7,7 +7,6 @@ class Page < ActiveRecord::Base
   entity_preview_url &:preview_url
   entity_edit_url &:edit_url
   entity_description &:title
-  attr_accessible :title, :path, :posted_at, :content, :locked, :comments, :in_sitemap
   belongs_to :site
 
   def to_backup_entries

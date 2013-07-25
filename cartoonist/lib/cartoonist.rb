@@ -250,6 +250,11 @@ module Cartoonist
       end
 
       def load!(instance)
+        unless Setting.table_exists?
+          Rails.logger.error "Key tables don't exist... make sure to migrate your database."
+          return
+        end
+
         @@begin.each do |routes|
           instance.instance_exec &routes
         end

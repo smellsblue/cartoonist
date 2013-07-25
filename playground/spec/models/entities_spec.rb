@@ -3,7 +3,7 @@ require "spec_helper"
 describe Entity do
   describe "entity url methods" do
     before do
-      Setting.stub(:[]).with(:domain).and_return("testdomain.com")
+      Setting.stub(:[]).with(:domain, Site.initial.id).and_return("testdomain.com")
     end
 
     it "supports the global entity_absolute_url and entity_relative_url methods" do

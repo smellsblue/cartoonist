@@ -1,5 +1,4 @@
 class Domain < ActiveRecord::Base
-  attr_accessible :site_id, :site, :name, :description
   belongs_to :site
   before_save :ensure_lower_case_name!
   before_save :ensure_blank_name_saves_as_empty_string!

@@ -9,7 +9,6 @@ class BlogPost < ActiveRecord::Base
   entity_edit_url &:edit_url
   entity_description &:title
   attr_accessor :for_preview
-  attr_accessible :title, :url_title, :author, :posted_at, :content, :locked, :site, :site_id
   belongs_to :site
 
   def to_backup_entries
@@ -190,7 +189,7 @@ class BlogPost < ActiveRecord::Base
     def archives(preview = false)
       context = BlogPost
       context = posted unless preview
-      context.reverse_chronological.select([:url_title, :title, :posted_at]).all
+      context.reverse_chronological.select([:url_title, :title, :posted_at]).to_a
     end
 
     def feed
@@ -198,7 +197,7 @@ class BlogPost < ActiveRecord::Base
     end
 
     def sitemap
-      posted.reverse_chronological.all
+      posted.reverse_chronological.to_a
     end
   end
 end

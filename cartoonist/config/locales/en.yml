@@ -125,6 +125,7 @@ en:
         disqus_comic_category: "Disqus Comic Category: "
         disqus_blog_post_category: "Disqus Blog Post Category: "
         disqus_page_category: "Disqus Page Category: "
+        secret_key_base: "Secret Key Base: "
         secret_token: "Secret Token: "
         devise_pepper: "Devise Pepper: "
       tabs:

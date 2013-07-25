@@ -1,6 +1,4 @@
 class Setting < ActiveRecord::Base
-  attr_accessible :label, :value, :locked, :site_id
-
   def zip_title
     label
   end

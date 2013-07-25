@@ -1,5 +1,4 @@
 class Site < ActiveRecord::Base
-  attr_accessible :name, :description
   has_many :domains
 
   def settings

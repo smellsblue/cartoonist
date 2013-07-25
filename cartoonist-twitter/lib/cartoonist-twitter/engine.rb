@@ -40,7 +40,9 @@ module CartoonistTwitter
         Setting.define :twitter_oauth_token_secret, :onchange => twitter_auth_changed, :order => (order += 1)
       end
 
-      twitter_auth_changed.call
+      if Setting.table_exists?
+        twitter_auth_changed.call
+      end
     end
 
     Cartoonist::Admin::Tab.add :tweets, :url => "/admin/tweets"

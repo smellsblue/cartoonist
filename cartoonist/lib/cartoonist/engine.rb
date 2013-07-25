@@ -1,3 +1,5 @@
+require "actionpack/page_caching"
+
 module Cartoonist
   class Engine < ::Rails::Engine
     # Use this hook to configure devise mailer, warden hooks and so forth.
@@ -225,7 +227,12 @@ module Cartoonist
       # Add in various configuration from plugins
       Rails.application.config.assets.precompile += ["admin.css", "cartoonist.js"]
       Rails.application.config.assets.precompile += Cartoonist::Asset.all
-      Rails.application.config.paths["db/migrate"] += Cartoonist::Migration.all
+      Rails.application.config.action_controller.page_cache_directory = File.join Rails.root, "public"
+
+      Cartoonist::Migration.all.flatten.each do |path|
+        Rails.application.config.paths["db/migrate"] << path
+      end
+
       Rails.application.config.action_controller.include_all_helpers = false
 
       if File.directory? File.join(Rails.root, "public/errors")
@@ -247,6 +254,14 @@ module Cartoonist
         # Make sure the secret is at least 30 characters and all random,
         # no regular words or you'll be exposed to dictionary attacks.
         Rails.application.config.secret_token = Setting[:secret_token]
+      end
+
+      secret_key_base_changed = lambda do
+        # Your secret key for verifying the integrity of signed cookies.
+        # If you change this key, all old signed cookies will become invalid!
+        # Make sure the secret is at least 64 characters and all random,
+        # no regular words or you'll be exposed to dictionary attacks.
+        Rails.application.config.secret_key_base = Setting[:secret_key_base]
       end
 
       devise_pepper_changed = lambda do
@@ -283,11 +298,15 @@ module Cartoonist
 
       Setting::Tab.define :advanced, :order => 2 do
         Setting.define :secret_token, :default => "ThisTokenMustBeRegenerated....", :onchange => secret_token_changed
+        Setting.define :secret_key_base, :default => "ThisTokenMustBeRegenerated....", :onchange => secret_key_base_changed
         Setting.define :devise_pepper, :default => "ThisTokenMustBeRegenerated....", :onchange => devise_pepper_changed
       end
 
-      secret_token_changed.call
-      devise_pepper_changed.call
+      if Setting.table_exists?
+        secret_token_changed.call
+        secret_key_base_changed.call
+        devise_pepper_changed.call
+      end
     end
 
     Mime::Type.register "image/x-icon", :ico
@@ -318,9 +337,9 @@ module Cartoonist
     end
 
     Cartoonist::Routes.add do
-      match "favicon" => "site#favicon", :defaults => { :format => "ico" }
-      match "sitemap" => "site#sitemap", :defaults => { :format => "xml" }
-      match "robots" => "site#robots", :defaults => { :format => "text" }
+      get "favicon" => "site#favicon", :defaults => { :format => "ico" }
+      get "sitemap" => "site#sitemap", :defaults => { :format => "xml" }
+      get "robots" => "site#robots", :defaults => { :format => "text" }
 
       resource :admin, :controller => :admin, :only => [:show] do
         collection do

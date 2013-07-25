@@ -2,7 +2,6 @@ class EntityTag < ActiveRecord::Base
   include BelongsToEntity
   belongs_to :tag
   validate :entity_doesnt_change, :on => :update
-  attr_accessible :entity_id, :entity_type, :tag_id
 
   def posted_header
     if entity.kind_of?(Postable) && entity.posted_at
@@ -30,7 +29,7 @@ class EntityTag < ActiveRecord::Base
 
     def tags_for(entity)
       tag_ids = where(:entity_id => entity.id, :entity_type => entity.entity_type).pluck(:tag_id)
-      Tag.where(:id => tag_ids).order(:label).all
+      Tag.where(:id => tag_ids).order(:label).to_a
     end
   end
 end

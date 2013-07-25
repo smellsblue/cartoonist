@@ -2,7 +2,6 @@ class Tweet < ActiveRecord::Base
   include BelongsToEntity
   validate :doesnt_update_tweet_after_tweeted
   validate :entity_doesnt_change, :on => :update
-  attr_accessible :entity_id, :entity_type, :tweet, :tweeted_at, :site, :site_id
   belongs_to :site
 
   def allow_tweet_now?

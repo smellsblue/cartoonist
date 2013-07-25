@@ -1,6 +1,4 @@
 class DatabaseFile < ActiveRecord::Base
-  attr_accessible :filename, :extension, :content
-
   def to_backup_entries
     if filename
       meta_name = "#{filename}.meta"

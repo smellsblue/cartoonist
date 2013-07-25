@@ -1,6 +1,5 @@
 class Tag < ActiveRecord::Base
   has_many :entity_tags
-  attr_accessible :label
 
   def previewable_url(preview)
     if preview
@@ -11,7 +10,7 @@ class Tag < ActiveRecord::Base
   end
 
   def shown_entity_tags(preview)
-    @shown_entity_tags ||= entity_tags.all.select do |entity_tag|
+    @shown_entity_tags ||= entity_tags.to_a.select do |entity_tag|
       preview || !entity_tag.entity.kind_of?(Postable) || entity_tag.entity.posted?
     end.sort do |a, b|
       if a.entity.kind_of?(Postable) && a.entity.posted_at && b.entity.kind_of?(Postable) && b.entity.posted_at
@@ -31,7 +30,7 @@ class Tag < ActiveRecord::Base
 
   class << self
     def existing
-      order(:label).all
+      order(:label).to_a
     end
 
     def with_label(label)

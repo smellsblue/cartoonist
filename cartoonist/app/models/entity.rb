@@ -62,8 +62,9 @@ module Entity
       entity_global_url
     end
 
-    def entity_absolute_url
-      "http://#{Setting[:domain]}#{entity_relative_url}" if entity_relative_url
+    def entity_absolute_url(site = nil)
+      site = Site.initial unless site
+      "http://#{site.settings[:domain]}#{entity_relative_url}" if entity_relative_url
     end
 
     def entity_type(value = nil)
