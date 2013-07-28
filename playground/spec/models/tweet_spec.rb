@@ -15,12 +15,15 @@ describe Tweet do
   it "adds a tweet when saving an entity with tweets posting on a schedule" do
     Setting.stub(:[]).with(:blog_tweet_style).and_return(:automatic_timed)
     Setting.stub(:[]).with(:blog_default_tweet).and_return("New blog post posted!")
-    post = BlogPost.create :title => "Example Post", :url_title => "example-post", :content => "This is the content.", :author => "John Doe"
+    Setting.stub(:[]).with(:blog_tweet_time).and_return("8:00 am")
+    post = BlogPost.create :title => "Example Post", :url_title => "example-post", :content => "This is the content.", :author => "John Doe", :posted_at => Time.now
     tweet = Tweet.find_for(post)
     tweet.should be
     tweet.entity_id.should == post.id
     tweet.tweet.should == "New blog post posted!"
     tweet.tweeted_at.should be_nil
+    tweet.expected_tweet_time.hour.should == 8
+    tweet.expected_tweet_time.min.should == 0
   end
 
   it "adds a tweet when saving an entity with tweets posting manually" do
