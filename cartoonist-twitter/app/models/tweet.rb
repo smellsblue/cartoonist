@@ -90,8 +90,8 @@ class Tweet < ActiveRecord::Base
       if tweet_time.blank?
         entity.posted_at
       elsif entity.posted_at
-        parsed = DateTime.strptime("#{entity.posted_at.year}-#{entity.posted_at.month}-#{entity.posted_at.day} #{tweet_time.downcase}", "%Y-%m-%d %I:%M %p").to_time
-        result = Time.local entity.posted_at.year, entity.posted_at.month, entity.posted_at.day, parsed.hour, parsed.min
+        parsed = Time.zone.parse("#{entity.posted_at.year}-#{entity.posted_at.month}-#{entity.posted_at.day} #{tweet_time.downcase}")
+        result = Time.zone.local entity.posted_at.year, entity.posted_at.month, entity.posted_at.day, parsed.hour, parsed.min
         result = result + 1.day if result < entity.posted_at.to_time
         result
       end
