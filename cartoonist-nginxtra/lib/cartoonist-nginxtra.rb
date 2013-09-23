@@ -1,0 +1,1 @@
+require "cartoonist-nginxtra/version"

@@ -83,6 +83,7 @@ end
         "jquery-rails" => "~> 3.0",
         "jquery-ui-rails" => "~> 4.0",
         "minitar" => "~> 0.5",
+        "nginxtra" => ">= 1.4.2.9",
         "omniauth-openid" => "~> 1.0",
         "railties" => "~> 4.0",
         "redcarpet" => "~> 3.0",
