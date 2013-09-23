@@ -1,6 +1,7 @@
 Nginxtra::Config::Extension.partial "nginx.conf", "cartoonist_rails" do |args, block|
   rails_server = args[:server] || :passenger
   ssl_details = args[:ssl]
+  ruby_version = args[:ruby]
 
   if ssl_details
     default_port = 443
@@ -11,7 +12,7 @@ Nginxtra::Config::Extension.partial "nginx.conf", "cartoonist_rails" do |args, b
   if rails_server == :passenger && !@passenger_requirements_done
     @config.require_passenger!
     passenger_root!
-    passenger_ruby!
+    passenger_ruby! unless ruby_version
     @passenger_requirements_done = true
   end
 
@@ -20,6 +21,7 @@ Nginxtra::Config::Extension.partial "nginx.conf", "cartoonist_rails" do |args, b
     server_name(args[:server_name] || "localhost")
     root File.join(File.absolute_path(File.expand_path(args[:root] || ".")), "public")
     gzip_static "on"
+    passenger_ruby ruby_version if ruby_version
     passenger_on! if rails_server == :passenger
     rails_env(args[:environment] || "production")
 
@@ -49,9 +51,10 @@ Nginxtra::Config::Extension.partial "nginx.conf", "cartoonist" do |args, block|
   ssl_details = { :ssl => ssl_details } if ssl_details
   short_expiration = args[:short_expiration] || "2h"
   long_expiration = args[:long_expiration] || "7d"
+  ruby_version = args[:ruby]
 
   [{}, ssl_details].compact.each do |additional_options|
-    options = { :server => :custom, :server_name => server_name, :root => root_path }.merge additional_options
+    options = { :server => :custom, :server_name => server_name, :root => root_path, :ruby => ruby_version }.merge additional_options
 
     cartoonist_rails options do
       location "~*", "^/_long_expiration_/#{cartoonist_type}(/.*?)(?:\\.html)?$" do
