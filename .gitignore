@@ -4,6 +4,7 @@
 /cartoonist-blog/cartoonist-blog*.gem
 /cartoonist-comics/cartoonist-comics*.gem
 /cartoonist-default-theme/cartoonist-default-theme-*.gem
+/cartoonist-nginxtra/cartoonist-nginxtra*.gem
 /cartoonist-pages/cartoonist-pages*.gem
 /cartoonist-suggestions/cartoonist-suggestions-*.gem
 /cartoonist-tags/cartoonist-tags*.gem
