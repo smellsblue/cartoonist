@@ -13,6 +13,6 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   s.homepage      = "http://reasonnumber.com/cartoonist"
   s.add_dependency "jquery-rails", "~> 3.0"
-  s.add_dependency "jquery-ui-rails", "~> 4.0"
+  s.add_dependency "jquery-ui-rails", "~> 4.1"
   s.add_dependency "cartoonist", cartoonist_version
 end

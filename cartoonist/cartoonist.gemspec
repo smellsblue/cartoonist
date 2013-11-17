@@ -12,11 +12,11 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   s.homepage      = "http://reasonnumber.com/cartoonist"
   s.add_dependency "actionpack-page_caching", "~> 1.0"
-  s.add_dependency "devise", "~> 3.0"
+  s.add_dependency "devise", "~> 3.2"
   s.add_dependency "jquery-rails", "~> 3.0"
   s.add_dependency "omniauth-openid", "~> 1.0"
   s.add_dependency "railties", "~> 4.0"
   s.add_dependency "redcarpet", "~> 3.0"
-  s.add_dependency "rubyzip", "~> 0.9"
+  s.add_dependency "rubyzip", "~> 1.0"
   s.add_dependency "minitar", "~> 0.5"
 end
