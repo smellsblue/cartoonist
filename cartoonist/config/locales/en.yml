@@ -122,6 +122,7 @@ en:
         secret_key_base: "Secret Key Base: "
         secret_token: "Secret Token: "
         devise_pepper: "Devise Pepper: "
+        devise_secret_key: "Devise Secret Key: "
       tabs:
         advanced: Advanced
         general: General

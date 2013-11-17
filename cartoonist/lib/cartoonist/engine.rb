@@ -89,6 +89,7 @@ module Cartoonist
 
       # Setup a pepper to generate the encrypted password.
       devise_config.pepper = "temporary... this is initialized later, in the to_prepare block"
+      devise_config.secret_key = "temporary... this is initialized later, in the to_prepare block"
 
       # ==> Configuration for :confirmable
       # A period that the user is allowed to access the website even without
@@ -271,6 +272,12 @@ module Cartoonist
         end
       end
 
+      devise_secret_key_changed = lambda do
+        Devise.setup do |devise_config|
+          devise_config.secret_key = Setting[:devise_secret_key]
+        end
+      end
+
       Setting.define :domain, :order => 1
       Setting.define :site_name, :order => 2
       Setting.define :site_heading, :order => 3
@@ -300,11 +307,13 @@ module Cartoonist
         Setting.define :secret_token, :default => "ThisTokenMustBeRegenerated....", :onchange => secret_token_changed
         Setting.define :secret_key_base, :default => "ThisTokenMustBeRegenerated....", :onchange => secret_key_base_changed
         Setting.define :devise_pepper, :default => "ThisTokenMustBeRegenerated....", :onchange => devise_pepper_changed
+        Setting.define :devise_secret_key, :default => "ThisTokenMustBeRegenerated....", :onchange => devise_secret_key_changed
       end
 
       secret_token_changed.call
       secret_key_base_changed.call
       devise_pepper_changed.call
+      devise_secret_key_changed.call
     end
 
     Mime::Type.register "image/x-icon", :ico

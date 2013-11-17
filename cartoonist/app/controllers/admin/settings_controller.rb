@@ -42,6 +42,7 @@ class Admin::SettingsController < AdminCartoonistController
     Setting[:secret_token] = SecureRandom.hex 30
     Setting[:secret_key_base] = SecureRandom.hex 64
     Setting[:devise_pepper] = SecureRandom.hex 64
+    Setting[:devise_secret_key] = SecureRandom.hex 64
     # This MUST go AFTER we set the pepper
     User.create! :email => params[:admin_email], :password => params[:admin_password], :password_confirmation => params[:admin_confirm_password], :name => params[:admin_name]
     redirect_to "/admin"
