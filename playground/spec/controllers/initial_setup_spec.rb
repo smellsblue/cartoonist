@@ -44,12 +44,14 @@ describe Admin::SettingsController do
       SecureRandom.should_receive(:hex).and_return("first")
       SecureRandom.should_receive(:hex).and_return("second")
       SecureRandom.should_receive(:hex).and_return("third")
+      SecureRandom.should_receive(:hex).and_return("fourth")
       Setting.should_receive(:[]=).with(:copyright_starting_year, Site.initial.id, Date.today.strftime("%Y").to_i)
       Setting.should_receive(:[]=).with(:domain, Site.initial.id, "testing.com")
       Setting.should_receive(:[]=).with(:site_name, Site.initial.id, "Testing")
       Setting.should_receive(:[]=).with(:secret_token, Site.initial.id, "first")
       Setting.should_receive(:[]=).with(:secret_key_base, Site.initial.id, "second")
       Setting.should_receive(:[]=).with(:devise_pepper, Site.initial.id, "third")
+      Setting.should_receive(:[]=).with(:devise_secret_key, Site.initial.id, "fourth")
       post :save_initial_setup, :domain => "testing.com", :site_name => "Testing", :admin_email => "user@example.com", :admin_password => "test123", :admin_confirm_password => "test123", :admin_name => "test"
       User.count.should == 1
       user = User.first

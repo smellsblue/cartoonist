@@ -1,7 +1,6 @@
 Gem::Specification.new do |s|
   s.name          = "cartoonist-nginxtra"
-  raise "Cannot find version file!" unless File.exists?(File.join(File.dirname(__FILE__), "../CARTOONIST_VERSION"))
-  s.version       = File.read File.join(File.dirname(__FILE__), "../CARTOONIST_VERSION")
+  s.version       = "0.1.0"
   s.date          = Time.now.strftime "%Y-%m-%d"
   s.summary       = "Cartoonist Nginxtra Plugin"
   s.description   = "This gives Nginxtra plugins for Cartoonist sites."

@@ -15,43 +15,39 @@ class Backup
     "#{prefix}cartoonist-backup-#{Time.now.strftime("%Y-%m-%d_%H%M%S")}.#{@extension}"
   end
 
-  def response_body
-    Enumerator.new do |out|
-      send @extension, out
-    end
+  def stream_to(response)
+    response.headers["Content-Disposition"] = content_disposition
+    send @extension, response.stream
+  ensure
+    response.stream.close
   end
 
-  def zip(out)
-    buffer = Zip::ZipOutputStream.write_buffer do |zos|
+  # TODO: Maybe investigate zipline gem a little more and figure out
+  # how it streams zips, and use that here, so this can be properly
+  # streamed.
+  def zip(stream)
+    buffer = Zip::OutputStream.write_buffer do |zos|
       Backup.each do |entry|
         zos.put_next_entry entry.path
         zos.write entry.content
       end
     end
 
-    out << buffer.string
+    stream.write buffer.string
   end
 
-  def tgz(out)
-    gzip = Zlib::GzipWriter.new Backup::ResponseOutWriter.new(out)
+  def tgz(stream)
+    gzip = Zlib::GzipWriter.new stream
 
-    begin
-      Archive::Tar::Minitar::Writer.open gzip do |tar|
-        Backup.each do |entry|
-          tar.add_file_simple entry.path, :mode => 0644, :size => entry.content.length do |output|
-            output.write entry.content
-          end
+    Archive::Tar::Minitar::Writer.open gzip do |tar|
+      Backup.each do |entry|
+        tar.add_file_simple entry.path, :mode => 0644, :size => entry.content.length do |output|
+          output.write entry.content
         end
       end
-    ensure
-      gzip.close
     end
-  end
-
-  class ResponseOutWriter < Struct.new(:stream)
-    def write(content)
-      stream << content
-    end
+  ensure
+    gzip.close
   end
 
   class << self

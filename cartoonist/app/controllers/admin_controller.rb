@@ -6,24 +6,6 @@ class AdminController < AdminCartoonistController
     redirect_to "/admin/main"
   end
 
-  def backup
-    respond_to do |format|
-      format.html { redirect_to "/admin/main" }
-
-      format.tgz do
-        backup = Backup.new :tgz
-        headers["Content-Disposition"] = backup.content_disposition
-        self.response_body = backup.response_body
-      end
-
-      format.zip do
-        backup = Backup.new :zip
-        headers["Content-Disposition"] = backup.content_disposition
-        self.response_body = backup.response_body
-      end
-    end
-  end
-
   def reload
     if Rails.env.production?
       %x[git pull]

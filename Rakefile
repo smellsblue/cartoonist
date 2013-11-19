@@ -46,13 +46,17 @@ end
     contents = File.read path
 
     new_contents = contents.gsub /(dependency.*\")(.*?)(\".*\")(.*?)(\".*)/ do |match|
-      Regexp.last_match[1] +
-      Regexp.last_match[2] +
-      Regexp.last_match[3] +
-      CartoonistGem.dependencies[Regexp.last_match[2]] +
-      Regexp.last_match[5]
+      full_match = Regexp.last_match
+      next full_match[0] if full_match[2] =~ /^cartoonist/
+      full_match[1] +
+      full_match[2] +
+      full_match[3] +
+      CartoonistGem.dependencies[full_match[2]] +
+      full_match[5]
     end
 
+    new_contents.gsub! /(add_dependency.*\"cartoonist.*?\".*?\"\D*).*?(\")/, "\\1#{CartoonistGem.version}\\2"
+    new_contents.gsub! /(s.version.*?\").*?(\")/, "\\1#{CartoonistGem.version}\\2"
     File.write path, new_contents
   end
 
@@ -79,15 +83,15 @@ end
     def dependencies
       {
         "actionpack-page_caching" => "~> 1.0",
-        "devise" => "~> 3.0",
+        "devise" => "~> 3.2",
         "jquery-rails" => "~> 3.0",
-        "jquery-ui-rails" => "~> 4.0",
+        "jquery-ui-rails" => "~> 4.1",
         "minitar" => "~> 0.5",
         "nginxtra" => ">= 1.4.2.9",
         "omniauth-openid" => "~> 1.0",
         "railties" => "~> 4.0",
         "redcarpet" => "~> 3.0",
-        "rubyzip" => "~> 0.9",
+        "rubyzip" => "~> 1.0",
         "twitter" => "~> 4.8"
       }
     end

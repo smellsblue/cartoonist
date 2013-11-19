@@ -41,7 +41,7 @@ en:
     general:
       actions:
         backup_tgz: Download Backup (tarball)
-        backup_zip: Download Backup (zip)
+        backup_zip: "Download Backup (zip) (WARNING: Not Streamed)"
         reload: Update and Reload
       layout:
         actions: Actions
@@ -128,6 +128,7 @@ en:
         secret_key_base: "Secret Key Base: "
         secret_token: "Secret Token: "
         devise_pepper: "Devise Pepper: "
+        devise_secret_key: "Devise Secret Key: "
       tabs:
         advanced: Advanced
         general: General
