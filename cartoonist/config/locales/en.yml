@@ -41,7 +41,7 @@ en:
     general:
       actions:
         backup_tgz: Download Backup (tarball)
-        backup_zip: Download Backup (zip)
+        backup_zip: "Download Backup (zip) (WARNING: Not Streamed)"
         reload: Update and Reload
       layout:
         actions: Actions

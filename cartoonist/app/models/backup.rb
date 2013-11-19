@@ -22,17 +22,18 @@ class Backup
     response.stream.close
   end
 
+  # TODO: Maybe investigate zipline gem a little more and figure out
+  # how it streams zips, and use that here, so this can be properly
+  # streamed.
   def zip(stream)
-    zos = Zip::OutputStream.new "", true
-    # Hacky but it should work
-    zos.instance_variable_set :@output_stream, stream
-
-    Backup.each do |entry|
-      zos.put_next_entry entry.path
-      zos.write entry.content
+    buffer = Zip::OutputStream.write_buffer do |zos|
+      Backup.each do |entry|
+        zos.put_next_entry entry.path
+        zos.write entry.content
+      end
     end
-  ensure
-    zos.close_buffer
+
+    stream.write buffer.string
   end
 
   def tgz(stream)
