@@ -15,43 +15,38 @@ class Backup
     "#{prefix}cartoonist-backup-#{Time.now.strftime("%Y-%m-%d_%H%M%S")}.#{@extension}"
   end
 
-  def response_body
-    Enumerator.new do |out|
-      send @extension, out
-    end
+  def stream_to(response)
+    response.headers["Content-Disposition"] = content_disposition
+    send @extension, response.stream
+  ensure
+    response.stream.close
   end
 
-  def zip(out)
-    buffer = Zip::ZipOutputStream.write_buffer do |zos|
+  def zip(stream)
+    zos = Zip::OutputStream.new "", true
+    # Hacky but it should work
+    zos.instance_variable_set :@output_stream, stream
+
+    Backup.each do |entry|
+      zos.put_next_entry entry.path
+      zos.write entry.content
+    end
+  ensure
+    zos.close_buffer
+  end
+
+  def tgz(stream)
+    gzip = Zlib::GzipWriter.new stream
+
+    Archive::Tar::Minitar::Writer.open gzip do |tar|
       Backup.each do |entry|
-        zos.put_next_entry entry.path
-        zos.write entry.content
-      end
-    end
-
-    out << buffer.string
-  end
-
-  def tgz(out)
-    gzip = Zlib::GzipWriter.new Backup::ResponseOutWriter.new(out)
-
-    begin
-      Archive::Tar::Minitar::Writer.open gzip do |tar|
-        Backup.each do |entry|
-          tar.add_file_simple entry.path, :mode => 0644, :size => entry.content.length do |output|
-            output.write entry.content
-          end
+        tar.add_file_simple entry.path, :mode => 0644, :size => entry.content.length do |output|
+          output.write entry.content
         end
       end
-    ensure
-      gzip.close
     end
-  end
-
-  class ResponseOutWriter < Struct.new(:stream)
-    def write(content)
-      stream << content
-    end
+  ensure
+    gzip.close
   end
 
   class << self

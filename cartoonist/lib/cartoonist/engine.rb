@@ -346,11 +346,11 @@ module Cartoonist
       get "favicon" => "site#favicon", :defaults => { :format => "ico" }
       get "sitemap" => "site#sitemap", :defaults => { :format => "xml" }
       get "robots" => "site#robots", :defaults => { :format => "text" }
+      get "admin/backup" => "backup#backup"
 
       resource :admin, :controller => :admin, :only => [:show] do
         collection do
           get "cron"
-          get "backup"
           get "main"
           get "reload"
         end

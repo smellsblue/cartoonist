@@ -1,8 +1,6 @@
 Gem::Specification.new do |s|
-  raise "Cannot find version file!" unless File.exists?(File.join(File.dirname(__FILE__), "../CARTOONIST_VERSION"))
-  cartoonist_version = File.read(File.join(File.dirname(__FILE__), "../CARTOONIST_VERSION")).strip
   s.name          = "cartoonist-blog"
-  s.version       = cartoonist_version
+  s.version       = "0.0.20"
   s.date          = Time.now.strftime "%Y-%m-%d"
   s.summary       = "Cartoonist Blog"
   s.description   = "This core plugin for Cartoonist adds a simple blog."
@@ -14,5 +12,5 @@ Gem::Specification.new do |s|
   s.homepage      = "http://reasonnumber.com/cartoonist"
   s.add_dependency "jquery-rails", "~> 3.0"
   s.add_dependency "jquery-ui-rails", "~> 4.1"
-  s.add_dependency "cartoonist", cartoonist_version
+  s.add_dependency "cartoonist", "~> 0.0.20.0"
 end

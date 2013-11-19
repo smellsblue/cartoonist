@@ -5,7 +5,7 @@ require "jquery-rails"
 require "redcarpet"
 require "zlib"
 require "archive/tar/minitar"
-require "zip/zip"
+require "zip"
 
 module Cartoonist
   module Admin

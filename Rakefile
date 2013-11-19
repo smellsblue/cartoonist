@@ -46,13 +46,17 @@ end
     contents = File.read path
 
     new_contents = contents.gsub /(dependency.*\")(.*?)(\".*\")(.*?)(\".*)/ do |match|
-      Regexp.last_match[1] +
-      Regexp.last_match[2] +
-      Regexp.last_match[3] +
-      CartoonistGem.dependencies[Regexp.last_match[2]] +
-      Regexp.last_match[5]
+      full_match = Regexp.last_match
+      next full_match[0] if full_match[2] =~ /^cartoonist/
+      full_match[1] +
+      full_match[2] +
+      full_match[3] +
+      CartoonistGem.dependencies[full_match[2]] +
+      full_match[5]
     end
 
+    new_contents.gsub! /(add_dependency.*\"cartoonist.*?\".*?\"\D*).*?(\")/, "\\1#{CartoonistGem.version}.0\\2"
+    new_contents.gsub! /(s.version.*?\").*?(\")/, "\\1#{CartoonistGem.version}\\2"
     File.write path, new_contents
   end
 
