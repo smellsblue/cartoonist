@@ -11,4 +11,5 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   s.homepage      = "http://reasonnumber.com/cartoonist"
   s.add_dependency "cartoonist", "~> 0.1.0"
+  s.add_dependency "rmagick", "~> 2.13"
 end

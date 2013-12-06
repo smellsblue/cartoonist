@@ -1,3 +1,5 @@
+require "RMagick"
+
 class Comic < ActiveRecord::Base
   include Postable
   include Entity
@@ -51,6 +53,21 @@ class Comic < ActiveRecord::Base
     if respond_to? :max_number
       max_number.to_i == number
     end
+  end
+
+  def magick
+    return @magick if @magick
+    images = Magick::Image.from_blob database_file.content
+    raise "Only 1 image is allowed!" if images.size != 1
+    @magick = images.first
+  end
+
+  def img_width
+    magick.columns
+  end
+
+  def img_height
+    magick.rows
   end
 
   def img_url

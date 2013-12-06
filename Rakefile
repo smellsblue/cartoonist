@@ -91,6 +91,7 @@ end
         "omniauth-openid" => "~> 1.0",
         "railties" => "~> 4.0",
         "redcarpet" => "~> 3.0",
+        "rmagick" => "~> 2.13",
         "rubyzip" => "~> 1.0",
         "twitter" => "~> 4.8"
       }
