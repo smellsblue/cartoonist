@@ -4,7 +4,7 @@ class SiteController < CartoonistController
       format.html { redirect_to "/" }
 
       format.ico do
-        data = ActionController::Base.helpers.asset_paths.asset_environment[Cartoonist::Theme.favicon].to_s
+        data = Rails.application.assets[Cartoonist::Theme.favicon].to_s
 
         cache_page_as "static/favicon.ico" do
           send_data data, :filename => "favicon.ico", :type => "image/x-icon", :disposition => "inline"
