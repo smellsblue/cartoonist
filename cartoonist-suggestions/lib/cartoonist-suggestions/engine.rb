@@ -18,7 +18,7 @@ module CartoonistSuggestions
     end
 
     Cartoonist::Sitemap.add do
-      [SitemapEntry.new("/suggestions/new", :yearly, "0.2")]
+      [SitemapEntry.new("/suggestions/new", Date.new(2012, 9, 21), :yearly, "0.2")]
     end
 
     Cartoonist::Routes.add do
