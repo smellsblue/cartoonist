@@ -2,7 +2,7 @@ module Cartoonist
   class Version
     class << self
       def to_s
-        "0.0.20.1"
+        "0.0.20.2"
       end
     end
   end

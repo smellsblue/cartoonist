@@ -5,16 +5,14 @@
 <% enable_disqus! :path => "comic/#{@comic.number}", :title => @comic.title, :category => Setting[:disqus_comic_category] %>
 
 <% content_for :additional_meta_tags do %>
-  <% if Kernel.const_defined? :Twitter %>
-    <% if Twitter.current_user && Twitter.current_user.screen_name %>
-      <meta name="twitter:card" content="photo">
-      <meta name="twitter:site" content="@<%= Twitter.current_user.screen_name %>">
-      <meta name="twitter:creator" content="@<%= Twitter.current_user.screen_name %>">
-      <meta name="twitter:title" content="<%= @comic.title %>">
-      <meta name="twitter:image" content="<%= @comic.absolute_img_url %>">
-      <meta name="twitter:image:width" content="<%= @comic.img_width %>">
-      <meta name="twitter:image:height" content="<%= @comic.img_height %>">
-    <% end %>
+  <% if Setting::Meta.include?(:twitter_handle) && Setting[:twitter_handle].present? %>
+    <meta name="twitter:card" content="photo">
+    <meta name="twitter:site" content="@<%= Setting[:twitter_handle] %>">
+    <meta name="twitter:creator" content="@<%= Setting[:twitter_handle] %>">
+    <meta name="twitter:title" content="<%= @comic.title %>">
+    <meta name="twitter:image" content="<%= @comic.absolute_img_url %>">
+    <meta name="twitter:image:width" content="<%= @comic.img_width %>">
+    <meta name="twitter:image:height" content="<%= @comic.img_height %>">
   <% end %>
 <% end %>
 

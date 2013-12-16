@@ -154,8 +154,12 @@ class Setting < ActiveRecord::Base
     end
 
     class << self
+      def include?(label)
+        @@settings[label.to_sym].present?
+      end
+
       def [](label)
-        raise "Missing setting '#{label}'" unless @@settings[label.to_sym]
+        raise "Missing setting '#{label}'" unless include?(label)
         @@settings[label.to_sym]
       end
 
