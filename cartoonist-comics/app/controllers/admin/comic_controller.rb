@@ -41,7 +41,7 @@ class Admin::ComicController < AdminCartoonistController
   def new
     last = Comic.current_created
     @next_number = Comic.next_number last
-    @next_post_date = Comic.next_post_date last
+    @next_post_date = Comic.next_post_date @this_site, last
     @edit_last_number = last.number if last
   end
 
@@ -51,7 +51,7 @@ class Admin::ComicController < AdminCartoonistController
       return redirect_to "/admin/comic/new"
     end
 
-    comic = Comic.create_comic params
+    comic = Comic.create_comic @this_site, params
     redirect_to "/admin/comic/#{comic.number}/edit"
   end
 

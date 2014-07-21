@@ -22,25 +22,35 @@
         <% next unless Setting::Meta[setting].select_from || [:text, :string, :boolean, :int].include?(Setting::Meta[setting].type) %>
         <p class="setting">
           <input type="hidden" name="included_settings[]" value="<%= setting %>" />
-          <label>
+          <% if Setting::Meta[setting].select_from && Setting::Meta[setting].type == :array %>
             <%= Setting::Meta[setting].localized %>
-            <% if Setting::Meta[setting].select_from %>
-              <select name="<%= setting %>">
-                <% Setting::Meta[setting].select_from_options.each do |option| %>
-                  <option value="<%= setting_select_value option %>" <%= selected setting_select_value(option), this_site.settings[setting] %>><%= setting_select_label option %></option>
-                <% end %>
-              <select name="<%= setting %>" value="<%= this_site.settings[setting] %>">
-            <% elsif Setting::Meta[setting].type == :text %>
-              <br />
-              <textarea name="<%= setting %>" cols="75" rows="15"><%= this_site.settings[setting] %></textarea>
-            <% elsif Setting::Meta[setting].type == :string %>
-              <input type="text" name="<%= setting %>" value="<%= this_site.settings[setting] %>" size="60" />
-            <% elsif [:int, :float].include?(Setting::Meta[setting].type) %>
-              <input type="text" name="<%= setting %>" value="<%= this_site.settings[setting] %>" size="10" />
-            <% elsif Setting::Meta[setting].type == :boolean %>
-              <input type="checkbox" name="<%= setting %>" value="true" <%= checked this_site.settings[setting] %> />
+            <% Setting::Meta[setting].select_from_options.each do |option| %>
+              <label>
+                <input type="checkbox" name="<%= setting %>[]" value="<%= setting_select_value option %>" <%= checked this_site.settings[setting].include?(setting_select_value(option)) %> />
+                <%= setting_select_label option %>
+              </label>
             <% end %>
-          </label>
+          <% else %>
+            <label>
+              <%= Setting::Meta[setting].localized %>
+              <% if Setting::Meta[setting].select_from %>
+                <select name="<%= setting %>">
+                  <% Setting::Meta[setting].select_from_options.each do |option| %>
+                    <option value="<%= setting_select_value option %>" <%= selected setting_select_value(option), this_site.settings[setting] %>><%= setting_select_label option %></option>
+                  <% end %>
+                <select name="<%= setting %>" value="<%= this_site.settings[setting] %>">
+              <% elsif Setting::Meta[setting].type == :text %>
+                <br />
+                <textarea name="<%= setting %>" cols="75" rows="15"><%= this_site.settings[setting] %></textarea>
+              <% elsif Setting::Meta[setting].type == :string %>
+                <input type="text" name="<%= setting %>" value="<%= this_site.settings[setting] %>" size="60" />
+              <% elsif [:int, :float].include?(Setting::Meta[setting].type) %>
+                <input type="text" name="<%= setting %>" value="<%= this_site.settings[setting] %>" size="10" />
+              <% elsif Setting::Meta[setting].type == :boolean %>
+                <input type="checkbox" name="<%= setting %>" value="true" <%= checked this_site.settings[setting] %> />
+              <% end %>
+            </label>
+          <% end %>
 
           <% if Setting::Meta[setting].info_label %>
             <em class="info"><%= t Setting::Meta[setting].info_label %></em>

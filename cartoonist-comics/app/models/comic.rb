@@ -83,19 +83,31 @@ class Comic < ActiveRecord::Base
   end
 
   class << self
+    SUNDAY = 0
     MONDAY = 1
+    TUESDAY = 2
     WEDNESDAY = 3
+    THURSDAY = 4
     FRIDAY = 5
+    SATURDAY = 6
 
-    VALID_DAYS = [MONDAY, WEDNESDAY, FRIDAY]
+    DAY_CONVERSION = {
+      :sunday => SUNDAY,
+      :monday => MONDAY,
+      :tuesday => TUESDAY,
+      :wednesday => WEDNESDAY,
+      :thursday => THURSDAY,
+      :friday => FRIDAY,
+      :saturday => SATURDAY
+    }
 
     def search(query)
       reverse_numerical.where "LOWER(title) LIKE :query OR LOWER(description) LIKE :query OR LOWER(scene_description) LIKE :query OR LOWER(dialogue) LIKE :query OR LOWER(title_text) LIKE :query", :query => "%#{query.downcase}%"
     end
 
-    def create_comic(params)
+    def create_comic(site, params)
       last = current_created
-      create :number => next_number(last), :title => params[:title], :posted_at => next_post_date(last), :description => params[:description], :scene_description => params[:scene_description], :dialogue => params[:dialogue], :title_text => params[:title_text], :database_file => DatabaseFile.create_from_param(params[:image], :allowed_extensions => ["png"]), :locked => true
+      create :number => next_number(last), :title => params[:title], :posted_at => next_post_date(site, last), :description => params[:description], :scene_description => params[:scene_description], :dialogue => params[:dialogue], :title_text => params[:title_text], :database_file => DatabaseFile.create_from_param(params[:image], :allowed_extensions => ["png"]), :locked => true
     end
 
     def update_comic(params)
@@ -120,15 +132,17 @@ class Comic < ActiveRecord::Base
       end
     end
 
-    def next_post_date(comic)
+    def next_post_date(site, comic)
       if comic
         from = comic.posted_at
       else
         from = Date.today
       end
 
+      valid_days = site.settings[:schedule].map { |x| DAY_CONVERSION[x] }
+
       result = from
-      result += 1.day until result > from && VALID_DAYS.include?(result.wday)
+      result += 1.day until result > from && valid_days.include?(result.wday)
       result
     end
 
