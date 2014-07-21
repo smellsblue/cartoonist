@@ -140,6 +140,14 @@ class Setting < ActiveRecord::Base
 
       if type == :boolean
         (!!value).to_s
+      elsif type == :array && select_from && select_from_options.all? { |x| x.kind_of? Symbol }
+        value.each do |x|
+          unless select_from_options.map(&:to_s).include? x.to_s
+            raise "Invalid value: #{x}"
+          end
+        end
+
+        value.map(&:to_sym).to_yaml
       elsif type == :array || type == :hash
         value.to_yaml
       else

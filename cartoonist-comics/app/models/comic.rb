@@ -82,11 +82,23 @@ class Comic < ActiveRecord::Base
   end
 
   class << self
+    SUNDAY = 0
     MONDAY = 1
+    TUESDAY = 2
     WEDNESDAY = 3
+    THURSDAY = 4
     FRIDAY = 5
+    SATURDAY = 6
 
-    VALID_DAYS = [MONDAY, WEDNESDAY, FRIDAY]
+    DAY_CONVERSION = {
+      :sunday => SUNDAY,
+      :monday => MONDAY,
+      :tuesday => TUESDAY,
+      :wednesday => WEDNESDAY,
+      :thursday => THURSDAY,
+      :friday => FRIDAY,
+      :saturday => SATURDAY
+    }
 
     def search(query)
       reverse_numerical.where "LOWER(title) LIKE :query OR LOWER(description) LIKE :query OR LOWER(scene_description) LIKE :query OR LOWER(dialogue) LIKE :query OR LOWER(title_text) LIKE :query", :query => "%#{query.downcase}%"
@@ -126,8 +138,10 @@ class Comic < ActiveRecord::Base
         from = Date.today
       end
 
+      valid_days = Setting[:schedule].map { |x| DAY_CONVERSION[x] }
+
       result = from
-      result += 1.day until result > from && VALID_DAYS.include?(result.wday)
+      result += 1.day until result > from && valid_days.include?(result.wday)
       result
     end
 

@@ -284,7 +284,7 @@ module Cartoonist
       Setting.define :site_update_description, :order => 4
       Setting.define :root_path, :type => :symbol, :default => Cartoonist::RootPath.all.first, :order => 5, :select_from => lambda { Cartoonist::RootPath.all }, :onchange => lambda { Rails.application.reload_routes! }
       Setting.define :theme, :type => :symbol, :default => :cartoonist_default_theme, :order => 6, :select_from => lambda { Cartoonist::Theme.all }
-      Setting.define :schedule, :type => :array, :default => [:monday, :wednesday, :friday], :order => 7
+      Setting.define :schedule, :type => :array, :default => [:monday, :wednesday, :friday], :order => 7, :select_from => [:monday, :tuesday, :wednesday, :thursday, :friday, :saturday, :sunday]
       Setting.define :copyright_starting_year, :type => :int, :order => 8
       Setting.define :copyright_owners, :order => 9
 
